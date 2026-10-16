@@ -54,8 +54,10 @@ for s in range(14):
 
 # ---------------------------------------------------------------- 3) a virada + showreel (compassos 6-11, batidas 20-43)
 for i in range(20, 44):
-    drums.add(kick(1.0), b(i)); kick_times.append(b(i))
-    if i % 2 == 1: drums.add(clap(0.8), b(i), p=-0.05)
+    half = 36 <= i < 40                                  # meio tempo no anel 3D: bumbo só nos tempos pares
+    if not half or i % 2 == 0: drums.add(kick(1.0), b(i)); kick_times.append(b(i))
+    if i % 2 == 1: drums.add(clap(1.0 if half else 0.8), b(i), p=-0.05)
+    if i == 31: continue                                 # break: meia batida sem chimbal antes da UI (b31,5–32)
     drums.add(hat(0.5, open_=True), b(i + 0.5), p=0.2)
     for s in (0.25, 0.75):
         drums.add(hat(0.22), b(i + s), p=-0.25)
@@ -74,11 +76,11 @@ fx.add(subdrop(0.9), b(20)); fx.add(impact(0.65), b(20))
 for i in range(44, 48):
     drums.add(kick(0.95), b(i)); kick_times.append(b(i))
     drums.add(hat(0.4, open_=True), b(i + 0.5), p=0.2)
-for s in range(16):                                   # caixa em 16 avos, crescendo
-    drums.add(clap(0.15 + 0.035 * s), b(44 + s * 0.25 * 0.9375), p=0.0)
+for s in range(15):                                   # caixa em semicolcheias, crescendo, NO grid (b44 → b47,5)
+    drums.add(clap((0.15 + 0.035 * s) * (0.5 if s < 8 else 1.0)), b(44 + s * 0.25), p=0.0)
 pad.add(pad_chord(G, 2.0, 0.55, cutoff=2400, attack=0.3), b(44))
 for s in range(8): bass.add(bass_note(31, 0.23, 0.7, cutoff=900 + 120 * s), b(44 + s * 0.5))
-fx.add(riser(b(3.75), 0.9, f0=250, f1=11000), b(44))
+fx.add(riser(b(4.0), 0.9, f0=250, f1=11000), b(44))     # termina no impacto da trava (b48)
 # trava do logo na batida 48
 fx.add(impact(1.0), b(48)); fx.add(subdrop(1.0, 1.4), b(48))
 drums.add(kick(1.0, decay=0.45), b(48)); kick_times.append(b(48))
@@ -110,6 +112,12 @@ pad.buf *= sc; bass.buf *= (0.35 + 0.65 * sc)
 IR = make_ir(2.0, 0.6, 6000)
 bus = (drums.buf * 0.9 + bass.buf * 0.8 + pad.buf * 0.55 + keys.buf * 0.65 + fx.buf * 0.7)
 bus += reverb(keys.buf * 0.65 + pad.buf * 0.3 + drums.buf * 0.12, IR, wet=0.32)
+# a timeline (b40–41) começa abafada e o filtro abre, como quem aperta o play
+s0, s1 = samples(b(40)), samples(b(41))
+seg = bus[s0:s1]
+filt = np.stack([sweep_lp(seg[:, ch], 450, 16000, curve=0.6) for ch in (0, 1)], axis=1)
+xf = samples(0.02); w = np.ones(len(seg)); w[-xf:] = np.linspace(1, 0, xf)
+bus[s0:s1] = filt * w[:, None] + seg * (1 - w[:, None])
 bus = hp(bus, 28, 2)
 # silêncio seco de 1/4 de batida antes da virada (b19,75 → b20): corta até as caudas de reverb
 def mute(a, z, fade=0.005):

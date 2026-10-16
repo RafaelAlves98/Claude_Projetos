@@ -72,8 +72,8 @@ def v_whoosh(v, d=0.5, f=1.0, **_):
 
 def v_thup(v, **_):
     d = 0.12; t = tt(d)
-    body = sine(glide(150, 70, d, 0.5), d) * env_d(d, 0.035, 0.001)
-    return (body + lp(nz(d), 900) * env_d(d, 0.01) * 0.3) * v
+    body = sine(glide(420, 200, d, 0.5), d) * env_d(d, 0.03, 0.001)
+    return (body + bp(nz(d), 1000, 3000) * env_d(d, 0.008) * 0.35) * v
 
 
 def v_scribble(v, d=0.45, **_):
@@ -178,7 +178,7 @@ def v_toggle(v, **_):
 
 def v_click(v, **_):
     d = 0.06
-    return mixl(click(1.0, 1500, 0.004), tone(2200, d, 0.004, 0.5), tone(160, d, 0.012, 0.6)) * v
+    return mixl(click(1.0, 1500, 0.004), tone(2200, d, 0.004, 0.5), tone(5600, d, 0.003, 0.35), tone(160, d, 0.012, 0.6)) * v
 
 
 def v_spin(v, d=0.9, **_):
