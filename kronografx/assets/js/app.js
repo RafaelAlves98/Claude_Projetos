@@ -70,13 +70,16 @@
     $("#pStory").innerHTML = (p.historia || []).map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("");
     $("#pNote").textContent = p.nota || "";
     pbox.classList.remove("is-playing"); pv.controls = false; pv.pause();
+    var som = p.audio !== false;
+    $("#pPlay").setAttribute("aria-label", som ? "Assistir com som" : "Assistir ao vídeo");
+    $("#pHint").hidden = !som;
     pv.src = p.video; pv.poster = p.capa;
     $("#pSpecs").innerHTML = "<b>" + esc(p.ano) + "</b>" + (p.specs || []).map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("");
     $("#pFrames").innerHTML = (p.frames || []).map(function (f, k) { return '<figure><img src="' + esc(f) + '" alt="Quadro ' + (k + 1) + ' de ' + esc(p.titulo) + '" loading="lazy"></figure>'; }).join("");
     $("#pFrames").scrollLeft = 0;
     var n = P[(i + 1) % P.length];
     var next = $("#pNext");
-    if (P.length > 1) { next.hidden = false; next.href = "#/projeto/" + n.id; next.innerHTML = "<span>PRÓXIMO PROJETO</span><b>" + esc(n.titulo) + " →</b>"; }
+    if (P.length > 1) { next.hidden = false; next.href = "#/projeto/" + n.id; next.innerHTML = "<span>PRÓXIMO PROJETO</span><b>" + esc(n.titulo) + "&nbsp;→</b>"; }
     else next.hidden = true;
     document.title = p.titulo + " · " + p.cliente + " · Kronografx";
   }
