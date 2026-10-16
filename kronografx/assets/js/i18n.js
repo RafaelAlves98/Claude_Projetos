@@ -25,6 +25,8 @@ window.KRONO_I18N = {
     "hero.cta1": 'Ver projetos <span aria-hidden="true">→</span>',
     "hero.cta2": "Falar com a gente",
     "hero.note": "Atendimento 100% online, para qualquer lugar do Brasil.",
+    "hero.film": "Vídeo de boas-vindas da Kronografx",
+    "hero.sound": "Ligar ou desligar o som do vídeo",
     "reel.cap": "Frames reais dos projetos · toque em qualquer um pra abrir",
 
     "sobre.label": "QUEM ESTÁ POR TRÁS",
@@ -152,6 +154,8 @@ window.KRONO_I18N = {
     "hero.cta1": 'See projects <span aria-hidden="true">→</span>',
     "hero.cta2": "Talk to us",
     "hero.note": "100% online service, anywhere in Brazil.",
+    "hero.film": "Kronografx welcome video",
+    "hero.sound": "Turn the video sound on or off",
     "reel.cap": "Real frames from the projects · tap any of them to open",
 
     "sobre.label": "WHO'S BEHIND IT",
@@ -279,6 +283,8 @@ window.KRONO_I18N = {
     "hero.cta1": 'Ver proyectos <span aria-hidden="true">→</span>',
     "hero.cta2": "Hablar con nosotros",
     "hero.note": "Atención 100% en línea, desde cualquier lugar de Brasil.",
+    "hero.film": "Vídeo de bienvenida de Kronografx",
+    "hero.sound": "Activar o desactivar el sonido del vídeo",
     "reel.cap": "Fotogramas reales de los proyectos · toca cualquiera para abrir",
 
     "sobre.label": "QUIÉN ESTÁ DETRÁS",
@@ -405,6 +411,8 @@ window.KRONO_I18N = {
     "hero.cta1": "Voir les projets <span aria-hidden=\"true\">→</span>",
     "hero.cta2": "Nous contacter",
     "hero.note": "Accompagnement 100 % en ligne, partout au Brésil.",
+    "hero.film": "Vidéo de bienvenue de Kronografx",
+    "hero.sound": "Activer ou couper le son de la vidéo",
     "reel.cap": "Images réelles des projets · touchez-en une pour l’ouvrir",
 
     "sobre.label": "QUI SE CACHE DERRIÈRE",

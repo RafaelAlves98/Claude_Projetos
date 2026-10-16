@@ -273,6 +273,17 @@
   }, { rootMargin: "100px 0px" }) : null;
   function playVisible() { if (vio) $$("video[data-loop]").forEach(function (v) { vio.observe(v); }); }
 
+  /* ---------- som do vídeo do hero (começa mudo) ---------- */
+  var heroSound = $("#heroSound");
+  if (heroSound) heroSound.addEventListener("click", function () {
+    var on = heroSound.getAttribute("aria-pressed") !== "true";
+    heroSound.setAttribute("aria-pressed", on ? "true" : "false");
+    $$("video[data-hero]").forEach(function (v) {
+      v.muted = !on;
+      if (on && v.offsetParent && v.paused) { v.preload = "auto"; v.play().catch(function () {}); }
+    });
+  });
+
   /* ---------- arsenal fixo com 3 telas ---------- */
   var ars = $("#arsenal"), slides = $$(".arsenal__slide"), dots = $$(".arsenal__dots i"), cur = -1;
   var nav = $("#pillNav"), darks = [$("#arsenal"), $("#confianca")];
