@@ -1,5 +1,9 @@
 # Memória do projeto — Site Kronografx
 
+> **Outros projetos neste repositório:** `motion-studio/` — estúdio de vídeos em código (Remotion, HyperFrames,
+> claude-animation). As regras de lá (render como função do tempo, visual, som, loop de revisão antes de mostrar)
+> ficam em `motion-studio/CLAUDE.md` e valem para qualquer vídeo/animação feito lá.
+
 > Este arquivo é a "memória" do Claude sobre o site oficial do Rafael.
 > Ele é lido automaticamente em toda sessão neste repositório.
 > **Sempre que o site mudar, atualize este arquivo também.**
