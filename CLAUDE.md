@@ -9,6 +9,9 @@
 - **Dono:** Rafael (rafa.saopaulino1998@gmail.com). Fala português (pt-BR); responda em português.
 - **Marca:** **Kronografx**, estúdio de **motion design, VFX e pós-produção**.
   Nome vem de *khrónos* (χρόνος), "tempo" em grego.
+- **CNPJ:** 69.317.795/0001-62 (dígitos verificadores conferidos). Aparece no rodapé, na linha do copyright
+  ("© 2026 Kronografx · CNPJ …", com `.footer__cnpj { white-space: nowrap }` para o número não quebrar),
+  e como `taxID` no JSON-LD do `index.html`.
 - **Domínio:** https://kronografx.com/
 - **Slogan:** "Cada frame pensado pra prender o olhar."
 - **Atendimento:** 100% online, para todo o Brasil.
@@ -217,3 +220,5 @@ Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844,
   9. Removidos arquivos sem uso: `video/itau-loop.mp4`, `video/starbucks-loop.mp4`, `img/itau-loop.jpg`, `img/starbucks-loop.jpg`,
      `img/frames/e2-2.jpg`, `img/frames/e2-7.jpg`, `img/frames/starbucks-7.jpg`, `img/frames/starbucks-8.jpg`; e o campo `loop` (não era usado).
   10. SEO: `robots.txt`, `sitemap.xml`, `<link rel="canonical">` e JSON-LD (`Organization`) no `index.html`.
+- **2026-10-16** — CNPJ 69.317.795/0001-62 adicionado ao rodapé e ao JSON-LD (`taxID`), a pedido do Rafael.
+  Testado em 1440, 390 e 320 px: sem erros, sem rolagem lateral; em 320 px o CNPJ desce inteiro para a 2ª linha.
