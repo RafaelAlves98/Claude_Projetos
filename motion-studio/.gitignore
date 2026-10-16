@@ -2,3 +2,6 @@ node_modules/
 .venv/
 out/
 *.log
+__pycache__/
+# gerados (recriar com audio/music.py)
+films/*/audio/music.wav
