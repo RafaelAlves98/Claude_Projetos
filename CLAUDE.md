@@ -46,13 +46,13 @@ kronografx/
 ├── sitemap.xml           # home + termos.html + privacidade.html
 └── assets/
     ├── css/style.css     # todo o visual: variáveis de tema, modo escuro, seletor de idioma, páginas legais   [CRLF]
-    ├── js/i18n.js        # ← TEXTOS FIXOS DO SITE por idioma (pt, en, es, fr) — 147 chaves por idioma
+    ├── js/i18n.js        # ← TEXTOS FIXOS DO SITE por idioma (pt, en, es, fr) — 149 chaves por idioma
     ├── js/dados.js       # ← CONTEÚDO EDITÁVEL: projetos, carrossel, FAQ, contatos + "traducoes" (en/es/fr)   [CRLF]
     ├── js/app.js         # lógica da SPA: rotas, idioma, tema, carrossel, páginas de projeto, animações
     ├── js/legal.js       # só nas páginas legais: idioma, tema, WhatsApp, ano, menu do celular, sumário
     ├── fonts/            # calsans.woff2, calsans-ext.woff2 (títulos), inter.woff2 (texto)
     ├── img/              # capas, stills, frames/ (carrossel), marca, favicon, og-image
-    └── video/            # vídeos completos + e2-loop.mp4 + reel.mp4
+    └── video/            # vídeos completos + e2-loop.mp4 + reel.mp4 + hero-16x9/9x16.mp4
 ```
 
 `[CRLF]` = arquivo com quebras de linha do Windows, como o Rafael edita — manter assim (os outros usam LF).
@@ -99,7 +99,7 @@ das revisões) e `ferramentas/gerar_legal.py`.
 
 ### Seções da home (em ordem)
 1. **Nav em pílula** fixa (`.pill-nav`), fica escura (`.on-dark`) sobre `#arsenal`, `#confianca` e o hero de projeto. No celular (≤860px) vira menu hambúrguer.
-2. **Hero** — anúncio "NOVO" (link pro projeto mais recente; no celular quebra em 2 linhas), status "Agenda aberta para novos projetos", título com gradiente, 2 botões.
+2. **Hero** — anúncio "NOVO" (link pro projeto mais recente; no celular quebra em 2 linhas), status "Agenda aberta para novos projetos", título com gradiente, 2 botões e o **vídeo de boas-vindas** (`.hero__film`): `hero-16x9.mp4` no computador, `hero-9x16.mp4` em ≤600px (o oculto não carrega), mudo, com botão de som `#heroSound` (chaves `hero.film`/`hero.sound`); poster = quadro do logo. Fonte do filme: `motion-studio/films/kronografx-hero/` (`sh tools/web.sh` gera as versões do site).
 3. **Reel** — carrossel inclinado (-3°) com frames 9:16, rolagem infinita (lista duplicada), pausa no hover; cada card leva ao projeto.
 4. **Sobre** — "Kronografx, o estúdio do Rafael."
 5. **Arsenal** — seção *sticky* de 330vh com 3 telas que trocam conforme o scroll:
@@ -352,3 +352,4 @@ Qualquer mudança nos textos legais vale para os 4 idiomas:**
   janela do AE, links legais no escuro, seletor de idioma, menu ativo); foco do teclado; home em branco sem JS.
   Testes salvos em `docs/kronografx/testes/`. Entregue ao Rafael como `site-v6.zip`.
 - **2026-10-16** — Criado `motion-studio/` (vídeos em código) com as regras do estúdio no `motion-studio/CLAUDE.md`.
+- **2026-10-16** — Vídeo de boas-vindas do Hero (30 s, 60 fps, 16:9 e 9:16, som sintetizado; feito em código em `motion-studio/films/kronografx-hero/`). Masters CRF 16 (−14,1 LUFS); no site, versões CRF 23 (~4 MB cada) + posters. Testes do site: tudo ok.
