@@ -32,12 +32,15 @@ Basta abrir `kronografx/index.html` ou subir a pasta inteira para qualquer hospe
 ```
 kronografx/
 ├── index.html            # todas as páginas (SPA com rotas por hash) + JSON-LD da organização
+├── termos.html           # Termos de Uso (página HTML própria, fora da SPA)
+├── privacidade.html      # Política de Privacidade (LGPD) (página HTML própria, fora da SPA)
 ├── robots.txt            # libera tudo e aponta o sitemap
-├── sitemap.xml           # só a home (as rotas são por #)
+├── sitemap.xml           # home + termos.html + privacidade.html
 └── assets/
-    ├── css/style.css     # todo o visual
-    ├── js/dados.js       # ← CONTEÚDO EDITÁVEL: projetos, carrossel, FAQ, contatos
-    ├── js/app.js         # lógica: rotas, carrossel, páginas de projeto, animações
+    ├── css/style.css     # todo o visual (inclui o bloco "páginas legais")
+    ├── js/dados.js       # ← CONTEÚDO EDITÁVEL: projetos, carrossel, FAQ, contatos (arquivo com quebras CRLF — manter)
+    ├── js/app.js         # lógica da SPA: rotas, carrossel, páginas de projeto, animações
+    ├── js/legal.js       # só nas páginas legais: WhatsApp, ano, menu do celular e sumário
     ├── fonts/            # calsans.woff2, calsans-ext.woff2 (títulos), inter.woff2 (texto)
     ├── img/              # capas, stills, frames/ (carrossel), marca, favicon, og-image
     └── video/            # vídeos completos + e2-loop.mp4 + reel.mp4
@@ -77,7 +80,22 @@ do site, não sobem para a hospedagem. As capturas são de **antes** das correç
 - **Projeto:** hero com gradiente `cor`→`cor2`, chips (Cliente/Ano/Formato/Duração), "Como esse projeto nasceu" (`historia`), `nota`, player (botão play ativa som/controles), specbar, faixa de frames arrastável, CTA e "Próximo projeto" (circular; no celular empilha).
   `vertical: true` deixa o player em 9:16. `audio: false` esconde o aviso "🎧 Assista com som" e o botão vira "Assistir ao vídeo".
 - **FAQ:** `<details>` gerados de `faq` (o primeiro vem aberto).
-- **Contato:** card WhatsApp + card e-mail/Instagram.
+- **Contato:** card WhatsApp + card e-mail/Instagram + aviso "seus dados são tratados conforme a Política de Privacidade" (`.contact2__note`).
+- Projetos com `conceitual: true` mostram o chip **"MARCA"** em vez de "CLIENTE" (exigência de coerência com os Termos).
+
+### Páginas legais (`termos.html` e `privacidade.html`)
+- HTML estático próprio (indexável, com `canonical`, `og:` e `<title>` próprios) — **não** são rotas `#` da SPA,
+  para que Google/redes/Meta leiam o conteúdo e o link funcione como URL própria.
+- Mesma nav em pílula e mesmo rodapé da home, mas com links `index.html#/...`. Carregam `dados.js` + `legal.js`
+  (o `app.js` NÃO, porque ele depende de elementos que só existem na home).
+- Estrutura: cabeçalho "LEGAL" + título + "Última atualização: …" → grade `.legal` com sumário `<details id="legalToc">`
+  (fixo à esquerda no computador; fechado por padrão no celular e fecha ao tocar num item) + `<article class="legal__doc">`
+  com `<section id="…"><h2>` por tópico → card "Ficou alguma dúvida?" (`.legal__more`) com link cruzado para o outro documento.
+- **O texto vive no próprio HTML** — para mudar, editar o HTML direto (e atualizar a data no cabeçalho de "Última atualização").
+  `docs/kronografx/textos-legais.json` guarda a versão aprovada em 2026-10-16 com o histórico da revisão
+  (`alteracoes`) e as notas para o Rafael (`notas_para_rafael`) — é registro, não fonte.
+- **O rodapé existe em 3 arquivos** (`index.html`, `termos.html`, `privacidade.html`): qualquer mudança nele tem que ser feita nos três.
+- Os Termos listam os projetos conceituais pelo nome (seção `#marcas-de-terceiros`) — atualizar quando o portfólio mudar.
 
 ### Comportamentos
 - Elementos `.rv` aparecem com fade ao entrar na tela (IntersectionObserver).
@@ -123,7 +141,9 @@ Todos de 2026, disciplina "Motion Design".
    `fundo` é a imagem apagada atrás do card — use uma de boa resolução se o projeto for o 1º (card largo).
 3. Adicionar entradas `["assets/img/frames/<slug>-N.jpg", "<id>"]` em `carrossel` (intercalar os projetos).
 4. Se for o lançamento mais recente, atualizar o anúncio "NOVO" no hero de `index.html` (texto e `href="#/projeto/<id>"`).
-5. Projeto conceitual (marca sem vínculo) → preencher `nota` com o aviso "Projeto conceitual de portfólio, sem vínculo com ...".
+5. Projeto conceitual (marca sem vínculo) → `conceitual: true`, preencher `nota` com o aviso "Projeto conceitual de portfólio,
+   sem vínculo com ..." **e** incluir o projeto na lista da seção "Marcas de terceiros e projetos conceituais" do `termos.html`
+   (atualizando a data de "Última atualização"). Projeto de cliente real → confirmar que há autorização para o portfólio.
 6. Cuidado com vírgulas e aspas no `dados.js` — um erro quebra o site inteiro.
 7. Atualizar o `lastmod` do `sitemap.xml`.
 
@@ -194,6 +214,17 @@ Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844,
 
 ## Pendências / decisões em aberto
 
+**Textos legais — o Rafael precisa confirmar/fornecer (detalhes em `docs/kronografx/textos-legais.json`, campo `notas_para_rafael`):**
+- Razão social (nome empresarial do cartão do CNPJ) e endereço (ou cidade/UF) — LGPD art. 9º e Decreto nº 7.962/2013 art. 2º.
+  **Não buscar o CNPJ em bases públicas por conta própria**: a razão social de MEI costuma trazer nome completo/CPF — publicar só o que ele mandar.
+- Porte da empresa (ME/EPP/MEI): se for agente de pequeno porte, incluir a frase de dispensa de encarregado (Res. CD/ANPD nº 2/2022, art. 11).
+- Provedor de hospedagem: qual é, se grava cookies/estatísticas próprios, onde ficam os servidores, se guarda logs de acesso.
+- Prazo de 24 meses para guardar contatos que não viraram projeto — foi sugestão dos agentes; confirmar ou trocar.
+- Autorização (de preferência por escrito) da E2 Finanças para mostrar "3 Sinais" e a marca no portfólio.
+- Se usa parceiros/freelancers (locutor, trilha etc.) — a home diz "sem repassar etapa para terceiros".
+- Revisão por advogado antes de publicar (principalmente razão social, direito de arrependimento, foro e marcas de terceiros).
+- Vídeo do Starbucks termina com "@starbucksbrasil" (risco de sugerir vínculo, apesar do aviso no próprio vídeo).
+
 - **Specs "1080×1920" da E2 e do Starbucks**: os arquivos no site são 720×1280 (provavelmente comprimidos para web).
   Mantido como está, assumindo que a entrega original foi 1080×1920 — **confirmar com o Rafael**.
 - **SEO das páginas de projeto**: como as rotas são por `#`, Google e redes sociais só enxergam a home
@@ -222,3 +253,9 @@ Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844,
   10. SEO: `robots.txt`, `sitemap.xml`, `<link rel="canonical">` e JSON-LD (`Organization`) no `index.html`.
 - **2026-10-16** — CNPJ 69.317.795/0001-62 adicionado ao rodapé e ao JSON-LD (`taxID`), a pedido do Rafael.
   Testado em 1440, 390 e 320 px: sem erros, sem rolagem lateral; em 320 px o CNPJ desce inteiro para a 2ª linha.
+- **2026-10-16** — Termos de Uso e Política de Privacidade, a pedido do Rafael. Textos redigidos por agentes e revisados
+  de forma independente (lente jurídica: LGPD, Marco Civil, CDC, direitos autorais, marcas; lente factual: o que o site
+  realmente faz) — 51 apontamentos, 48 aplicados. Citações de lei conferidas. Novas páginas `termos.html` e
+  `privacidade.html`, `assets/js/legal.js`, coluna LEGAL no rodapé (grade de 5 colunas; 4 em ≤960px com a marca em cima;
+  2 em ≤600px), aviso de privacidade na página Contato, chip "MARCA" nos projetos conceituais (`conceitual: true`),
+  sitemap com as 2 páginas. Testado em 1440/900/390/320 px: 167 links ok, sem erros, sem rolagem lateral.

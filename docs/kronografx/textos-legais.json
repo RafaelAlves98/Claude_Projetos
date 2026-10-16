@@ -1,0 +1,454 @@
+{
+ "privacidade": {
+  "titulo": "Política de Privacidade",
+  "intro_html": "<p>Esta Política de Privacidade explica, de forma direta, como a Kronografx trata os dados pessoais de quem visita o site kronografx.com e de quem entra em contato conosco pelos nossos canais. Ela segue a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 – LGPD) e o Marco Civil da Internet (Lei nº 12.965/2014).</p><p>As regras de uso do site e dos nossos serviços estão nos <a href=\"termos.html\">Termos de Uso</a>.</p>",
+  "secoes": [
+   {
+    "id": "resumo",
+    "titulo": "Resumo rápido",
+    "corpo_html": "<ul><li><b>O site não pede nem guarda nada que você digite.</b> Não há formulário, cadastro, login, área de cliente, newsletter, loja nem pagamento.</li><li><b>O código do site não grava cookies</b> e não usa ferramentas de análise de audiência, pixels de publicidade ou outros rastreadores. Fontes e vídeos ficam no próprio servidor do site, então a sua visita não envia dados a outras empresas além do provedor de hospedagem (e dos serviços de infraestrutura que ele use para entregar o site).</li><li><b>Dados técnicos de acesso</b> (como endereço IP, data e hora e página acessada) podem ser registrados pelo provedor de hospedagem, como acontece em qualquer site.</li><li><b>Você decide se quer falar conosco.</b> O contato acontece pelo WhatsApp, por e-mail ou pelo Instagram. Recebemos o que você escolher nos enviar, além das informações do seu perfil que esses serviços mostram para nós (como nome e foto).</li><li><b>Usamos seus dados para</b> responder, preparar a proposta, executar o projeto contratado, manter o histórico do atendimento e cumprir obrigações legais, como a emissão de nota fiscal. <b>Não vendemos seus dados.</b></li><li><b>Você tem direitos</b> sobre seus dados e pode exercê-los a qualquer momento, sem custo, pelo e-mail <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a>.</li></ul><p>Este resumo ajuda na leitura, mas não substitui o texto completo abaixo.</p>"
+   },
+   {
+    "id": "quem-somos",
+    "titulo": "Quem é a responsável pelos seus dados",
+    "corpo_html": "<p>A responsável pelo tratamento dos seus dados pessoais (a \"controladora\", nos termos da LGPD) é a <b>Kronografx</b>, inscrita no CNPJ sob o nº <b>69.317.795/0001-62</b>, estúdio de motion design, VFX (efeitos visuais) e pós-produção, com atendimento 100% online para clientes de todo o Brasil.</p><p>Para qualquer assunto sobre privacidade e proteção de dados, escreva para <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a>. Esse é o nosso canal de comunicação com os titulares de dados e o canal preferencial para pedidos relacionados a esta política, porque deixa registro do seu pedido e da nossa resposta. Os outros canais estão na seção \"Contato\", no fim desta página.</p>"
+   },
+   {
+    "id": "dados-que-tratamos",
+    "titulo": "Quais dados tratamos",
+    "corpo_html": "<p><b>1. Quando você apenas navega pelo site</b></p><p>O site da Kronografx é uma página estática: ele não pede nem guarda nada que você digite, porque não há onde digitar. Ainda assim, como em qualquer site, o provedor de hospedagem pode registrar automaticamente dados técnicos do acesso, como:</p><ul><li>endereço IP;</li><li>data e hora do acesso;</li><li>página ou arquivo acessado;</li><li>tipo de navegador e de dispositivo.</li></ul><p>Esses dados servem apenas para manter o site funcionando com segurança e cumprir a lei. Não os usamos para criar perfis nem para fazer publicidade.</p><p><b>2. Quando você entra em contato</b></p><p>Os botões e links do site abrem serviços externos: o WhatsApp (com a mensagem pronta \"Olá, Kronografx! Vi o site e quero conversar sobre um projeto.\"), o seu aplicativo de e-mail ou o Instagram. A partir daí, recebemos o que você escolher compartilhar, por exemplo:</p><ul><li>nome, telefone e e-mail (e, no WhatsApp e no Instagram, as informações do seu perfil que ficam visíveis para nós, como nome e foto);</li><li>empresa em que você trabalha ou que representa;</li><li>detalhes do projeto, briefing, referências e arquivos;</li><li>o histórico das conversas, propostas, aprovações e entregas.</li></ul><p>Se você contratar um projeto, também tratamos os dados exigidos para a emissão da nota fiscal (por exemplo, nome ou razão social e CPF ou CNPJ).</p><p><b>3. Dados de outras pessoas nos materiais do projeto</b></p><p>Vídeos, fotos, áudios, briefings e outros arquivos enviados para um projeto podem conter dados de terceiros, como a imagem e a voz de pessoas que aparecem nas gravações. Nesses casos, quem decide como esse material será usado é o cliente, e a Kronografx atua como operadora: trata esses dados em nome dele, apenas para executar o projeto, seguindo as instruções recebidas e protegendo o material. A Kronografx responde pelo que fizer em desacordo com a LGPD ou com essas instruções. Cabe ao cliente garantir que tem as autorizações necessárias para usar esse material.</p><p>Se você aparece em um material desse tipo e quer exercer seus direitos, pode falar conosco: encaminharemos o pedido ao cliente responsável e ajudaremos no que nos couber.</p><p>Mostrar o trabalho finalizado no portfólio do site é um uso à parte, que só acontece quando o cliente autoriza.</p><p><b>4. Dados sensíveis</b></p><p>Não pedimos dados sensíveis, como informações sobre saúde, religião, opinião política, origem racial ou biometria. Pedimos que você não envie esse tipo de informação, a menos que seja indispensável para o projeto. Nesse caso, os dados sensíveis serão tratados apenas nas hipóteses do art. 11 da LGPD ou, quando estiverem em materiais do cliente, conforme as instruções dele, na condição de operadora.</p>"
+   },
+   {
+    "id": "finalidades",
+    "titulo": "Para que usamos seus dados",
+    "corpo_html": "<ul><li><b>Responder às suas mensagens</b> e tirar dúvidas sobre os nossos serviços;</li><li><b>Preparar a proposta</b> por escrito, com escopo, prazo e valor, antes de começar qualquer trabalho;</li><li><b>Executar o projeto contratado</b>, incluindo reuniões, rodadas de ajuste, aprovações e entregas online;</li><li><b>Emitir nota fiscal</b> e cumprir obrigações legais, fiscais e contábeis;</li><li><b>Manter o histórico comercial</b> (conversas, propostas e projetos), para dar continuidade ao atendimento e, se preciso, nos defender em eventuais questionamentos;</li><li><b>Mostrar trabalhos no portfólio</b> do site, apenas quando o cliente autorizar;</li><li><b>Manter o site funcionando com segurança</b>, prevenir abusos e cumprir o que a lei determina sobre os registros de acesso, quando aplicável.</li></ul><p>Não usamos seus dados para outras finalidades sem avisar você antes e, quando a lei exigir, sem pedir sua autorização. Não enviamos mensagens de publicidade sem o seu consentimento.</p>"
+   },
+   {
+    "id": "bases-legais",
+    "titulo": "Bases legais",
+    "corpo_html": "<p>A LGPD só permite tratar dados pessoais quando existe uma base legal para isso. Usamos as seguintes, previstas no art. 7º da LGPD:</p><ul><li><b>Procedimentos preliminares e execução de contrato</b> (art. 7º, V): para responder ao seu pedido de orçamento, preparar a proposta e executar o projeto contratado.</li><li><b>Legítimo interesse</b> (art. 7º, IX): para atender quem fala conosco em nome de uma empresa, manter o histórico comercial, mostrar no portfólio trabalhos que o cliente autorizou divulgar e manter o site seguro, sempre respeitando seus direitos e o que você pode razoavelmente esperar de nós.</li><li><b>Cumprimento de obrigação legal ou regulatória</b> (art. 7º, II): para emitir nota fiscal, cumprir obrigações fiscais e contábeis e guardar os registros de acesso ao site pelo prazo previsto no art. 15 do Marco Civil da Internet, quando essa guarda for exigida.</li><li><b>Exercício regular de direitos</b> (art. 7º, VI): para nos defender, se necessário, em processos judiciais, administrativos ou arbitrais.</li><li><b>Consentimento</b> (art. 7º, I): apenas quando pedirmos sua autorização para algo específico. Nesse caso, você pode retirar o consentimento a qualquer momento.</li></ul><p>Dados sensíveis só são tratados nas hipóteses do art. 11 da LGPD. Quando a Kronografx atua como operadora de um cliente, a base legal do tratamento é definida pelo cliente, que é o controlador.</p>"
+   },
+   {
+    "id": "compartilhamento",
+    "titulo": "Com quem compartilhamos",
+    "corpo_html": "<p>Não vendemos, não alugamos e não cedemos seus dados pessoais. Eles só são compartilhados quando necessário para as finalidades desta política, com:</p><ul><li><b>o provedor de hospedagem do site</b> (e os serviços de infraestrutura que ele use para entregar o site), que mantém o site no ar e pode registrar os dados técnicos de acesso;</li><li><b>serviços de e-mail, mensagens e redes sociais</b> usados para conversar com você (como WhatsApp e Instagram) e <b>ferramentas online</b> de reunião, armazenamento e envio de arquivos usadas no projeto;</li><li><b>o escritório de contabilidade (quando houver) e o sistema de emissão de nota fiscal</b>, para cumprir obrigações fiscais e contábeis;</li><li><b>autoridades públicas e o Poder Judiciário</b>, quando houver obrigação legal, requisição de autoridade competente ou ordem judicial.</li></ul><p>Compartilhamos apenas os dados necessários em cada caso e buscamos trabalhar com fornecedores que adotem boas práticas de segurança e proteção de dados.</p>"
+   },
+   {
+    "id": "transferencia-internacional",
+    "titulo": "Transferência internacional de dados",
+    "corpo_html": "<p>Alguns serviços que usamos para falar com você e trabalhar no projeto, como o WhatsApp e o Instagram (da Meta), serviços de e-mail e ferramentas online de armazenamento de arquivos, podem processar e guardar dados em servidores fora do Brasil. O mesmo pode acontecer com o provedor de hospedagem do site.</p><p>Essas transferências ocorrem apenas nas hipóteses do art. 33 da LGPD, principalmente quando são necessárias para executar o contrato ou os procedimentos preliminares que você pediu, para cumprir obrigação legal ou para o exercício regular de direitos (art. 33, IX). Quando essas hipóteses não se aplicarem, a transferência deve se apoiar nos mecanismos reconhecidos pela LGPD e regulamentados pela ANPD (Resolução CD/ANPD nº 19/2024), como as cláusulas-padrão contratuais. Ao usar esses serviços, também valem as políticas de privacidade de cada um deles.</p>"
+   },
+   {
+    "id": "armazenamento",
+    "titulo": "Por quanto tempo guardamos seus dados",
+    "corpo_html": "<p>Guardamos os dados só pelo tempo necessário para cumprir as finalidades desta política, seguindo estes critérios:</p><ul><li><b>Registros de acesso ao site:</b> quando existirem, ficam com o provedor de hospedagem, pelo prazo que ele adota. Quando a guarda for exigida, ela é feita sob sigilo, em ambiente controlado e seguro, pelo prazo de 6 meses previsto no art. 15 do Marco Civil da Internet (Lei nº 12.965/2014), ou por mais tempo se houver requisição de autoridade competente ou ordem judicial.</li><li><b>Contatos que não viraram projeto:</b> pelo tempo necessário para responder e acompanhar a conversa e, depois, por até 24 meses após o último contato, para facilitar um novo atendimento. Você pode pedir a exclusão antes disso, a qualquer momento.</li><li><b>Projetos contratados:</b> durante a execução do projeto e, depois, pelo tempo exigido pela legislação fiscal e contábil e pelos prazos legais em que ainda podem surgir questionamentos sobre o contrato.</li><li><b>Arquivos e materiais do projeto:</b> pelo tempo combinado com o cliente ou necessário para ajustes e novas versões. O cliente pode pedir a exclusão, respeitadas as obrigações legais.</li></ul><p>Encerrado o prazo, os dados são excluídos ou anonimizados, exceto quando a lei permitir ou exigir que sejam mantidos.</p>"
+   },
+   {
+    "id": "seguranca",
+    "titulo": "Segurança",
+    "corpo_html": "<p>Adotamos medidas técnicas e administrativas razoáveis, compatíveis com o porte da Kronografx e com o tipo de dado tratado, para proteger seus dados contra acessos não autorizados, perda ou uso indevido. A própria forma como o site foi feito também ajuda: como ele não tem formulários, cadastros nem rastreadores, quase nenhum dado pessoal passa por ele.</p><p>Nenhum sistema é totalmente seguro. Se ocorrer um incidente de segurança que possa trazer risco ou dano relevante a você, avisaremos você e a Autoridade Nacional de Proteção de Dados (ANPD), como determina a LGPD.</p>"
+   },
+   {
+    "id": "seus-direitos",
+    "titulo": "Seus direitos e como exercê-los",
+    "corpo_html": "<p>A LGPD (art. 18) garante a você, como titular dos dados, o direito de:</p><ul><li>confirmar se tratamos dados seus;</li><li>acessar os dados que temos sobre você;</li><li>corrigir dados incompletos, inexatos ou desatualizados;</li><li>pedir a anonimização, o bloqueio ou a eliminação de dados desnecessários, excessivos ou tratados em desacordo com a LGPD;</li><li>pedir a portabilidade dos seus dados a outro fornecedor, conforme a regulamentação da ANPD;</li><li>pedir a eliminação dos dados tratados com base no seu consentimento, exceto quando a lei permitir mantê-los;</li><li>saber com quais entidades públicas e privadas compartilhamos seus dados;</li><li>ser informado sobre a possibilidade de não dar consentimento e sobre as consequências disso;</li><li>revogar o consentimento a qualquer momento;</li><li>opor-se a um tratamento feito com base em outra hipótese legal, caso ele esteja em desacordo com a LGPD.</li></ul><p><b>Como exercer:</b> envie um e-mail para <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a> dizendo o que você deseja. Para proteger seus dados, podemos pedir informações que confirmem a sua identidade antes de atender o pedido. Pedidos de confirmação e de acesso aos dados são respondidos de imediato, em formato simplificado, ou em até 15 dias, por declaração completa (art. 19 da LGPD). Os demais pedidos são atendidos nos prazos da LGPD e da regulamentação da ANPD. Se não pudermos atender algum pedido (por exemplo, porque a lei nos obriga a guardar determinado dado), explicaremos o motivo. O atendimento é gratuito.</p><p>Não tomamos decisões sobre você de forma exclusivamente automatizada.</p><p><b>Reclamação às autoridades:</b> se você entender que seus direitos não foram respeitados, pode apresentar uma reclamação à Autoridade Nacional de Proteção de Dados (ANPD), pelo site <a href=\"https://www.gov.br/anpd\">gov.br/anpd</a>. Em regra, a ANPD pede que você mostre que nos procurou antes e que o pedido não foi resolvido (art. 55-J, V, da LGPD), por isso fale conosco primeiro: queremos ter a chance de resolver. Você também pode procurar os órgãos de defesa do consumidor, como o Procon (art. 18, §8º, da LGPD).</p>"
+   },
+   {
+    "id": "cookies",
+    "titulo": "Cookies",
+    "corpo_html": "<p>O código do site da Kronografx <b>não grava cookies nem dados no seu navegador</b> (como o armazenamento local) e não usa tecnologias parecidas, como pixels de rastreamento ou ferramentas de análise de audiência e de publicidade.</p><p>Também não carregamos fontes, vídeos, mapas ou outros conteúdos de terceiros: tudo vem do próprio servidor do site. Por isso, não há aviso de cookies para você aceitar.</p><p>Se um dia passarmos a usar cookies ou ferramentas desse tipo, atualizaremos esta política e, quando a lei exigir, pediremos seu consentimento antes.</p>"
+   },
+   {
+    "id": "criancas",
+    "titulo": "Crianças e adolescentes",
+    "corpo_html": "<p>O site e os serviços da Kronografx não são direcionados a crianças e adolescentes. Fora os materiais de projeto enviados por clientes, não coletamos por conta própria, de forma intencional, dados de pessoas menores de 18 anos. Se soubermos que recebemos, por contato direto, dados de uma criança ou adolescente sem a autorização dos pais ou responsáveis, vamos excluí-los.</p><p>Quando um projeto usar imagem ou voz de crianças ou adolescentes, o tratamento deve atender ao seu melhor interesse (art. 14 da LGPD), e cabe ao cliente obter as autorizações exigidas por lei, como o consentimento de um dos pais ou do responsável legal no caso de crianças. A Kronografx trata esse material apenas como descrito em \"Dados de outras pessoas nos materiais do projeto\".</p>"
+   },
+   {
+    "id": "links-terceiros",
+    "titulo": "Links e serviços de terceiros",
+    "corpo_html": "<p>O site tem links que abrem serviços de outras empresas: o WhatsApp, o Instagram e o seu aplicativo de e-mail. Ao clicar, você sai do site da Kronografx e passa a usar esses serviços, que têm termos e políticas de privacidade próprios e tratam seus dados por conta própria. Recomendamos que você leia as políticas deles; a Kronografx não controla a forma como esses serviços tratam seus dados.</p><p>A mensagem pronta do WhatsApp só é enviada se você decidir enviá-la, e você pode editá-la antes. Já os dados que você nos envia por qualquer um desses canais são tratados pela Kronografx conforme esta política.</p>"
+   },
+   {
+    "id": "alteracoes",
+    "titulo": "Alterações desta política",
+    "corpo_html": "<p>Podemos atualizar esta política para refletir mudanças no site, nos nossos serviços ou na legislação. A data da última atualização fica sempre no topo desta página. Se a mudança for relevante, avisaremos de forma destacada no site e, quando a lei exigir, pediremos seu consentimento.</p>"
+   },
+   {
+    "id": "contato",
+    "titulo": "Contato",
+    "corpo_html": "<p>Dúvidas, pedidos ou reclamações sobre privacidade e proteção de dados:</p><ul><li>E-mail (canal preferencial): <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a></li><li>WhatsApp: <a href=\"https://wa.me/5516991220381\">+55 16 99122-0381</a></li><li>Instagram: <a href=\"https://instagram.com/kronografx\">@kronografx</a></li></ul><p>Veja também os <a href=\"termos.html\">Termos de Uso</a>. Esta política é regida pelas leis brasileiras.</p>"
+   }
+  ],
+  "notas_para_rafael": [
+   "Nome empresarial e endereço: o texto traz só 'Kronografx' e o CNPJ 69.317.795/0001-62. A LGPD (art. 9º) pede que a controladora seja identificada. Além disso, o Decreto nº 7.962/2013 (art. 2º, I e II) pode exigir que o site mostre, em local visível (por exemplo, no rodapé), o nome empresarial, o CNPJ e o endereço físico e eletrônico. Me passe o nome empresarial que consta no cartão do CNPJ e o endereço (ou pelo menos cidade/UF) para eu completar a seção 'Quem é a responsável pelos seus dados'. Confirme também se o CNPJ está correto.",
+   "Encarregado de dados (DPO): a LGPD (art. 41) exige indicar um encarregado. Agentes de tratamento de pequeno porte (ME, EPP, MEI, conforme a Resolução CD/ANPD nº 2/2022) podem ser dispensados, desde que mantenham um canal de comunicação com os titulares, não façam tratamento de alto risco e não ultrapassem o limite de faturamento de empresa de pequeno porte. Hoje o texto só diz que contato@kronografx.com é o canal com os titulares; ele não afirma a dispensa porque eu não sei o seu enquadramento. Se você se enquadrar, eu acrescento em 'Quem é a responsável': 'Como agente de tratamento de pequeno porte, a Kronografx não nomeou um encarregado, como permite a regulamentação da ANPD (art. 11 da Resolução CD/ANPD nº 2/2022). O canal de comunicação sobre os seus dados é o e-mail contato@kronografx.com.' Se não se enquadrar, me passe o nome e o contato do encarregado.",
+   "Provedor de hospedagem: me diga qual é e confirme (1) se os servidores ficam fora do Brasil; (2) se ele, ou uma rede de distribuição ou serviço de proteção que ele use, grava cookies próprios (se gravar, a seção 'Cookies' e o resumo precisam mudar); (3) se ele guarda os registros de acesso (IP, data e hora), por quanto tempo e se você consegue acessá-los. O texto agora fala desses registros de forma condicional; com a confirmação, posso deixá-lo mais preciso.",
+   "Transferência internacional: o texto diz que, quando a transferência não for necessária para o contrato, ela se apoia em mecanismos como cláusulas-padrão contratuais (Resolução CD/ANPD nº 19/2024). Vale conferir se os termos dos serviços que você usa (provedor do e-mail, armazenamento, hospedagem) trazem cláusulas-padrão ou mecanismo equivalente.",
+   "Ferramentas usadas no trabalho: o texto fala de forma genérica em 'serviços de e-mail' e 'ferramentas online de reunião, armazenamento e envio de arquivos'. Se quiser, me diga quais você usa (provedor do e-mail contato@, Google Drive, WeTransfer, Meet, Frame.io etc.) para citar pelo nome.",
+   "Parceiros e freelancers: a home diz 'Um fluxo só, sem repassar etapa para terceiros' e 'Sem intermediário: quem atende é quem anima', por isso a política não cita parceiros. Se você divide dados ou materiais de projetos com outras pessoas (locutor, trilha, outro editor ou animador), me avise: será preciso incluir isso em 'Com quem compartilhamos' e também rever esses textos da home.",
+   "Contabilidade: o texto fala em 'escritório de contabilidade (quando houver) e o sistema de emissão de nota fiscal'. Confirme se é assim.",
+   "Prazo de guarda de contatos que não viraram projeto: para a política não ficar com prazo indefinido (a LGPD exige informar a duração do tratamento), coloquei 'até 24 meses após o último contato'. É uma sugestão: confirme ou me diga outro prazo, e lembre que você vai precisar cumprir esse limite apagando as conversas antigas. Se quiser, também posso fixar um prazo para os arquivos de projeto depois da entrega.",
+   "Portfólio: a política agora diz que trabalhos de clientes só aparecem no portfólio com autorização do cliente. Confirme que você tem essa autorização da E2 Finanças para o '3 Sinais', de preferência por escrito (e-mail ou proposta).",
+   "Segurança: retirei a frase sobre limitar o acesso aos dados porque não estava confirmada. Se quiser citar medidas concretas que você usa de fato (verificação em duas etapas no e-mail e no WhatsApp, backup, senhas fortes), me diga quais.",
+   "Compromissos que estão no texto e que você precisa poder cumprir: não vender nem ceder dados; não mandar publicidade sem autorização; avisar no site quando houver mudança relevante; atender de graça os pedidos dos titulares e responder confirmação e acesso em até 15 dias (esses dois últimos são obrigações da própria LGPD); avisar você e a ANPD em caso de incidente relevante.",
+   "Depoimentos e uso do nome ou da imagem de pessoas: se você pretende publicar depoimentos, nomes ou fotos de pessoas (não só a marca da empresa cliente), isso exige autorização específica dessas pessoas. O texto já prevê o consentimento 'quando pedirmos sua autorização para algo específico'.",
+   "Recomendação: antes de publicar, peça para um advogado revisar o texto final, junto com os Termos de Uso."
+  ],
+  "alteracoes": [
+   {
+    "apontamento": "Revisão jurídica: registros de acesso de 6 meses apresentados como prática própria (armazenamento, finalidades, bases legais)",
+    "acao": "aplicada",
+    "motivo": "A Kronografx não sabe se o provedor guarda os logs nem por quanto tempo. O texto agora é condicional: os registros ficam com o provedor e, quando a guarda for exigida, valem o sigilo e os 6 meses do art. 15 da Lei 12.965/2014. Juntei com o apontamento equivalente da revisão de fatos. Não citei o §2º para não depender do número do parágrafo."
+   },
+   {
+    "apontamento": "Revisão jurídica: transferência internacional baseada em 'garantias oferecidas pelos fornecedores'",
+    "acao": "aplicada",
+    "motivo": "Pelo art. 33, II, quem oferece as garantias é o controlador. O texto agora cita o art. 33, IX (contrato, obrigação legal, exercício de direitos) e, para os outros casos, os mecanismos da Resolução CD/ANPD nº 19/2024. Não afirma que esses mecanismos já foram verificados e deixa nota para o Rafael conferir."
+   },
+   {
+    "apontamento": "Revisão jurídica: falta informação sobre o encarregado ou a dispensa de agente de pequeno porte",
+    "acao": "aplicada",
+    "motivo": "Aplicada em parte. O texto agora declara o e-mail como canal de comunicação com os titulares. A frase sobre a dispensa não entrou no texto público porque o enquadramento como pequeno porte não está nos fatos; ela ficou pronta na nota para o Rafael."
+   },
+   {
+    "apontamento": "Revisão jurídica: prazo indefinido para contatos que não viraram projeto (fixar 'até [24] meses')",
+    "acao": "aplicada",
+    "motivo": "O critério 'enquanto for útil' não informa a duração (art. 9º, II). Usei 24 meses sem colchetes, porque o texto não pode ser publicado com placeholder, e registrei na nota que o prazo é uma sugestão que o Rafael precisa confirmar. Prevaleceu sobre a sugestão de 'período razoável' da revisão de fatos."
+   },
+   {
+    "apontamento": "Revisão jurídica: nome empresarial e endereço (Decreto 7.962/2013), com colchetes no texto",
+    "acao": "aplicada",
+    "motivo": "Aplicada em parte. O alerta do Decreto 7.962/2013, art. 2º, entrou na nota para o Rafael. Não pus os colchetes nem o 'nome fantasia' no texto, porque as instruções mandam escrever sem esses dados e não inventá-los."
+   },
+   {
+    "apontamento": "Revisão jurídica: reclamação prévia à ANPD (art. 55-J, V) e Procon (art. 18, §8º)",
+    "acao": "aplicada",
+    "motivo": "As duas citações estão corretas. Entrou também o convite para falar conosco antes, agora apresentado como etapa normal, e 'peticionar' virou 'apresentar uma reclamação', como pediu a revisão de fatos."
+   },
+   {
+    "apontamento": "Revisão jurídica: prazo de resposta vago (art. 19)",
+    "acao": "aplicada",
+    "motivo": "Agora o texto diz que confirmação e acesso são respondidos de imediato, em formato simplificado, ou em até 15 dias, por declaração completa, como prevê o art. 19."
+   },
+   {
+    "apontamento": "Revisão jurídica: afirmações absolutas sobre o provedor de hospedagem e cookies",
+    "acao": "aplicada",
+    "motivo": "O resumo agora ressalva os serviços de infraestrutura do provedor. As frases sobre cookies passaram a falar do 'código do site', que é o que foi verificado. Fica a nota para o Rafael confirmar."
+   },
+   {
+    "apontamento": "Revisão jurídica: dados sensíveis sem referência ao art. 11",
+    "acao": "aplicada",
+    "motivo": "Entrou no item 4 e em bases legais que dados sensíveis seguem o art. 11 e que, quando a Kronografx é operadora, a base legal é definida pelo cliente."
+   },
+   {
+    "apontamento": "Revisão jurídica: resumo diz que 'só recebemos o que você escolher', mas há dados de perfil",
+    "acao": "aplicada",
+    "motivo": "Era uma contradição com a seção 2. O resumo agora menciona as informações de perfil (nome e foto)."
+   },
+   {
+    "apontamento": "Revisão jurídica: responsabilidades da Kronografx como operadora (art. 9º, VI; art. 42, §1º, I)",
+    "acao": "aplicada",
+    "motivo": "Entrou no item 3 que a Kronografx segue as instruções, protege o material, responde pelo que fizer em desacordo e encaminha ao cliente os pedidos de quem aparece nos materiais."
+   },
+   {
+    "apontamento": "Revisão jurídica: incoerência na seção de crianças e consentimento dos pais só para crianças (art. 14)",
+    "acao": "aplicada",
+    "motivo": "Juntei com a correção da revisão de fatos: ressalva para materiais de clientes, exclusão só para dados recebidos por contato direto, melhor interesse (art. 14) e consentimento de um dos pais no caso de crianças. Não citei o Enunciado CD/ANPD nº 1/2023, para manter o texto enxuto."
+   },
+   {
+    "apontamento": "Revisão de fatos (alta): registros de acesso de 6 meses sem base",
+    "acao": "aplicada",
+    "motivo": "Juntei com o apontamento jurídico equivalente, que prevaleceu na redação."
+   },
+   {
+    "apontamento": "Revisão de fatos: 'não coleta seus dados por conta própria' contradiz o registro de IP",
+    "acao": "aplicada",
+    "motivo": "Trocado por 'O site não pede nem guarda nada que você digite', que é verdadeiro e não contradiz os registros técnicos."
+   },
+   {
+    "apontamento": "Revisão de fatos: resumo 'só para' omite finalidades",
+    "acao": "aplicada",
+    "motivo": "Tirei o 'só' e incluí o histórico do atendimento, para o resumo bater com a seção de finalidades."
+   },
+   {
+    "apontamento": "Revisão de fatos: política não cobre o uso de material de cliente no portfólio",
+    "acao": "aplicada",
+    "motivo": "O site publica o '3 Sinais' (E2), e os fatos dizem que é com autorização do cliente. Incluí o portfólio no item 3, nas finalidades e no legítimo interesse, sempre condicionado à autorização do cliente, e deixei nota para o Rafael confirmar a autorização."
+   },
+   {
+    "apontamento": "Revisão de fatos: medida de segurança não confirmada e 'desenho do site'",
+    "acao": "aplicada",
+    "motivo": "Retirei a frase sobre limitar o acesso, troquei 'desenho' por 'forma como o site foi feito' e incluí a nota sobre medidas concretas."
+   },
+   {
+    "apontamento": "Revisão de fatos: contradição na seção de crianças",
+    "acao": "aplicada",
+    "motivo": "Juntei com a correção jurídica da mesma seção."
+   },
+   {
+    "apontamento": "Revisão de fatos: transferência internacional (manter só a hipótese do contrato)",
+    "acao": "rejeitada",
+    "motivo": "Houve conflito com a revisão jurídica, que prevaleceu. Ficar só com a hipótese do contrato deixaria de fora quem fala em nome de empresa (que não é parte do contrato), por isso o texto também menciona os mecanismos da ANPD."
+   },
+   {
+    "apontamento": "Revisão de fatos: prazo de contatos como 'período razoável'",
+    "acao": "rejeitada",
+    "motivo": "Houve conflito com a revisão jurídica, que prevaleceu. 'Período razoável' continua sem informar a duração do tratamento, então foi fixado o limite de 24 meses, que o Rafael precisa confirmar."
+   },
+   {
+    "apontamento": "Revisão de fatos: contador não confirmado",
+    "acao": "aplicada",
+    "motivo": "O texto agora diz 'o escritório de contabilidade (quando houver) e o sistema de emissão de nota fiscal'."
+   },
+   {
+    "apontamento": "Revisão de fatos: oscilação entre 'a gente' e 'nós/conosco'",
+    "acao": "aplicada",
+    "motivo": "Padronizei com 'conosco', 'nós' e 'a Kronografx', como pede o estilo."
+   },
+   {
+    "apontamento": "Revisão de fatos: lista de contatos repetida em quem-somos e contato",
+    "acao": "aplicada",
+    "motivo": "Em 'Quem é a responsável' ficou só o e-mail, apresentado como canal com os titulares, com remissão à seção Contato. A lista completa ficou só no fim."
+   },
+   {
+    "apontamento": "Revisão de fatos: 'Responder você'",
+    "acao": "aplicada",
+    "motivo": "Trocado por 'Responder às suas mensagens', que corrige a regência."
+   },
+   {
+    "apontamento": "Revisão de fatos: 'comunicaremos você' e parágrafo repetido 'Você também pode ajudar'",
+    "acao": "aplicada",
+    "motivo": "Troquei por 'avisaremos você e a ANPD' e removi o parágrafo, que repetia o pedido da seção de dados sensíveis."
+   },
+   {
+    "apontamento": "Revisão de fatos: 'se opor' e 'peticionar'",
+    "acao": "aplicada",
+    "motivo": "Agora estão como 'opor-se' e 'apresentar uma reclamação'."
+   },
+   {
+    "apontamento": "Revisão de fatos: nota de parceiros e freelancers deve citar os textos da home",
+    "acao": "aplicada",
+    "motivo": "Conferi no index.html: 'Um fluxo só, sem repassar etapa para terceiros' e 'Sem intermediário: quem atende é quem anima'. A nota foi atualizada."
+   },
+   {
+    "apontamento": "Revisão de fatos: nota do encarregado sem as condições da dispensa",
+    "acao": "aplicada",
+    "motivo": "A nota agora traz as condições (não fazer tratamento de alto risco, limite de faturamento) e a frase pronta para incluir depois que o Rafael confirmar."
+   }
+  ]
+ },
+ "termos": {
+  "titulo": "Termos de Uso",
+  "intro_html": "<p>Estes Termos de Uso trazem as regras para usar o site da Kronografx (kronografx.com). Eles explicam o que você pode fazer aqui, como cuidamos do nosso conteúdo e do conteúdo de terceiros, como funcionam os orçamentos e quais são os direitos e as responsabilidades de cada lado. Escrevemos em linguagem simples de propósito. Se ficar qualquer dúvida, é só <a href=\"mailto:contato@kronografx.com\">falar conosco</a>.</p><p>A forma como tratamos dados pessoais está explicada na nossa <a href=\"privacidade.html\">Política de Privacidade</a>, que complementa estes Termos. Ela é um documento informativo: o tratamento dos seus dados não depende de você “aceitar” a Política, e sim das hipóteses previstas na Lei Geral de Proteção de Dados Pessoais (LGPD), que ela descreve.</p>",
+  "secoes": [
+   {
+    "id": "aceitacao",
+    "titulo": "Aceitação destes Termos",
+    "corpo_html": "<p>Estes Termos ficam disponíveis a qualquer momento pelo link no rodapé do site. Ao usar o site, você se compromete a seguir as regras daqui. Se não concordar com algum ponto, pedimos que não use o site e, se quiser, conte o motivo pelos nossos canais de contato.</p><p>O site é gratuito. Estes Termos tratam do uso do site. A contratação de um projeto segue a proposta ou o contrato combinado por escrito com você (veja a seção “Orçamentos e contratação”).</p>"
+   },
+   {
+    "id": "quem-somos",
+    "titulo": "Quem somos e o que é o site",
+    "corpo_html": "<p>A <b>Kronografx</b> (CNPJ 69.317.795/0001-62) é um estúdio de motion design, VFX (efeitos visuais) e pós-produção. Atendemos clientes de todo o Brasil de forma 100% online: reuniões, aprovações e entregas acontecem pela internet.</p><p>Este site é a nossa vitrine. Nele você encontra:</p><ul><li>informações sobre o estúdio, nossas ferramentas e nossa forma de trabalhar;</li><li>o portfólio, com projetos feitos para clientes e projetos conceituais, que são identificados como conceituais na página de cada projeto;</li><li>respostas a perguntas frequentes;</li><li>links para falar conosco por WhatsApp, e-mail ou Instagram.</li></ul><p>O site não tem cadastro, acesso com senha, área do cliente, loja nem pagamento. Nada é vendido ou cobrado por aqui: os serviços são combinados diretamente com você, como explicamos mais abaixo.</p>"
+   },
+   {
+    "id": "uso-do-site",
+    "titulo": "Como usar o site",
+    "corpo_html": "<p><b>Você pode:</b></p><ul><li>navegar pelo site e assistir aos vídeos para conhecer nosso trabalho;</li><li>compartilhar os links das páginas com outras pessoas;</li><li>entrar em contato para tirar dúvidas ou pedir uma proposta.</li></ul><p><b>Não é permitido:</b></p><ul><li>baixar para reutilizar, copiar, editar, republicar ou usar comercialmente vídeos, imagens, textos, a marca ou a identidade visual do site sem autorização por escrito da Kronografx e, quando for o caso, do cliente ou de outro titular dos direitos;</li><li>apresentar trabalhos do nosso portfólio como se fossem seus ou de outra pessoa;</li><li>usar o nome ou a marca Kronografx de um jeito que sugira parceria ou patrocínio, ou que você fale em nome do estúdio;</li><li>tentar invadir, sobrecarregar, alterar ou prejudicar o funcionamento do site ou do servidor onde ele está hospedado, ou inserir nele qualquer código malicioso;</li><li>usar nossos canais de contato para mandar mensagens em massa não solicitadas, golpes ou conteúdo ilegal ou ofensivo, ou para se passar por outra pessoa ou empresa;</li><li>usar o site para qualquer finalidade contrária à lei ou a estes Termos.</li></ul><p>Essas regras não impedem os usos que a própria lei permite sem autorização, como citar trechos para estudo, crítica ou debate, com indicação do autor e da origem, nos limites da Lei nº 9.610/1998 (Lei de Direitos Autorais). Se estes Termos forem descumpridos, poderemos tomar as medidas cabíveis para proteger os nossos direitos e os de terceiros.</p>"
+   },
+   {
+    "id": "propriedade-intelectual",
+    "titulo": "Propriedade intelectual",
+    "corpo_html": "<p>Os itens abaixo pertencem à Kronografx ou são usados com autorização dos respectivos titulares, e são protegidos pela legislação brasileira, em especial pela Lei nº 9.610/1998 (Lei de Direitos Autorais) e, quanto à marca, pela Lei nº 9.279/1996 (Lei de Propriedade Industrial):</p><ul><li>os vídeos, animações, imagens e textos do site;</li><li>o nome Kronografx, o logotipo e a identidade visual do estúdio.</li></ul><p>Alguns itens pertencem a outras pessoas ou empresas:</p><ul><li><b>Trabalhos feitos para clientes</b>, como o projeto “3 Sinais”, para a E2 Finanças, podem conter marcas, textos e materiais do cliente, que continuam sendo dele. Esses trabalhos aparecem no portfólio com autorização do cliente.</li><li><b>Marcas de outras empresas</b> que aparecem no portfólio pertencem aos seus titulares (veja a próxima seção).</li><li><b>Fontes tipográficas e outros recursos de terceiros</b> usados no site pertencem aos seus autores e são usados conforme as respectivas licenças.</li></ul><p>Acessar o site não transfere a você nenhum direito sobre esse conteúdo. Para qualquer uso que vá além de navegar, compartilhar links e fazer os usos que a lei permite, como exibir um trabalho nosso em outro lugar, peça autorização pelo e-mail <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a>.</p>"
+   },
+   {
+    "id": "marcas-de-terceiros",
+    "titulo": "Marcas de terceiros e projetos conceituais",
+    "corpo_html": "<p>Parte do portfólio é formada por <b>projetos conceituais</b>: peças que a própria Kronografx criou para mostrar técnica e estilo, sem pedido do dono da marca. Hoje os projetos conceituais são:</p><ul><li><b>“Um único app”</b>, com a marca Itaú, sem vínculo com o Itaú Unibanco;</li><li><b>“Seu nome no café”</b>, com a marca Starbucks, sem vínculo com a Starbucks.</li></ul><p>Eles não são anúncios oficiais: o Itaú Unibanco e a Starbucks não os encomendaram, aprovaram nem patrocinaram, e a página de cada projeto conceitual traz esse aviso. Os nomes, logotipos e demais sinais dessas marcas pertencem aos seus titulares. Eles aparecem apenas para identificar a marca usada no exercício criativo de portfólio. Não vendemos produtos ou serviços dessas empresas, e esse uso não indica parceria, patrocínio, aprovação nem qualquer vínculo com elas.</p><p>Se você é titular de uma marca ou de outro direito e acredita que algum conteúdo do site viola esse direito, escreva para <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a> informando qual é o conteúdo e qual é o direito envolvido. Vamos analisar o pedido e, se for o caso, ajustar ou retirar o conteúdo.</p>"
+   },
+   {
+    "id": "orcamentos-e-contratacao",
+    "titulo": "Orçamentos e contratação",
+    "corpo_html": "<p>O site não mostra preços e não fecha contratos. Funciona assim:</p><ul><li><b>Primeiro contato:</b> você conta a sua ideia por um dos nossos canais. Pedir uma proposta não obriga você a contratar.</li><li><b>Proposta por escrito:</b> antes de começar qualquer trabalho, enviamos uma proposta com escopo, prazo e valor, além das rodadas de ajuste e das demais condições daquele projeto. A proposta informa por quanto tempo vale. Se não informar, ela vale por 10 dias contados do recebimento, como prevê o art. 40 do Código de Defesa do Consumidor.</li><li><b>Início do projeto:</b> o trabalho só começa depois que você aprova a proposta ou assina o contrato.</li><li><b>Mudanças:</b> se for preciso mudar o escopo, o prazo ou o valor, isso será combinado com você por escrito antes.</li></ul><p>Os compromissos que divulgamos no site sobre a nossa forma de trabalhar valem para todos os projetos: proposta por escrito antes de começar, rodadas de ajuste combinadas e atendimento online. Os projetos do portfólio mostram trabalhos já feitos; o estilo, a duração e os entregáveis de cada projeto novo são definidos na proposta.</p><p>Se você contratar como consumidor, terá todos os direitos garantidos pela Lei nº 8.078/1990 (Código de Defesa do Consumidor). Isso inclui o direito de arrependimento (art. 49): como a contratação é feita a distância, você pode desistir em até 7 dias contados da aprovação da proposta ou da assinatura do contrato. Para isso, basta nos avisar pelo e-mail <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a> ou pelo <a href=\"https://wa.me/5516991220381\">WhatsApp</a>. Os valores que você tiver pago serão devolvidos de imediato, com atualização monetária.</p><p>Para contratar, é preciso ter 18 anos ou mais (ou ser emancipado), ou ser representado ou assistido pelo seu responsável legal.</p><p>Em cada projeto, a proposta ou o contrato vale mais que estes Termos naquilo que trata do serviço, sempre respeitando os direitos que a lei garante a você.</p>"
+   },
+   {
+    "id": "materiais-enviados",
+    "titulo": "Materiais que você nos envia",
+    "corpo_html": "<p>Para orçar ou produzir um projeto, você pode nos mandar briefing, textos, logotipos, imagens, vídeos, músicas e outros arquivos. Quando você faz isso:</p><ul><li>você declara que tem o direito de usar esses materiais e de compartilhá-los conosco para essa finalidade, ou que tem autorização de quem tem esse direito, inclusive das pessoas cuja imagem, voz ou dados aparecem neles;</li><li>nós usamos esses materiais para conversar com você, preparar a proposta e fazer o projeto contratado. Guardamos o que for necessário para o histórico do projeto e para cumprir obrigações legais, como explica a <a href=\"privacidade.html\">Política de Privacidade</a>;</li><li>não divulgamos seus materiais nem o projeto feito para você sem a sua autorização, a não ser quando a lei ou uma ordem de autoridade competente exigir. Mostrar um trabalho no nosso portfólio é sempre combinado com o cliente.</li></ul><p>Pedimos que você não envie senhas, dados bancários nem dados pessoais de outras pessoas que não sejam necessários para o projeto. Os dados pessoais que recebemos são tratados conforme a <a href=\"privacidade.html\">Política de Privacidade</a>.</p>"
+   },
+   {
+    "id": "servicos-de-terceiros",
+    "titulo": "Links e serviços de terceiros",
+    "corpo_html": "<p>Os botões de contato do site levam a serviços de outras empresas:</p><ul><li><b>WhatsApp</b> (<a href=\"https://wa.me/5516991220381\">wa.me/5516991220381</a>): abre uma conversa com a Kronografx com a mensagem “Olá, Kronografx! Vi o site e quero conversar sobre um projeto.” já escrita. Você pode editar ou apagar o texto, e nada é enviado sem a sua confirmação.</li><li><b>E-mail</b> (<a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a>): abre o aplicativo de e-mail do seu próprio aparelho.</li><li><b>Instagram</b> (<a href=\"https://instagram.com/kronografx\">@kronografx</a>): abre o nosso perfil na plataforma.</li></ul><p>Esses serviços têm termos de uso e políticas de privacidade próprios, que valem quando você os usa, e recomendamos que você os leia. A Kronografx não controla esses serviços. Por isso, não responde pelo funcionamento deles nem pelo tratamento de dados que eles fazem por conta própria. O que fazemos com as informações que você nos envia está explicado na <a href=\"privacidade.html\">Política de Privacidade</a>.</p>"
+   },
+   {
+    "id": "disponibilidade",
+    "titulo": "Disponibilidade do site",
+    "corpo_html": "<p>Fazemos o possível para manter o site no ar, atualizado e funcionando bem. Mesmo assim, ele pode sair do ar ou ficar lento de vez em quando, por manutenção, por falhas da hospedagem ou da internet, ou por motivos fora do nosso controle. Dependendo da sua conexão, os vídeos também podem demorar mais para carregar.</p><p>Podemos atualizar, mudar ou retirar páginas, textos e projetos do portfólio a qualquer momento, por exemplo para incluir trabalhos novos. Essas mudanças não afetam propostas aprovadas nem contratos assinados com você.</p>"
+   },
+   {
+    "id": "responsabilidade",
+    "titulo": "Limites de responsabilidade",
+    "corpo_html": "<p>Nada nestes Termos exclui ou reduz direitos que a lei garante a você, em especial os previstos no Código de Defesa do Consumidor. A Kronografx responde pelos danos que causar, nos termos da lei.</p><p>Respeitado esse limite, a Kronografx não é responsável por:</p><ul><li>serviços de terceiros, como WhatsApp, Instagram e o seu provedor de e-mail (veja “Links e serviços de terceiros”);</li><li>problemas causados pelo seu aparelho, navegador, programas ou conexão com a internet;</li><li>danos causados pelo uso do site ou do seu conteúdo em desacordo com estes Termos ou com a lei;</li><li>resultados comerciais específicos de um vídeo, como vendas, visualizações ou seguidores, a menos que estejam garantidos de forma expressa na proposta ou no contrato.</li></ul><p>As responsabilidades de cada lado em um projeto contratado ficam definidas na proposta ou no contrato, sempre dentro do que a lei permite.</p>"
+   },
+   {
+    "id": "privacidade",
+    "titulo": "Privacidade e dados pessoais",
+    "corpo_html": "<p>O tratamento de dados pessoais segue a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, a LGPD). Em resumo:</p><ul><li>o site não tem formulários nem cadastro, e o seu código não usa cookies, ferramentas de análise de audiência nem pixels de publicidade;</li><li>as fontes e os vídeos ficam no próprio servidor do site, e as páginas não carregam scripts, fontes, vídeos ou conteúdos de outros sites;</li><li>como em qualquer site, o servidor de hospedagem pode registrar dados técnicos de acesso, como endereço IP, data e hora, página acessada e tipo de navegador ou aparelho. Se a hospedagem usar algum recurso técnico como cookies, isso será informado na Política de Privacidade;</li><li>os dados que você nos envia ao entrar em contato são usados para responder, preparar propostas, fazer os projetos contratados, emitir nota fiscal, cumprir obrigações legais e fiscais e manter o histórico comercial.</li></ul><p>Este é só um resumo. Os detalhes, inclusive os seus direitos como titular dos dados e como exercê-los, estão na <a href=\"privacidade.html\">Política de Privacidade</a>. Se houver qualquer diferença entre este resumo e a Política, vale o que diz a Política. O site não é voltado a crianças nem a adolescentes.</p>"
+   },
+   {
+    "id": "alteracoes",
+    "titulo": "Alterações destes Termos",
+    "corpo_html": "<p>Podemos atualizar estes Termos quando o site, os nossos serviços ou a legislação mudarem. A data da última atualização fica sempre no topo desta página, e mudanças importantes serão destacadas aqui no site.</p><p>Vale a versão publicada no momento em que você usa o site. Mudanças nestes Termos não alteram as condições de propostas já aprovadas nem de contratos já assinados.</p>"
+   },
+   {
+    "id": "lei-e-foro",
+    "titulo": "Lei aplicável e foro",
+    "corpo_html": "<p>Estes Termos seguem as leis brasileiras, entre elas o Código de Defesa do Consumidor (Lei nº 8.078/1990), o Marco Civil da Internet (Lei nº 12.965/2014), a LGPD (Lei nº 13.709/2018), a Lei de Direitos Autorais (Lei nº 9.610/1998) e a Lei de Propriedade Industrial (Lei nº 9.279/1996).</p><p>Se tiver algum problema, fale primeiro com a Kronografx: queremos resolver da melhor forma. Isso é um convite, não uma obrigação: a qualquer momento, você pode procurar os órgãos de defesa do consumidor, como o Procon, ou a Justiça.</p><p>Se você for consumidor, pode entrar com uma eventual ação no foro do seu domicílio, como garante o Código de Defesa do Consumidor. Nos contratos de projeto, o foro, quando houver, será o indicado por escrito na proposta ou no contrato, sempre respeitando esse direito.</p><p>Se alguma parte destes Termos for considerada inválida, as demais continuam valendo normalmente.</p>"
+   },
+   {
+    "id": "contato",
+    "titulo": "Contato",
+    "corpo_html": "<p>Tem dúvidas, sugestões ou pedidos sobre estes Termos? Fale com a Kronografx (CNPJ 69.317.795/0001-62):</p><ul><li>E-mail: <a href=\"mailto:contato@kronografx.com\">contato@kronografx.com</a></li><li>WhatsApp: <a href=\"https://wa.me/5516991220381\">+55 16 99122-0381</a></li><li>Instagram: <a href=\"https://instagram.com/kronografx\">@kronografx</a></li></ul><p>Veja também a nossa <a href=\"privacidade.html\">Política de Privacidade</a>.</p>"
+   }
+  ],
+  "notas_para_rafael": [
+   "Razão social: o texto usa só o nome Kronografx e o CNPJ 69.317.795/0001-62. O Decreto nº 7.962/2013 (comércio eletrônico, art. 2º) pede que sites que oferecem serviços a consumidores mostrem o nome empresarial, o CNPJ e um endereço físico e eletrônico. Confirme se Kronografx é o nome fantasia desse CNPJ e me passe a razão social para incluir em 'Quem somos' e 'Contato'.",
+   "Endereço: o texto ficou sem endereço físico, porque não temos esse dado. Pode ser o endereço fiscal do CNPJ. Decida se quer publicar; se sim, me passe o endereço.",
+   "Foro: os Termos não escolhem mais um foro (a cláusula 'comarca da sede' foi retirada porque, num termo aceito só por navegação e sem comarca nomeada, ela tende a não valer, pelo Código de Processo Civil). Se quiser um foro de eleição para clientes empresas, coloque-o na proposta ou no contrato assinado, com a cidade/comarca nomeada. Para consumidores, o foro do domicílio deles continua garantido.",
+   "Direito de arrependimento: os Termos agora dizem que o cliente consumidor pode desistir em até 7 dias da aprovação da proposta ou da assinatura do contrato, avisando por e-mail ou WhatsApp, com devolução imediata dos valores pagos, corrigidos. Como toda contratação é online, isso vale para todo cliente pessoa física. Se você costuma começar o trabalho antes desses 7 dias, converse com um advogado sobre como tratar isso na proposta.",
+   "Validade da proposta: os Termos dizem que cada proposta informa por quanto tempo vale e, se não informar, vale por 10 dias (Código de Defesa do Consumidor, art. 40). Inclua em toda proposta: validade, forma de pagamento, datas de início e término, entregáveis e formatos, número de rodadas de ajuste, direitos de uso ou cessão do material entregue (a cessão de direitos autorais precisa ser por escrito, pela Lei nº 9.610/1998), autorização para usar o trabalho no portfólio e regras de cancelamento.",
+   "Compromissos que o texto assume em seu nome; confirme que é assim na prática: (a) proposta por escrito antes de começar; (b) mudanças de escopo, prazo ou valor combinadas por escrito antes; (c) não divulgar materiais nem projetos de clientes sem autorização e combinar com cada cliente o uso no portfólio; (d) destacar no site as mudanças importantes destes Termos. Lembre também que, pelo Código de Defesa do Consumidor, o que o site promete ao público (por exemplo 'Resposta rápida pelo WhatsApp') obriga a empresa.",
+   "Prazo de resposta: pelo Decreto nº 7.962/2013 (art. 4º, parágrafo único), pedidos e reclamações de consumidores enviados pelos canais eletrônicos devem ser respondidos em até 5 dias. Se quiser, posso incluir em 'Contato': 'Respondemos em até 5 dias úteis'.",
+   "Orçamento: o texto só diz que pedir proposta não obriga a contratar. Se o orçamento for sempre gratuito, vale dizer isso de forma expressa.",
+   "E2 Finanças: os Termos dizem que '3 Sinais' aparece no portfólio com autorização do cliente. Confirme que essa autorização existe, de preferência por escrito (contrato, e-mail ou mensagem), e que cobre também o uso da marca E2.",
+   "Itaú e Starbucks: o aviso 'sem vínculo' ajuda, mas não elimina o risco de usar marcas de terceiros sem autorização (Lei nº 9.279/1996). Os Termos já trazem um canal para pedidos de remoção. Atenção: o vídeo do Starbucks termina com '@starbucksbrasil', o que pode sugerir ligação com a marca.",
+   "Projetos conceituais no site: na página do Itaú e do Starbucks, o chip diz 'CLIENTE: Itaú' / 'CLIENTE: Starbucks', e no carrossel da home o selo mostra só a marca. Isso contradiz os Termos, que dizem que essas empresas não encomendaram os projetos. Sugiro mudar em dados.js o campo cliente para 'Itaú (conceito)' / 'Starbucks (conceito)', ou trocar o rótulo do chip para 'Marca' nos projetos conceituais.",
+   "Lista de projetos conceituais: sempre que entrar ou sair um projeto conceitual do portfólio, atualize a lista em 'Marcas de terceiros e projetos conceituais' e a data de 'Última atualização'.",
+   "Código e design do site: retirei dos Termos a frase que dizia que o design e o código do site são da Kronografx, porque não sei quem os fez. Se foi você (ou se você tem os direitos por escrito de quem fez), me avise que eu incluo de volta, citando também a Lei nº 9.609/1998 (Lei do Software).",
+   "Download dos vídeos: ao dar play na página de projeto, o player do navegador mostra a opção 'Fazer download', embora os Termos proíbam baixar para reutilizar. Se quiser esconder o botão, dá para adicionar controlsList=\"nodownload\" no <video id=\"pVideo\"> do index.html (isso só tira o botão, não impede o download).",
+   "consumidor.gov.br: tirei a menção porque a plataforma só recebe reclamações contra empresas cadastradas. Se a Kronografx se cadastrar, posso voltar a citá-la.",
+   "Marca Kronografx: o texto não fala em 'marca registrada'. Se houver registro ou pedido no INPI, posso citar o número; se não houver, vale considerar o registro.",
+   "Hospedagem: o texto não cita o provedor e diz que o código do site não usa cookies e que, se a hospedagem usar algum recurso desse tipo, isso vai estar na Política de Privacidade. Me diga qual é o provedor e confirme se ele acrescenta cookies, estatísticas de acesso ou scripts próprios (alguns provedores e CDNs fazem isso). Se no futuro o site ganhar Google Analytics, pixel, formulário ou vídeo incorporado do YouTube ou do Instagram, os Termos e a Política precisam ser atualizados.",
+   "Site: o rodapé (coluna LEGAL) e a página Contato já apontam para termos.html e privacidade.html, mas esses arquivos ainda não existem na pasta kronografx/, então hoje os links estão quebrados. Os dois precisam ser publicados na mesma pasta do index.html, com a mesma data de 'Última atualização'.",
+   "Recomendo que um advogado revise o texto antes da publicação definitiva, principalmente os pontos de razão social, direito de arrependimento, foro e marcas de terceiros."
+  ],
+  "alteracoes": [
+   {
+    "apontamento": "Revisão jurídica 1 / Revisão de fatos 3 — Intro e Aceitação: Política de Privacidade 'faz parte dos Termos', 'declara que leu' e aceite por navegação",
+    "acao": "aplicada",
+    "motivo": "A Política só informa (LGPD) e um 'aceite' genérico pode ser lido como consentimento genérico, que é nulo. A intro agora diz que a Política complementa os Termos e é informativa. A aceitação tirou a 'declaração de leitura' e diz que os Termos ficam disponíveis pelo link no rodapé (conferido no index.html, linha 354)."
+   },
+   {
+    "apontamento": "Revisão jurídica 2 / Revisão de fatos 1 — 'sem uso comercial' das marcas Itaú e Starbucks",
+    "acao": "aplicada",
+    "motivo": "A frase contradiz o próprio texto ('vitrine') e enfraquece a posição do estúdio perante a Lei de Propriedade Industrial. Juntei as duas sugestões: as marcas só identificam o exercício criativo, não vendemos produtos dessas empresas e não há parceria, patrocínio, aprovação nem vínculo."
+   },
+   {
+    "apontamento": "Revisão jurídica 3 — Direito de arrependimento incompleto",
+    "acao": "aplicada",
+    "motivo": "O CDC (art. 49) dá 7 dias e manda devolver os valores com correção. O Decreto nº 7.962/2013 exige informar como exercer o direito. Incluí o artigo, o início do prazo, os canais (e-mail e WhatsApp) e a devolução. Deixei uma nota sobre o trabalho iniciado dentro do prazo."
+   },
+   {
+    "apontamento": "Revisão jurídica 4 — Foro da 'comarca da sede' sem nome, em termo aceito por navegação",
+    "acao": "aplicada",
+    "motivo": "Pelo CPC, essa eleição de foro tende a não ter efeito e passa uma falsa segurança. O texto agora remete o foro à proposta ou ao contrato e mantém o foro do domicílio do consumidor. Registrei a recomendação nas notas."
+   },
+   {
+    "apontamento": "Revisão jurídica 5 — Propriedade intelectual categórica ('pertencem à Kronografx') e 'autorização por escrito' só nossa",
+    "acao": "aplicada",
+    "motivo": "Os fatos dizem que o material é do estúdio 'ou usado com autorização do cliente'. A abertura agora diz 'pertencem à Kronografx ou são usados com autorização dos respectivos titulares'. Em 'Como usar o site', a autorização passa a ser da Kronografx e, quando for o caso, do cliente ou de outro titular."
+   },
+   {
+    "apontamento": "Revisão jurídica 5 (parte) — citar a Lei nº 9.609/1998 (Lei do Software) para o código do site",
+    "acao": "rejeitada",
+    "motivo": "Conflita com a revisão de fatos 6 e com os FATOS, que não dizem quem é dono do código do site. Para não inventar esse fato, tirei o item 'o design e o código do site', e com ele a citação da Lei do Software. Ficou uma nota para o Rafael confirmar e, se for o caso, incluir os dois de volta."
+   },
+   {
+    "apontamento": "Revisão jurídica 6 / Revisão de fatos 5 — Materiais enviados: 'só' para o projeto e não divulgação sem ressalva legal",
+    "acao": "aplicada",
+    "motivo": "O 'só' contradiz os usos verificados (histórico, obrigações legais e fiscais). Agora o texto diz que os materiais servem ao projeto e que guardamos o necessário, remetendo à Política. A não divulgação ganhou a ressalva de lei ou ordem de autoridade competente."
+   },
+   {
+    "apontamento": "Revisão jurídica 7 — 'não usa cookies' sem ressalva sobre a hospedagem",
+    "acao": "aplicada",
+    "motivo": "Só o código foi verificado e o provedor é desconhecido. O texto agora diz 'o seu código não usa cookies...' e que um eventual recurso técnico da hospedagem será informado na Política."
+   },
+   {
+    "apontamento": "Revisão jurídica 8 — Prevalência da Política sobre o resumo",
+    "acao": "aplicada",
+    "motivo": "Evita divergência entre os documentos, que o CDC resolveria a favor do consumidor. Incluí: 'Se houver qualquer diferença entre este resumo e a Política, vale o que diz a Política.'"
+   },
+   {
+    "apontamento": "Revisão jurídica 9 — Validade da proposta (CDC, art. 40)",
+    "acao": "aplicada",
+    "motivo": "O CDC (art. 40, §1º) dá 10 dias de validade ao orçamento, salvo estipulação em contrário. O texto agora diz isso, e a nota para o Rafael lista os itens que toda proposta deve ter."
+   },
+   {
+    "apontamento": "Revisão jurídica 10 — Imagem, voz e dados de terceiros nos materiais enviados",
+    "acao": "aplicada",
+    "motivo": "A declaração do cliente agora cobre as pessoas cuja imagem, voz ou dados aparecem nos materiais (Código Civil e LGPD)."
+   },
+   {
+    "apontamento": "Revisão jurídica 11 — Prazo de 5 dias para responder consumidores (Decreto nº 7.962/2013, art. 4º)",
+    "acao": "aplicada",
+    "motivo": "Como a revisão sugeriu, o texto não mudou. A obrigação foi registrada nas notas para o Rafael, com a opção de prometer o prazo em 'Contato'."
+   },
+   {
+    "apontamento": "Revisão de fatos 2 — 'projetos conceituais sempre identificados como tais'",
+    "acao": "aplicada",
+    "motivo": "Conferido no código: o aviso fica só na página do projeto (campo nota). O carrossel mostra só a marca (app.js, linha 24) e o chip diz 'Cliente' (app.js, linha 67). O texto agora diz 'identificados como conceituais na página de cada projeto' e a nota sugere mudar o chip."
+   },
+   {
+    "apontamento": "Revisão de fatos 4 — consumidor.gov.br e 'a maioria das situações se resolve rápido'",
+    "acao": "aplicada",
+    "motivo": "A plataforma só atende empresas cadastradas e não há dado de que a Kronografx esteja. A afirmação sobre 'a maioria' não tem base. Ficaram o Procon e a Justiça, e uma nota explica a remoção."
+   },
+   {
+    "apontamento": "Revisão de fatos 6 — PI: retirar 'design e código do site', 'no que couber' e ressalvar os usos legais no último parágrafo",
+    "acao": "aplicada",
+    "motivo": "A autoria do código não está nos fatos, então o item saiu e virou nota. 'No que couber' virou 'quanto à marca'. O último parágrafo agora ressalva 'os usos que a lei permite' e diz 'pelo e-mail'."
+   },
+   {
+    "apontamento": "Revisão de fatos 7 — 'reproduzir' confunde com 'dar play' e o player oferece download",
+    "acao": "aplicada",
+    "motivo": "'Reproduzir' virou 'baixar para reutilizar'. Conferi que o player ativa os controles nativos (app.js, linha 58, pv.controls = true). A nota para o Rafael sugere controlsList=\"nodownload\"."
+   },
+   {
+    "apontamento": "Revisão de fatos 8 — Português (subjuntivo 'fale', 'pelo e-mail', 'titular de uma marca', repetição 'Esses/Essas')",
+    "acao": "aplicada",
+    "motivo": "Os quatro ajustes estão corretos e deixam o texto mais claro."
+   },
+   {
+    "apontamento": "Revisão de fatos 9 — Inglês ('spam', 'login'), 'a gente' e juridiquês",
+    "acao": "aplicada",
+    "motivo": "As trocas seguem o guia de estilo: 'mensagens em massa não solicitadas', 'acesso com senha' e 'falar conosco'. 'Salvo indicação em contrário' e 'fica escolhido o foro' saíram junto com os trechos reescritos pelas revisões jurídicas 4 e 5."
+   },
+   {
+    "apontamento": "Revisão de fatos 10 — 'compromisso nosso' vago e prevalência da proposta repetida",
+    "acao": "aplicada",
+    "motivo": "O parágrafo agora diz quais compromissos valem para todos os projetos. Cortei 'A partir daí, valem as condições desse documento', que repetia o último parágrafo da seção. A nota lembra que, pelo CDC, o que o site promete obriga a empresa."
+   },
+   {
+    "apontamento": "Revisão de fatos 11 — Seção 'Privacidade' longa demais, 'ele' ambíguo e clichê",
+    "acao": "aplicada",
+    "motivo": "Aplicada em parte. Tirei o clichê, troquei o 'ele' ambíguo por 'as páginas' e enxuguei os itens. Mantive o formato de lista porque ele carrega as ressalvas jurídicas (código sem cookies, hospedagem) e a regra de prevalência da Política, que as revisões jurídicas 7 e 8 pediram e que prevalecem."
+   },
+   {
+    "apontamento": "Revisão de fatos 12 — Repetições (cadastro, '100% online', serviços de terceiros)",
+    "acao": "aplicada",
+    "motivo": "Tirei 'e não exige cadastro' da Aceitação e '100% online' do Contato. Em 'Responsabilidade', o item sobre serviços de terceiros agora remete à seção própria."
+   },
+   {
+    "apontamento": "Revisão de fatos 13 — Compromisso de destacar mudanças e lista fixa de projetos conceituais",
+    "acao": "aplicada",
+    "motivo": "Como sugerido, o texto ficou igual. Os dois cuidados foram registrados nas notas para o Rafael."
+   },
+   {
+    "apontamento": "Revisão de fatos 14 — Nota sobre os links do rodapé desatualizada",
+    "acao": "aplicada",
+    "motivo": "Conferido: o index.html já tem os links no rodapé (linha 354) e na página Contato (linha 339), mas termos.html e privacidade.html não existem na pasta kronografx/. A nota foi reescrita para dizer isso."
+   }
+  ]
+ }
+}

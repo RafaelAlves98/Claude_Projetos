@@ -64,7 +64,7 @@
     page.classList.toggle("is-vertical", !!p.vertical);
     $("#pCat").textContent = p.categoria;
     $("#pTitle").textContent = p.titulo;
-    $("#pChips").innerHTML = [["Cliente", p.cliente], ["Ano", p.ano], ["Formato", p.formato], ["Duração", p.duracao]].map(function (c) {
+    $("#pChips").innerHTML = [[p.conceitual ? "Marca" : "Cliente", p.cliente], ["Ano", p.ano], ["Formato", p.formato], ["Duração", p.duracao]].map(function (c) {
       return "<div><span>" + esc(c[0].toUpperCase()) + "</span><b>" + esc(c[1]) + "</b></div>";
     }).join("");
     $("#pStory").innerHTML = (p.historia || []).map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("");
