@@ -198,14 +198,14 @@ function bouncingDot(c, x, start, tx, ty, r, h0, hop, col = VIO) {
 }
 /* cronômetro (o mesmo anel na dor e na resolução) */
 const RA = { k: "A", r: (P ? 300 : 290) * U, x: P ? cx : cx + 370 * U, y: cy + (P ? 20 : 10) * U };    // a dor: anel à direita (16:9) / no meio (9:16)
-const RB = { k: "B", r: (P ? 300 : 290) * U, x: P ? cx : cx - 370 * U, y: cy + (P ? -330 : 10) * U };  // o espelho: anel à esquerda (16:9) / em cima (9:16)
+const RB = { k: "B", r: 340 * U, x: P ? cx : cx - 370 * U, y: cy + (P ? -330 : 10) * U };  // o espelho: anel à esquerda (16:9) / em cima (9:16)
 let RC = RA;                                                                                     // o anel da cena que está sendo pintada
 const PIN = (R, x0, y0) => ({ stem: [x0 - 13 * U, y0 - R - 46 * U, 26 * U, 34 * U], cap: [x0 - 42 * U, y0 - R - 68 * U, 84 * U, 24 * U] });
 function drawPin(c, pin, col) { c.fillStyle = col; c.fillRect(...pin.stem); c.beginPath(); c.roundRect(...pin.cap, 10 * U); c.fill(); }
 function lerpRect(a, b, u) { return a.map((v, i) => mix(v, b[i], u)); }
 function shake(x) {
   let dx = 0, dy = 0;
-  for (const [b, a] of [[20, 26], [48, 18], [14.5, 9]]) {
+  for (const [b, a] of [[20, 26], [48, 18], [14.75, 9]]) {
     const d = x - b; if (d < 0 || d > 1.2) continue;
     const k = a * U * Math.exp(-d * 5.5);
     dx += k * (noise1(11 + b, d * 14) - 0.5) * 2; dy += k * (noise1(23 + b, d * 14) - 0.5) * 2;
@@ -214,74 +214,69 @@ function shake(x) {
 }
 
 /* ================================================================ S1 · "Olá." (0–4) */
-const R0 = 20 * U;                       // o ponto do quadro 0 (e do último: loop)
-const Z0 = 0.1, Z1 = 0.45, Z2 = 0.85;    // antecipação · fim da ida à esquerda · o ponto pousa (a varredura dura 0,4 batida)
-const HOPS1 = [1.5, 3.0];                // o ponto final quica nesses bumbos (a onda das letras fica em b2,25)
+// O quadro 0 é a tela inteira violeta (o fim do loop é o ponto inundando a tela). Ela se recolhe no ponto,
+// que antecipa, corre para a esquerda e varre para a direita revelando "Olá."; pousa no bumbo da batida 1.
+const R0 = 20 * U;
+const C0 = 0.3, Z0 = 0.4, Z1 = 0.6, Z2 = 1.0;   // fim do recolhimento · fim da antecipação · fim da ida à esquerda · pouso
+const HOPS1 = [2.0, 3.0];                      // o ponto final quica e pousa nesses bumbos
+const WAVES1 = [1.5, 2.4];                     // ondas nas letras
 let _s1;
 function s1L() {
   if (_s1) return _s1;
-  const fs = 340 * U, L = lay("Olá", FD(fs)), rd = fs * 0.072, gap = fs * 0.05;
+  const fs = fit(["Olá.."], FD, P ? 0.8 * W : 0.45 * W, 520 * U), L = lay("Olá", FD(fs)), rd = fs * 0.072, gap = fs * 0.05;
   const x0 = cx - (L.w + gap + 2 * rd) / 2, base = cy + L.cap / 2;
-  const endX = x0 + L.w + gap + rd, endY = base - rd, leftX = x0 - fs * 0.22;
+  const endX = x0 + L.w + gap + rd, endY = base - rd, leftX = x0 - fs * 0.16;
   const pass = [0, 1, 2].map((i) => Z1 + (Z2 - Z1) * invert(ioCubic, (gcx(L, x0, i) - leftX) / (endX - leftX)));
   return (_s1 = { fs, L, rd, x0, base, endX, endY, leftX, pass });
 }
+const COVER = Math.hypot(W, H) / 2 + 40 * U;     // raio que cobre a tela a partir do centro
 function s1Dot(x) {
   const S = s1L();
-  if (x < Z0) return [cx, cy];
-  if (x < 0.25) return [cx + 40 * U * ioCubic(prog(x, Z0, 0.25)), cy];
-  if (x < Z1) { const u = ioCubic(prog(x, 0.25, Z1)); return [mix(cx + 40 * U, S.leftX, u), mix(cy, S.endY, u) - Math.sin(Math.PI * u) * 60 * U]; }
+  if (x < Z0) return [cx + (x < C0 ? 0 : 40 * U * ioCubic(prog(x, C0, Z0))), cy];
+  if (x < Z1) { const u = ioCubic(prog(x, Z0, Z1)); return [mix(cx + 40 * U, S.leftX, u), mix(cy, S.endY, u) - Math.sin(Math.PI * u) * 70 * U]; }
   return [mix(S.leftX, S.endX, ioCubic(prog(x, Z1, Z2))), S.endY];
 }
-const WAVE = 2.25, waveDy = (x, i, fs) => -fs * 0.14 * bump(prog(x, WAVE + 0.075 * i, WAVE + 0.34 + 0.075 * i));
-const popS = (x) => 1 + 2.2 * Math.exp(-9 * x) * Math.sin(TAU * 2.2 * x);   // estouro com overshoot: 1 → 1,8 → 1
+const waveDy = (x, i, fs) => WAVES1.reduce((a, w) => a - fs * 0.12 * bump(prog(x, w + 0.06 * i, w + 0.32 + 0.06 * i)), 0);
 function s1(c, x) {
   bg(c, INK);
   const S = s1L(), { fs, L, rd, x0, base } = S;
-  // anel violeta do primeiro estouro (o gancho do quadro 0)
-  const ru = prog(x, 0, 0.5);
-  if (ru < 1) {
-    c.globalAlpha = 0.8 * (1 - ru); c.strokeStyle = VIO; c.lineWidth = 6 * U * (1 - ru);
-    c.beginPath(); c.arc(cx, cy, mix(R0, 0.22 * H, oCubic(ru)), 0, TAU); c.stroke(); c.globalAlpha = 1;
-  }
-  // push-in contínuo enquanto o "Olá." está na tela
-  const push = 1 + 0.05 * ioCubic(prog(x, 1.3, 3.45));
+  // a tela violeta se recolhe no ponto e solta um anel
+  if (x < C0) { blob(c, cx, cy, mix(COVER, R0, ioExpo(prog(x, 0, C0)))); return; }
+  const ru = prog(x, C0, C0 + 0.5);
+  if (ru < 1) { c.strokeStyle = VIO; c.lineWidth = 9 * U * (1 - ru); c.beginPath(); c.arc(cx, cy, mix(R0, 0.3 * H, oExpo(ru)), 0, TAU); c.stroke(); }
+  // push-in de 10% enquanto o "Olá." está na tela
+  const push = 1 + 0.1 * ioCubic(prog(x, Z2, 3.45));
   c.save(); c.translate(cx, cy); c.scale(push, push); c.translate(-cx, -cy);
-  // letras nascem quando o ponto passa
   c.fillStyle = PAPER;
   glyphs(c, L, x0, base, (i) => {
     const v = prog(x, S.pass[i] - 0.02, S.pass[i] + 0.45);
     if (v <= 0) return false;
-    const s = oBack(v, 2.0), w = waveDy(x, i, fs);
-    const air = bump(prog(x, WAVE + 0.075 * i, WAVE + 0.34 + 0.075 * i));
-    return { sx: s * (1 - 0.06 * air), sy: s * (1 + 0.1 * air), dy: (1 - oExpo(v)) * fs * 0.1 + w };
+    const s = oBack(v, 2.0), air = WAVES1.reduce((a, w) => a + bump(prog(x, w + 0.06 * i, w + 0.32 + 0.06 * i)), 0);
+    return { sx: s * (1 - 0.06 * air), sy: s * (1 + 0.1 * air), dy: (1 - oExpo(v)) * fs * 0.1 + waveDy(x, i, fs) };
   });
   // o ponto
   const [px, py] = s1Dot(x);
   let r = R0, sx = 1, sy = 1, ang = 0, dy = 0;
-  if (x < Z0) r = R0 * popS(x);
-  else if (x < 0.25) { const u = ioCubic(prog(x, Z0, 0.25)); r = R0 * popS(x); sx = 1 - 0.3 * u; sy = 1 + 0.24 * u; }
-  else if (x < Z2) {
-    r = mix(R0, rd, ioCubic(prog(x, Z1, Z2)));
-    const st = stretchOf(s1Dot, x); sx = st.s; sy = 1 / Math.sqrt(st.s); ang = st.ang;
-  } else {
+  if (x < Z0) { const u = ioCubic(prog(x, C0, Z0)); sx = 1 - 0.3 * u; sy = 1 + 0.24 * u; }
+  else if (x < Z2) { r = mix(R0, rd, ioCubic(prog(x, Z1, Z2))); const st = stretchOf(s1Dot, x); sx = st.s; sy = 1 / Math.sqrt(st.s); ang = st.ang; }
+  else {
     r = rd * (1 - 0.18 * ioCubic(prog(x, 3.15, 3.45)));
-    let k = 0.36 * wobble(x - Z2, 2.4, 8);
-    for (const b of HOPS1) { dy -= 0.06 * fs * bump(prog(x, b, b + 0.28)); if (x >= b + 0.28) k += 0.28 * wobble(x - b - 0.28, 2.4, 10); }
+    let k = 0.4 * wobble(x - Z2, 2.4, 8);
+    for (const b of HOPS1) {
+      const up = prog(x, b - 0.3, b);
+      dy -= 0.35 * fs * Math.sin(Math.PI * up);                                  // sobe 2–3 diâmetros e pousa no bumbo
+      if (up > 0 && up < 1) { const st = 1 + 0.25 * Math.sin(Math.PI * up); k = 1 / st - 1; }
+      if (x >= b) k += 0.4 * wobble(x - b, 2.4, 9);
+    }
     sx = 1 + k; sy = 1 - k;
   }
-  const hop = x >= Z2 ? waveDy(x, 3, fs) + dy : 0;
   // íris: o ponto engole a tela e abre o papel
   const maxD = Math.hypot(Math.max(S.endX, W - S.endX), Math.max(S.endY, H - S.endY)) + 40 * U;
   if (x >= 3.45) {
-    const rI = mix(rd * 0.82, maxD, ioCubic(prog(x, 3.45, 3.9)));
-    blob(c, S.endX, S.endY, rI);
+    blob(c, S.endX, S.endY, mix(rd * 0.82, maxD, ioCubic(prog(x, 3.45, 3.9))));
     const rP = maxD * ioCubic(prog(x, 3.62, 4.0));
     if (rP > 0.5) blob(c, S.endX, S.endY, rP, 1, 1, 0, PAPER);
-  } else {
-    const yy = x >= Z2 ? py + hop + (1 - sy) * r : py;
-    blob(c, px, yy, r, sx, sy, ang);
-  }
+  } else blob(c, px, (x >= Z2 ? py + dy + (1 - sy) * r : py), r, sx, sy, ang);
   c.restore();
 }
 
@@ -302,29 +297,34 @@ function s2L() {
   return (_s2 = { fs, lh, Ls, rd, bx, bases, starts, tx: bx + last.w + gap + rd, ty: bases[n - 1] - rd, vl, vs });
 }
 const S2DROP = 5.25;
-function s2Card(x) {     // retângulo do "papel": a tela inteira → um card do feed que sobe
-  const e = ioExpo(prog(x, 7.4, 7.82)), w = (P ? 0.42 : 0.2) * W, h = w * 1.25, fl = iCubic(prog(x, 7.78, 8.0));
-  const r = [mix(0, cx - w / 2, e), mix(0, cy - h / 2, e) - fl * (cy + h / 2 + 40 * U), mix(W, w, e), mix(H, h, e)];
-  return { r, rad: mix(0, 28 * U, e) };
+function s2Card(x) {     // o "papel" (a tela inteira, com o texto) encolhe até virar um post do feed e sobe rolando
+  const e = oExpo(prog(x, 7.4, 7.85)), k = mix(1, P ? 0.4 : 0.28, e), fl = iCubic(prog(x, 7.8, 8.05));
+  return { k, ox: cx - (W * k) / 2, oy: cy - (H * k) / 2 - fl * (cy + (H * k) / 2 + 40 * U), rad: mix(0, 40 * U, e) / Math.max(k, 0.01) };
 }
 function s2(c, x) {
   const S = s2L(), { fs, Ls, bx, bases } = S;
   if (x < 7.4) bg(c, PAPER);
-  else { bg(c, INK); const K = s2Card(x); c.fillStyle = PAPER; c.beginPath(); c.roundRect(...K.r, K.rad); c.fill(); c.save(); c.beginPath(); c.roundRect(...K.r, K.rad); c.clip(); }
+  else {
+    bg(c, INK); feed(c, x);
+    const K = s2Card(x);
+    c.save(); c.translate(K.ox, K.oy); c.scale(K.k, K.k);
+    c.save(); c.shadowColor = "rgba(0,0,0,0.5)"; c.shadowBlur = 40 * U; c.fillStyle = PAPER; c.beginPath(); c.roundRect(0, 0, W, H, K.rad); c.fill(); c.restore();
+    c.beginPath(); c.roundRect(0, 0, W, H, K.rad); c.clip();
+  }
   let k0 = 0;
   c.fillStyle = INK;
   Ls.forEach((L, li) => {
     const bh = bandH(L), k1 = k0;
     maskLine(c, L, bx, bases[li], (k) => {
       const g = k1 + k, st = S.starts[g];
-      const u = oExpo(prog(x, st, st + 0.55)), e = ioCubic(prog(x, 7.0 + 0.045 * g, 7.4 + 0.045 * g));
-      if (u <= 0 || e >= 1) return false;
-      return { dy: (1 - u) * bh * 0.95 + e * bh * 0.95 };
+      const u = oExpo(prog(x, st, st + 0.55));
+      if (u <= 0) return false;
+      return { dy: (1 - u) * bh * 0.95 };
     });
     k0 += nWords(L.text);
   });
   // "você" ganha um traço violeta
-  const ua = oExpo(prog(x, 7.0, 7.35)), ub = oExpo(prog(x, 6.0, 6.45));
+  const ua = 0, ub = oExpo(prog(x, 6.0, 6.45));
   underline(c, S.vs[0], S.vs[1], bases[S.vl] + fs * 0.16, fs, ua, ub);
   if (x >= 7.4) c.restore();
   // o ponto final cai e quica; depois pula para o centro do cronômetro
@@ -343,7 +343,7 @@ const GAIN = ["Parou.", "Olhou.", "Ficou."], GAIN_AT = [45, 46, 47];
 const _rcs = {};
 function rcL() {
   if (_rcs[RC.k]) return _rcs[RC.k];
-  const nf = (P ? 172 : 190) * U, NF = FD(nf), digW = Math.max(...("0123456789".split("").map((d) => lay(d, NF).w))), comW = lay(",", NF).w;
+  const nf = (P ? 172 : 190) * U * (RC.r / RA.r), NF = FD(nf), digW = Math.max(...("0123456789".split("").map((d) => lay(d, NF).w))), comW = lay(",", NF).w;
   const hs = (P ? 112 : 124) * U, ws = (P ? 104 : 112) * U;
   const mirror = RC === RB;
   const hy = P ? (mirror ? [RC.y + RC.r + 200 * U, RC.y + RC.r + 324 * U] : [RC.y - RC.r - 252 * U, RC.y - RC.r - 128 * U]) : [cy - 150 * U, cy - 14 * U];
@@ -351,7 +351,7 @@ function rcL() {
   return (_rcs[RC.k] = { nf, NF, digW, comW, hs, ws, hy, hx: P ? null : mirror ? cx + 40 * U : 150 * U, wy, lab: lay("segundos", FD((P ? 62 : 52) * U)) });
 }
 /* número do cronômetro em células fixas + "segundos" (grande o bastante para o celular) */
-function clockNumber(c, v, col, scale = 1) {
+function clockNumber(c, v, col, scale = 1, labCol = G5) {
   if (scale <= 0.001) return;
   const S = rcL(), d = Math.floor(v + 1e-9), t = Math.round((v - d) * 10) % 10;
   const chars = [String(d), ",", String(t)], widths = [S.digW, S.comW, S.digW];
@@ -362,7 +362,7 @@ function clockNumber(c, v, col, scale = 1) {
   let xx = RC.x - tot / 2;
   chars.forEach((ch, i) => { c.fillText(ch, xx + widths[i] / 2, base); xx += widths[i]; });
   c.textAlign = "left";
-  c.fillStyle = G5; glyphs(c, lab, RC.x - lab.w / 2, lbase, null);
+  c.fillStyle = labCol; glyphs(c, lab, RC.x - lab.w / 2, lbase, null);
   c.restore();
 }
 function ticks(c, sweep, colOf) {
@@ -400,7 +400,7 @@ function slotWords(c, x, list, at, col, lastCol, outU = 0) {
 }
 function feed(c, x) {
   const nc = P ? 4 : 7, gap = 26 * U, cw = (W - gap * (nc + 1)) / nc;
-  const entry = (1 - oExpo(prog(x, 7.9, 9.2))) * H * 0.95;
+  const entry = (1 - oExpo(prog(x, 7.4, 8.6))) * H * 0.95;
   let scroll = 90 * U * (x - 8);
   for (const k of PAIN_AT) scroll += 620 * U * oExpo(prog(x, k, k + 0.6));
   scroll += 2400 * U * iCubic(prog(x, 15, 16));
@@ -428,17 +428,17 @@ function feed(c, x) {
   c.fillStyle = g; c.fillRect(-PADB, -PADB, W + 2 * PADB, H + 2 * PADB);
 }
 /* queda em cascata: o que está mais embaixo cai primeiro (nada passa por cima de nada), rotação ≤ 6° */
-const FALL = [[15.3, -1], [15.18, 1], [15.18, 1], [15.1, -1], [15.18, 1]];   // 0 título · 1 número · 2 anel · 3 palavra · 4 ponto
-const fallOf = (x, k) => { const [st, dir] = FALL[k], u = prog(x, st, st + 0.66); return { dy: Math.pow(u, 2.2) * H * 1.35, dx: dir * 90 * U * u, rot: dir * 0.1 * u * u }; };
+const FALL = [[15.4, -1], [15.28, 1], [15.28, 1], [15.2, -1], [15.28, 1]];   // 0 título · 1 número · 2 anel · 3 palavra · 4 ponto
+const fallOf = (x, k) => { const [st, dir] = FALL[k], u = prog(x, st, st + 0.58); return { dy: Math.pow(u, 2.2) * H * 1.35, dx: dir * 90 * U * u, rot: dir * 0.1 * u * u }; };
 function grp(c, tr, px, py, fn) { c.save(); c.translate(px + (tr.dx || 0), py + tr.dy); c.rotate(tr.rot); c.translate(-px, -py); fn(); c.restore(); }
 function s3content(c, x) {
   bg(c, INK);
   feed(c, x);
   const S = rcL(), R = RC.r;
   const sweep = TAU * ioCubic(prog(x, 8.0, 8.75));
-  // o ponto anda no tique-taque (batidas inteiras); a contagem corre contínua de b8,5 a b14,5
+  // o ponto anda no tique-taque (batidas inteiras); a contagem corre contínua de b8,75 a b14,75 (3,0 s reais)
   let es = 0;
-  [[9, 0.5], [10, 1], [11, 1], [12, 1], [13, 1], [14, 1], [14.5, 0.5]].forEach(([b0, dv]) => { es += dv * oBack(prog(x, b0, b0 + 0.22), 2.2); });
+  [[9, 0.25], [10, 1], [11, 1], [12, 1], [13, 1], [14, 1], [14.75, 0.75]].forEach(([b0, dv]) => { es += dv * oBack(prog(x, b0, b0 + 0.22), 2.2); });
   const aDot = -Math.PI / 2 + es * (Math.PI / 3);
   // anel
   grp(c, fallOf(x, 2), RC.x, RC.y, () => {
@@ -452,12 +452,12 @@ function s3content(c, x) {
   });
   // número
   grp(c, fallOf(x, 1), RC.x, RC.y, () => {
-    const v = x < 8.5 ? 3 : Math.max(0, 3 - (T(x) - T(8.5)));
-    const disp = Math.ceil(v * 10 - 1e-6) / 10, s = oBack(prog(x, 8.25, 8.6), 2) * (1 + 0.14 * wobble(x - 14.5, 2, 7));
+    const v = x < 8.75 ? 3 : Math.max(0, 3 - (T(x) - T(8.75)));
+    const disp = Math.ceil(v * 10 - 1e-6) / 10, s = oBack(prog(x, 8.2, 8.55), 2) * (1 + 0.14 * wobble(x - 14.75, 2, 7));
     if (s > 0.01) clockNumber(c, disp, PAPER, s);
   });
   // "Seu público te dá"
-  grp(c, fallOf(x, 0), P ? cx : S.hx, S.hy[0], () => { c.fillStyle = PAPER; header(c, x, ["Seu público", "te dá"], 8.0); });
+  grp(c, fallOf(x, 0), P ? cx : S.hx, S.hy[0], () => { c.fillStyle = PAPER; header(c, x, ["Seu público", "dá a você"], 8.0); });
   grp(c, fallOf(x, 3), P ? cx : S.hx, S.wy, () => slotWords(c, x, PAIN, PAIN_AT, G5));
   // o ponto: sai do centro, vai ao topo do anel e marca o tempo que escorre
   grp(c, fallOf(x, 4), RC.x, RC.y, () => {
@@ -468,11 +468,11 @@ function s3content(c, x) {
   });
 }
 function s3(c, x) {
-  if (x < 14.5 || x >= 14.8) { s3content(c, x); return; }   // glitch curto; depois o 0,0 fica limpo até a queda
+  if (x < 14.75 || x >= 15.0) { s3content(c, x); return; }   // glitch curto; depois o 0,0 fica limpo até a queda
   gctx.setTransform(1, 0, 0, 1, 0, 0);
   s3content(gctx, x);
-  const seed = Math.floor((x - 14.5) * 22);
-  const amp = (x < 14.6 ? 1 : 0.6 * (1 - prog(x, 14.6, 14.8))) * (rnd(91, seed) > 0.25 ? 1 : 0.2);
+  const seed = Math.floor((x - 14.75) * 22);
+  const amp = (x < 14.85 ? 1 : 0.6 * (1 - prog(x, 14.85, 15.0))) * (rnd(91, seed) > 0.25 ? 1 : 0.2);
   bg(c, INK);
   let y = 0, j = 0;
   while (y < H) {
@@ -489,11 +489,11 @@ let _s4;
 function s4L() {
   if (_s4) return _s4;
   const tx = P ? 96 * U : 150 * U;
-  const gs = (P ? 400 : 330) * U, gx = P ? cx : cx + 470 * U, gy = P ? cy - 150 * U : cy - 175 * U;
-  const kw = (P ? 460 : 340) * U, kh = (P ? 300 : 220) * U;                 // o card (um post) é o protagonista
-  const trY = P ? cy + 430 * U : cy + 260 * U, tr0 = P ? 0.08 * W : gx - 400 * U, tr1 = P ? 0.92 * W : gx + 400 * U;
-  const fs = P ? 104 * U : fit(["todo mundo fica.", "ninguém fica."], FD, gx - gs / 2 - 46 * U - 60 * U - tx, 124 * U), lh = fs * 1.12;
-  const ty1 = P ? 330 * U : cy - 30 * U;
+  const gs = (P ? 400 : 420) * U, gx = P ? cx : W - 150 * U - 46 * U - 210 * U, gy = P ? cy - 150 * U : 330 * U;
+  const kw = (P ? 460 : 380) * U, kh = (P ? 300 : 250) * U;                 // o card (um post) é o protagonista
+  const trY = P ? cy + 430 * U : H - 230 * U, tr0 = 0.08 * W, tr1 = 0.92 * W;
+  const fs = P ? 104 * U : fit(["todo mundo fica.", "ninguém fica."], FD, gx - gs / 2 - 46 * U - 80 * U - tx, 116 * U), lh = fs * 1.12;
+  const ty1 = P ? 330 * U : 250 * U;
   return (_s4 = { fs, lh, tx, ty1, ty2: ty1 + lh, gs, gx, gy, trY, tr0, tr1, kw, kh });
 }
 function bez(p1, p2, s) {   // curva temporal: x = tempo, y = valor (como no Graph Editor)
@@ -502,7 +502,7 @@ function bez(p1, p2, s) {   // curva temporal: x = tempo, y = valor (como no Gra
   const t = invert(bx, s); return by(t);
 }
 function s4State(x) {
-  const m = ioCubic(prog(x, 17.6, 18.4));
+  const m = ioCubic(prog(x, 17.1, 17.9));
   const p1 = [mix(1 / 3, 0.8, m), mix(1 / 3, 0.0, m)], p2 = [mix(2 / 3, 0.2, m), mix(2 / 3, 1.0, m)];
   const q = (Math.min(x, 19.75) - 16) % 2, s = q < 1 ? q : 2 - q;
   return { m, p1, p2, s, v: bez(p1, p2, s) };
@@ -517,20 +517,20 @@ function postCard(c, w, h, col) {     // um post de feed: miniatura, avatar e du
 }
 function s4(c, x) {
   bg(c, INK);
-  const S = s4L(), st = s4State(x), push = 1 + 0.08 * ioCubic(prog(x, 17.5, 19.75));
+  const S = s4L(), st = s4State(x), push = 1 + 0.06 * ioCubic(prog(x, 17.0, 19.75));
   c.save(); c.translate(S.gx, S.gy); c.scale(push, push); c.translate(-S.gx, -S.gy);
   const [kx, ky] = s4CardPos(x);
   if (x >= 19.75) {    // silêncio: só o card violeta, prendendo a respiração
-    const u = prog(x, 19.75, 19.93), g = iExpo(prog(x, 19.93, 20.0));
-    const s = (1 - 0.18 * oCubic(u)) * mix(1, Math.max(W / S.kw, H / S.kh) * 1.6, g);
-    c.fillStyle = VIO; c.beginPath(); c.roundRect(kx - (S.kw * s) / 2, ky - (S.kh * s) / 2, S.kw * s, S.kh * s, 28 * U * Math.max(1, s * 0.2)); c.fill();
+    const u = prog(x, 19.75, 19.85), g = ioCubic(prog(x, 19.85, 20.0));
+    const s = (1 - 0.15 * oCubic(u)) * mix(1, Math.max(W / S.kw, H / S.kh) * 1.15, g);
+    c.fillStyle = VIO; c.beginPath(); c.roundRect(kx - (S.kw * s) / 2, ky - (S.kh * s) / 2, S.kw * s, S.kh * s, 28 * U * (1 - g)); c.fill();
     c.restore(); return;
   }
   // texto
   const A = lay("Sem ritmo,", FD(S.fs)), A2 = lay("Com ritmo,", FD(S.fs));
   const B = lay("ninguém fica.", FD(S.fs)), B2 = lay("todo mundo fica.", FD(S.fs));
   const tx = P ? cx - Math.max(A.w, B2.w) / 2 : S.tx;
-  const fu = prog(x, 18.2, 18.42);
+  const fu = prog(x, 17.5, 17.72);
   c.fillStyle = PAPER;
   maskLine(c, fu < 0.5 ? A : A2, tx, S.ty1, (k) => {
     const u = oExpo(prog(x, 16.0 + 0.15 * k, 16.55 + 0.15 * k)), bh = bandH(A);
@@ -538,12 +538,12 @@ function s4(c, x) {
     return { dy: (1 - u) * bh };
   });
   maskLine(c, B, tx, S.ty2, (k) => {
-    const u = oExpo(prog(x, 16.4 + 0.15 * k, 16.95 + 0.15 * k)), o = ioCubic(prog(x, 18.25 + 0.05 * k, 18.5 + 0.05 * k)), bh = bandH(B);
+    const u = oExpo(prog(x, 16.4 + 0.15 * k, 16.95 + 0.15 * k)), o = ioCubic(prog(x, 17.55 + 0.05 * k, 17.8 + 0.05 * k)), bh = bandH(B);
     if (o >= 1) return false;
     return { dy: (1 - u) * bh + o * bh };
   });
   maskLine(c, B2, tx, S.ty2, (k) => {
-    const u = oExpo(prog(x, 18.4 + 0.06 * k, 18.8 + 0.06 * k)), bh = bandH(B2);
+    const u = oExpo(prog(x, 17.78, 18.03)), bh = bandH(B2);   // a frase nova entra inteira de uma vez
     if (u <= 0) return false;
     return { dy: (1 - u) * bh };
   });
@@ -566,7 +566,7 @@ function s4(c, x) {
   c.strokeStyle = mixc(G4, VIO, st.m); c.lineWidth = 6 * U; c.lineCap = "round"; c.lineJoin = "round";
   polyPart(c, pts, 0, oExpo(prog(x, 16.3, 17.0)));
   // alças de Bézier
-  const hs = oBack(prog(x, 17.45, 17.7), 2.2);
+  const hs = oBack(prog(x, 17.0, 17.25), 2.2);
   if (hs > 0) {
     const h1 = mp(...st.p1), h2 = mp(...st.p2), e0 = mp(0, 0), e1 = mp(1, 1);
     c.strokeStyle = VIO; c.lineWidth = 3 * U;
@@ -582,6 +582,13 @@ function s4(c, x) {
   c.strokeStyle = G2; c.lineWidth = 4 * U; c.lineCap = "round";
   c.beginPath(); c.moveTo(mix((S.tr0 + S.tr1) / 2, S.tr0, tp), S.trY); c.lineTo(mix((S.tr0 + S.tr1) / 2, S.tr1, tp), S.trY); c.stroke();
   const ks = oBack(prog(x, 16.4, 16.75), 2);
+  if (ks > 0.99) {
+    for (const lag of [0.36, 0.24, 0.12]) {
+      const [gx2, gy2] = s4CardPos(x - lag), al = 0.55 - lag;
+      c.globalAlpha = al; c.strokeStyle = mixc(G4, VIO, st.m); c.lineWidth = 3 * U;
+      c.beginPath(); c.roundRect(gx2 - S.kw / 2, gy2 - S.kh / 2, S.kw, S.kh, 28 * U); c.stroke(); c.globalAlpha = 1;
+    }
+  }
   if (ks > 0) {
     const vs = stretchOf(s4CardPos, x, 1 / 9000, 0.5), sxk = 1 + (vs.s - 1) * st.m;
     c.save(); c.translate(kx, ky); c.scale(ks * sxk, ks / Math.sqrt(sxk));
@@ -620,11 +627,7 @@ function s5(c, x) {
     S.a.Ls.forEach((L, li) => {
       const base = S.a.bases[li];
       glyphs(c, L, S.a.xs[li], base, (i) => {
-        if (li === 1) {
-          const st = 20.2 + 0.03 * i, u = prog(x, st, st + 0.3);
-          if (x < st) return false;
-          return { dy: (1 - oBack(u, 1.6)) * (H - base + S.a.fs), sy: 1 + 0.15 * (1 - u), sx: 1 - 0.08 * (1 - u) };
-        }
+        if (li === 1) return false;
         const st = 20 + 0.028 * g++, u = prog(x, st, st + 0.17);
         if (x < st) return false;
         if (u < 1) return { dy: -(1 - u * u) * (base + S.a.fs * 1.1), sy: 1.22, sx: 0.9 };
@@ -632,12 +635,15 @@ function s5(c, x) {
         return { sy: 1 - 0.3 * k, sx: 1 + 0.22 * k };
       });
     });
-  } else if (x < 22) {                 // "pensado": encolhe do gigante, o tracking fecha
+    if (S.a.Ls.length > 1) {          // 9:16: a 2ª linha sobe pela máscara da própria linha (não cruza a 1ª)
+      const L = S.a.Ls[1], base = S.a.bases[1];
+      maskLine(c, L, S.a.xs[1], base, (k, i) => { const u = oBack(prog(x, 20.2 + 0.03 * i, 20.5 + 0.03 * i), 1.6); return u <= 0 ? false : { dy: (1 - u) * bandH(L) }; });
+    }
+  } else if (x < 22) {                 // "pensado": slam de escala
     bg(c, INK);
-    const L = S.b.Ls[0], n = L.text.length, tr0 = 0.25 * S.b.fs, s0 = Math.min(1.6, (0.92 * W) / (L.w + (n - 1) * tr0));
-    const e = oExpo(prog(x, 21, 21.6)), s = mix(s0, 1, e) * (1 + 0.03 * prog(x, 21.6, 22)), tr = mix(tr0, 0, e);
-    const w = L.w + (n - 1) * tr;
-    c.save(); c.translate(cx, cy - (1 - e) * 0.3 * H); c.rotate(mix(-0.08, 0, e)); c.scale(s, s); c.translate(-cx, -cy);
+    const L = S.b.Ls[0], s0 = Math.min(1.4, (0.92 * W) / L.w), e = oBack(prog(x, 21, 21.32), 2.6);
+    const s = mix(s0, 1, e) * (1 + 0.03 * prog(x, 21.4, 22)), tr = 0, w = L.w;
+    c.save(); c.translate(cx, cy); c.rotate(mix(-0.05, 0, cl(e))); c.scale(s, s); c.translate(-cx, -cy);
     c.fillStyle = PAPER; glyphs(c, L, cx - w / 2, S.b.bases[0], null, tr);
     c.restore();
   } else if (x < 23) {                 // "pra prender": entra pela direita; colchetes violeta prendem a palavra
@@ -685,16 +691,17 @@ function s5(c, x) {
 
 /* ================================================================ S6 · morph (24–28) */
 const S6R = (P ? 175 : 190) * U;
-const KF = (P ? [[0, 0], [-220, -520], [200, -190], [-180, 250], [0, 0]] : [[0, 0], [-560, 70], [-190, -110], [430, 70], [0, 0]]).map(([a, b]) => [cx + a * U, cy + b * U]);
+const KF = (P ? [[0, 0], [-200, -300], [200, -60], [-180, 220], [0, 0]] : [[0, 0], [-560, 70], [-190, -110], [430, 70], [0, 0]]).map(([a, b]) => [cx + a * U, cy + b * U]);
 const NS = 240;
 const SHAPES = [
   () => 1,
   (t) => 0.93 * Math.pow(Math.pow(Math.abs(Math.cos(t)), 4) + Math.pow(Math.abs(Math.sin(t)), 4), -1 / 4),
   (t) => 1.2 * Math.pow(Math.pow(Math.abs(Math.cos(t)), 1.15) + Math.pow(Math.abs(Math.sin(t)), 1.15), -1 / 1.15),
   (t) => 0.86 + 0.17 * cl(0.5 + 2.4 * Math.cos(12 * t)),
-  (t) => Math.pow(Math.pow(Math.abs(Math.cos(t)) / 1.55, 8) + Math.pow(Math.abs(Math.sin(t)) / 0.87, 8), -1 / 8),
+  (t) => Math.pow(Math.pow(Math.abs(Math.cos(t)) / (P ? 0.87 : 1.55), 8) + Math.pow(Math.abs(Math.sin(t)) / (P ? 1.55 : 0.87), 8), -1 / 8),   // a moldura do formato
 ];
 const RAD = SHAPES.map((f) => { const a = new Float32Array(NS); for (let i = 0; i < NS; i++) a[i] = f((i / NS) * TAU); return a; });
+const RAD_GEARBASE = new Float32Array(NS).fill(0.94);    // a engrenagem sem dentes (fase 1 do morph engrenagem → moldura)
 const DUR6 = [0.4, 0.6, 0.3, 0.5];      // cada morph com um tempo diferente
 const ARR6 = DUR6.map((d, i) => 24 + i + d);   // chegada em cada keyframe
 function s6Seg(x) { const i = cl(Math.floor(x - 24), 0, 3); return { i, e: ioExpo(prog(x, 24 + i, ARR6[i])) }; }
@@ -704,10 +711,16 @@ function s6Pos(x) {
   const u = e, w0 = (1 - u) * (1 - u), w1 = 2 * (1 - u) * u, w2 = u * u;
   return [w0 * a[0] + w1 * k[0] + w2 * b[0], w0 * a[1] + w1 * k[1] + w2 * b[1]];
 }
+function shapeR(ra, rb, e, jj) {
+  if (ra === RAD[3] && rb === RAD[4]) {      // engrenagem → moldura em duas fases: recolhe os dentes, depois vira retângulo
+    return e < 0.35 ? mix(ra[jj], RAD_GEARBASE[jj], ioCubic(e / 0.35)) : mix(RAD_GEARBASE[jj], rb[jj], ioCubic((e - 0.35) / 0.65));
+  }
+  return mix(ra[jj], rb[jj], e);
+}
 function shapePath(c, ra, rb, e, rot, scale) {
   c.beginPath();
   for (let j = 0; j <= NS; j++) {
-    const jj = j % NS, t = (jj / NS) * TAU, r = mix(ra[jj], rb[jj], e) * S6R * scale;
+    const jj = j % NS, t = (jj / NS) * TAU, r = shapeR(ra, rb, e, jj) * S6R * scale;
     const xx = r * Math.cos(t + rot), yy = r * Math.sin(t + rot);
     j ? c.lineTo(xx, yy) : c.moveTo(xx, yy);
   }
@@ -716,9 +729,9 @@ function shapePath(c, ra, rb, e, rot, scale) {
 function s6Shape(c, x, mode, col) {
   const { i, e } = s6Seg(x), [px, py] = s6Pos(x), ra = RAD[i], rb = RAD[i + 1];
   // giro contínuo nas pausas (some até a moldura chegar reta)
-  const rot = (i + e) * (Math.PI / 2) + 0.15 * (Math.min(x, 27) - 24) * (i === 3 ? 1 - e : 1);
   const grow = x >= 27.6 ? ioCubic(prog(x, 27.6, 27.86)) : 0;
-  const cover = Math.max(W / (2 * 1.55 * S6R), H / (2 * 0.87 * S6R)) * 1.18;
+  const rot = (i + e) * (Math.PI / 2) + 0.6 * (Math.min(x, 27) - 24) * (i === 3 ? 1 - e : 1) + 0.14 * grow;   // giro contínuo forte; a moldura gira um pouco ao passar pela câmera
+  const cover = Math.max(W / (2 * (P ? 0.87 : 1.55) * S6R), H / (2 * (P ? 1.55 : 0.87) * S6R)) * 1.18;
   let punch = 1; for (const a of ARR6) if (x >= a) punch *= 1 + 0.06 * wobble(x - a, 2.4, 8);   // chega e "assenta"
   const sc = mix(1, cover, grow) * punch;
   const st = stretchOf(s6Pos, x, 1 / 7000, 0.45);
@@ -731,11 +744,14 @@ function s6Shape(c, x, mode, col) {
     if (gw > 0.01) blob(c, 0, 0, 0.3 * S6R * oBack(gw, 1.2), 1, 1, 0, INK);
     // a moldura 16:9 se esvazia: o miolo cresce mais rápido e a borda violeta passa pela câmera
     const hole = sc * 0.93 * oExpo(prog(x, 27.62, 27.84));
-    if (grow > 0 && hole > 0.01) { shapePath(c, ra, rb, e, rot, hole); c.fillStyle = INK; c.fill(); }
-  } else { c.strokeStyle = col; c.lineWidth = 3 * U; c.stroke(); }
+    if (grow > 0 && hole > 0.01) { shapePath(c, ra, rb, e, rot, hole); c.save(); c.clip(); c.setTransform(T6); s7(c, x); c.restore(); }   // dentro da moldura já está o próximo plano
+  } else if (mode === "ghost") { c.fillStyle = col; c.fill(); }
+  else { c.strokeStyle = col; c.lineWidth = 3 * U; c.stroke(); }
   c.restore();
 }
+let T6 = null;
 function s6(c, x) {
+  T6 = c.getTransform();
   bg(c, INK);
   const grow = x >= 27.6 ? ioCubic(prog(x, 27.6, 27.86)) : 0;
   if (grow < 1) {
@@ -758,7 +774,7 @@ function s6(c, x) {
       c.fillStyle = PAPER; c.fillRect(-d, -d, 2 * d, 2 * d); c.restore();
     }
     // onion skin violeta
-    for (let j = 3; j >= 1; j--) { c.globalAlpha = [0, 0.35, 0.24, 0.14][j]; s6Shape(c, x - (2 / 30) * j, "stroke", VIO); }   // fantasmas a cada 2 quadros
+    for (let j = 3; j >= 1; j--) { c.globalAlpha = [0, 0.45, 0.28, 0.15][j]; s6Shape(c, x - (2 / 30) * j, "ghost", VIO); }   // fantasmas a cada 2 quadros
     c.globalAlpha = 1;
   }
   s6Shape(c, x, "fill", VIO);
@@ -778,7 +794,10 @@ function s7L() {
   tops.push([p.x0 + p.L.w + gap + rd, p.base - rd]);
   return (_s7 = { fs, lh, rows, rd, tops });
 }
-const HOPS = [31.22, 31.47, 31.72, 31.97];
+const HOPS = [31.25, 31.5, 31.75, 32.0];      // o último pouso (o ponto final) cai no bumbo de b32
+/* a composição deriva devagar e respira nos bumbos: [deslocamento x, escala] */
+function s7Xf(x) { let k = 1 + 0.03 * prog(x, 27.7, 32); for (const b of [29, 30, 31]) if (x >= b) k *= 1 - 0.03 * wobble(x - b, 2.2, 9); return [40 * U * (prog(x, 27.7, 32) - 0.5), k]; }
+const s7Screen = (p, x) => { const [dx7, k] = s7Xf(x); return [cx + dx7 + (p[0] - cx) * k, cy + (p[1] - cy) * k]; };
 function s7Dot(x) {
   const S = s7L(), t = S.tops;
   if (x < HOPS[0]) { const u = prog(x, 31.0, HOPS[0]); return [t[0][0], mix(-S.rd * 3, t[0][1], u * u)]; }
@@ -792,12 +811,12 @@ function s7(c, x, skipDot) {
   bg(c, INK);
   const S = s7L(), R = S.rows;
   // a cada batida a composição inteira "respira" no bumbo
-  let k = 1; for (const b of [29, 30, 31]) if (x >= b) k *= 1 - 0.03 * wobble(x - b, 2.2, 9);
-  c.save(); c.translate(cx, cy); c.scale(k, k); c.translate(-cx, -cy);
+  const [dx7, k] = s7Xf(x);
+  c.save(); c.translate(cx + dx7, cy); c.scale(k, k); c.translate(-cx, -cy);
   c.fillStyle = PAPER;
   // MOTION: as letras viram como cartas
   glyphs(c, R[0].L, R[0].x0, R[0].base, (i) => {
-    const u = prog(x, 27.84 + 0.04 * i, 28.26 + 0.04 * i);
+    const u = prog(x, 27.7 + 0.04 * i, 28.12 + 0.04 * i);
     if (u <= 0) return false;
     return { sy: Math.cos((1 - oBack(u, 1.8)) * (Math.PI / 2)), oy: R[0].L.cap / 2 };
   });
@@ -854,9 +873,9 @@ function cursorPath(c, x0, y0, s) {
 function s8(c, x, noBg) {
   if (!noBg) bg(c, PAPER);
   const S = s8L(), { w, h, L: Lx, T: Ty } = S;
-  const flip = Math.cos((Math.PI / 2) * ioCubic(prog(x, 35.75, 36.0)));
+  const flip = Math.cos((Math.PI / 2) * ioCubic(prog(x, 35.75, 35.98)));
   // o ponto do "PÓS." voa até virar o avatar; o card branco nasce de onde ele estava
-  const av = [Lx + 74 * U, Ty + 76 * U], d7 = s7Dot(32.0), du = ioCubic(prog(x, 32.0, 32.5));
+  const av = [Lx + 74 * U, Ty + 76 * U], d7 = s7Screen(s7Dot(32.0), 32.0), du = ioCubic(prog(x, 32.0, 32.5));
   const dotP = [mix(d7[0], av[0], du), mix(d7[1], av[1], du) - Math.sin(Math.PI * du) * 120 * U], dotR = mix(s7L().rd, 32 * U, du);
   const g = ioExpo(prog(x, 32.22, 32.66));
   if (g < 1) {
@@ -896,7 +915,7 @@ function s8(c, x, noBg) {
     c.beginPath(); c.roundRect(ex0 + i * (bwid + gp), eb - hh, bwid, hh, bwid / 2); c.fill();
   }
   // botão: clique → spinner → ✓
-  const bs = oBack(prog(x, 32.6, 32.9), 2) * (1 - 0.07 * bump(prog(x, 33.98, 34.14))) * (1 + 0.07 * wobble(x - 35.0, 2, 8) * (x >= 35 ? 1 : 0));
+  const bs = oBack(prog(x, 32.6, 32.9), 2) * (1 - 0.07 * bump(prog(x, 33.92, 34.08))) * (1 + 0.07 * wobble(x - 35.0, 2, 8) * (x >= 35 ? 1 : 0));
   const bx = S.x, by = Ty + h - (P ? 82 : 72) * U, bw2 = (P ? 420 : 300) * U, bh3 = (P ? 100 : 84) * U;
   if (bs > 0) {
     c.save(); c.translate(bx, by); c.scale(bs, bs);
@@ -921,13 +940,13 @@ function s8(c, x, noBg) {
     const u = oCubic(prog(x, 33.25, 33.9)), v = iCubic(prog(x, 34.35, 34.95));
     let px = mix(from[0], tgt[0], u), py = mix(from[1], tgt[1], u) - Math.sin(Math.PI * u) * 60 * U;
     px = mix(px, away[0], v); py = mix(py, away[1], v);
-    const cs = 1.45 * U * (1 - 0.16 * bump(prog(x, 33.97, 34.16)));
+    const cs = 1.45 * U * (1 - 0.16 * bump(prog(x, 33.92, 34.08)));
     cursorPath(c, px, py, cs); c.fillStyle = INK; c.fill(); c.strokeStyle = WHITE; c.lineWidth = 3 * U; c.lineJoin = "round"; c.stroke();
   }
 }
 
 /* ================================================================ S9 · anel 3D de frames, foco que muda e plate → comp (35,75–40) */
-const NC = 12, CW = (P ? 480 : 280) * U, CH = (P ? 620 : 360) * U, RR = (P ? 920 : 700) * U, FOC = 1500 * U, KS = CW / (280 * U);
+const NC = 12, CW = (P ? 500 : 280) * U, CH = (P ? 620 : 360) * U, RR = (P ? 1100 : 700) * U, FOC = 1500 * U, KS = CW / (280 * U);
 const CARD_BG = [WHITE, VIO, "#18181c", PAPER, G2, "#1f1f24", PAPER, VIO, "#18181c", G3, PAPER, "#18181c"];
 const cbuf = document.createElement("canvas"); cbuf.width = W; cbuf.height = H;
 const cbx = cbuf.getContext("2d");
@@ -956,6 +975,37 @@ function cardContent(c, i, map, s, wire) {
     case 11: for (const [col, a0, a1] of [[G2, 0, TAU], [VIO, -Math.PI / 2, Math.PI * 0.9]]) { const pts = []; for (let k = 0; k <= 40; k++) { const t = a0 + (a1 - a0) * (k / 40); pts.push(P2((95 * KS * Math.cos(t)) / CW * U, (95 * KS * Math.sin(t)) / CH * U)); } line(pts, col, 9); } break;
   }
 }
+/* miniaturas: os frames do anel e os clipes da timeline mostram quadros do próprio filme (card 0 = a UI, em vetor).
+   São renderizadas uma vez a partir de paint() (pura) e guardadas: é memória de um resultado fixo, não estado de animação. */
+const THUMB_AT = [null, 1.6, 11.5, 19.3, 20.6, 21.8, 22.9, 23.55, 26.7, 31.5, 6.6, 17.0];
+const TH = {}; let tcan = null, tcx = null;
+function thumb(i) {
+  if (TH[i]) return TH[i];
+  if (!tcan) { tcan = document.createElement("canvas"); tcan.width = W; tcan.height = H; tcx = tcan.getContext("2d"); }
+  const keep = RC; paint(tcx, THUMB_AT[i]); RC = keep;
+  const ar = CW / CH, tw = Math.round(CW * 1.4), th = Math.round(CH * 1.4);
+  let sw = W, sh = W / ar; if (sh > H) { sh = H; sw = H * ar; }
+  const cnv = document.createElement("canvas"); cnv.width = tw; cnv.height = th;
+  cnv.getContext("2d").drawImage(tcan, (W - sw) / 2, (H - sh) / 2, sw, sh, 0, 0, tw, th);
+  return (TH[i] = cnv);
+}
+const cropTo = (img, aspect, t = 1) => {     // recorte central da imagem para a proporção do destino (t = quanto recortar)
+  const iw = img.width, ih = img.height, sh = Math.min(ih, iw / aspect);
+  return [0, mix(0, (ih - sh) / 2, t), iw, mix(ih, sh, t)];
+};
+/* desenha a imagem dentro de um quadrilátero qualquer (perspectiva) com fatias verticais afins */
+function drawImgQuad(c, img, map, src, n = 12) {
+  const [sx, sy, sw0, sh] = src || [0, 0, img.width, img.height], sw = sw0 / n;
+  for (let k = 0; k < n; k++) {
+    const a0 = -0.5 + k / n, a1 = -0.5 + (k + 1) / n;
+    const p00 = map(a0, -0.5), p10 = map(a1, -0.5), p01 = map(a0, 0.5), q10 = map(Math.min(0.5, a1 + 0.004), -0.5), q11 = map(Math.min(0.5, a1 + 0.004), 0.5);
+    c.save();
+    c.beginPath(); c.moveTo(p00[0], p00[1]); c.lineTo(q10[0], q10[1]); c.lineTo(q11[0], q11[1]); c.lineTo(p01[0], p01[1]); c.closePath(); c.clip();
+    c.transform((p10[0] - p00[0]) / sw, (p10[1] - p00[1]) / sw, (p01[0] - p00[0]) / sh, (p01[1] - p00[1]) / sh, p00[0], p00[1]);
+    c.drawImage(img, sx + k * sw, sy, sw * 1.03, sh, 0, 0, sw * 1.03, sh);
+    c.restore();
+  }
+}
 function plateBg(c, map, s) {    // "plate": tabuleiro de transparência, como numa comp ainda sem fundo
   const nx = 6, ny = 8;
   for (let a = 0; a < nx; a++) for (let b = 0; b < ny; b++) {
@@ -977,21 +1027,22 @@ function focusZ(x) { let z = 0; for (const [b, v] of [[36.75, 0.55], [37.25, 0],
 let _tl;
 function tlL() {
   if (_tl) return _tl;
-  const lx0 = (P ? 60 : 140) * U, lx1 = W - (P ? 60 : 140) * U, lh = (P ? 150 : 92) * U, gap = (P ? 26 : 22) * U, len = lx1 - lx0;
-  const y0 = cy + (P ? 80 : 40) * U, lanes = [0, 1, 2].map((j) => y0 + (j - 1) * (lh + gap));
+  const nL = P ? 6 : 3, per = NC / nL;
+  const lx0 = (P ? 60 : 140) * U, lx1 = W - (P ? 60 : 140) * U, lh = (P ? 124 : 92) * U, gap = (P ? 18 : 22) * U, len = lx1 - lx0;
+  const y0 = cy + (P ? 130 : 40) * U, lanes = Array.from({ length: nL }, (_, j) => y0 + (j - (nL - 1) / 2) * (lh + gap));
   const clips = [];
-  for (let j = 0; j < 3; j++) {
-    const ws = [0, 1, 2, 3].map((k) => 0.6 + 0.8 * rnd(41, j * 4 + k)), sum = ws.reduce((a, b) => a + b, 0), gc = 10 * U;
+  for (let j = 0; j < nL; j++) {
+    const ws = Array.from({ length: per }, (_, k) => 0.6 + 0.8 * rnd(41, j * per + k)), sum = ws.reduce((a, b) => a + b, 0), gc = 10 * U;
     let xx = lx0;
     ws.forEach((wv, k) => {
-      const ww = ((len - 3 * gc) * wv) / sum, i = j * 4 + k;
-      clips.push({ i, lane: j, x: xx, y: lanes[j] - lh / 2, w: ww, h: lh, off: (rnd(43, i) - 0.5) * 2 * 260 * U + (j - 1) * 120 * U });
+      const ww = ((len - (per - 1) * gc) * wv) / sum, i = j * per + k;
+      clips.push({ i, k, lane: j, x: xx, y: lanes[j] - lh / 2, w: ww, h: lh, off: (rnd(43, i) - 0.5) * 2 * 260 * U + (j - (nL - 1) / 2) * 90 * U });
       xx += ww + gc;
     });
   }
-  return (_tl = { lx0, lx1, lh, len, lanes, clips, kfY: lanes[0] - lh / 2 - 46 * U, headY: lanes[0] - lh / 2 - 118 * U, botY: lanes[2] + lh / 2 + 24 * U });
+  return (_tl = { nL, lx0, lx1, lh, len, lanes, clips, kfY: lanes[0] - lh / 2 - 46 * U, headY: lanes[0] - lh / 2 - 118 * U, botY: lanes[nL - 1] + lh / 2 + 24 * U });
 }
-const SNAP = [40.25, 40.5, 40.75];
+const SNAP = P ? [40.2, 40.32, 40.44, 40.56, 40.68, 40.8] : [40.25, 40.5, 40.75];
 function clipRect(i, x) { const C = tlL().clips[i], s = oBack(prog(x, SNAP[C.lane], SNAP[C.lane] + 0.32), 2); return [C.x + C.off * (1 - s), C.y, C.w, C.h]; }
 const rectMap = (r) => (a, b) => [r[0] + (a + 0.5) * r[2], r[1] + (b + 0.5) * r[3]];
 function drawCard(c, k, x) {
@@ -1000,8 +1051,13 @@ function drawCard(c, k, x) {
   if (!front) { poly(c, quad); c.fillStyle = "#1a1a1f"; c.fill(); }
   else {
     const wp = k.fl > 0 ? 1 : wipeOf(k.i, x);
-    const comp = () => { poly(c, quad); c.fillStyle = CARD_BG[k.i]; c.fill(); cardContent(c, k.i, k.map, k.s, false); };
-    const plate = () => { plateBg(c, k.map, k.s); cardContent(c, k.i, k.map, k.s, true); };
+    const src = k.i === 0 ? null : cropTo(thumb(k.i), k.aspect, k.fl);
+    const comp = () => { poly(c, quad); c.fillStyle = CARD_BG[k.i]; c.fill(); if (k.i === 0) cardContent(c, 0, k.map, k.s, false); else drawImgQuad(c, thumb(k.i), k.map, src); };
+    const plate = () => {      // "plate": a mesma imagem crua (sem cor, apagada) sobre o tabuleiro de transparência
+      plateBg(c, k.map, k.s);
+      if (k.i === 0) cardContent(c, 0, k.map, k.s, true);
+      else { c.save(); c.filter = "grayscale(1) brightness(0.62) contrast(0.8)"; c.globalAlpha = 0.7; drawImgQuad(c, thumb(k.i), k.map, src); c.restore(); }
+    };
     if (wp >= 1) comp();
     else if (wp <= 0) plate();
     else {
@@ -1009,7 +1065,7 @@ function drawCard(c, k, x) {
       c.save(); poly(c, [k.map(-0.5, -0.5), k.map(aw, -0.5), k.map(aw, 0.5), k.map(-0.5, 0.5)]); c.clip(); comp(); c.restore();
       c.save(); poly(c, [k.map(aw, -0.5), k.map(0.5, -0.5), k.map(0.5, 0.5), k.map(aw, 0.5)]); c.clip(); plate(); c.restore();
       const p0 = k.map(aw, -0.5), p1 = k.map(aw, 0.5);
-      c.strokeStyle = VIO; c.lineWidth = 5 * U * k.s; c.lineCap = "butt"; c.beginPath(); c.moveTo(p0[0], p0[1]); c.lineTo(p1[0], p1[1]); c.stroke();
+      c.strokeStyle = WHITE; c.lineWidth = 6 * U * k.s; c.lineCap = "butt"; c.beginPath(); c.moveTo(p0[0], p0[1]); c.lineTo(p1[0], p1[1]); c.stroke();
     }
   }
   const dark = cl((k.z / (2 * RR)) * 0.75) * (1 - k.fl);
@@ -1018,7 +1074,7 @@ function drawCard(c, k, x) {
 }
 function s9(c, x) {
   bg(c, INK);
-  const th = ringTheta(x), tilt = mix(0.24, 0.1, ioCubic(prog(x, 36.25, 38.5)));
+  const th = ringTheta(x), tilt = P ? 0.06 : mix(0.24, 0.1, ioCubic(prog(x, 36.25, 38.5)));
   const ca = Math.cos(tilt), sa = Math.sin(tilt);
   const frontY = mix(s8L().y, cy + (P ? 40 : 70) * U, ioCubic(prog(x, 36.1, 37.3)));
   const RCY = frontY - RR * sa * (FOC / (FOC + RR * (1 - ca)));
@@ -1027,17 +1083,19 @@ function s9(c, x) {
     const ph = (i / NC) * TAU + th, cphi = Math.cos(ph), sphi = Math.sin(ph);
     const first = i === 0 ? ioExpo(prog(x, 36.05, 36.6)) : 1;
     const w = i === 0 ? mix(s8L().w, CW, first) : CW, h = i === 0 ? mix(s8L().h, CH, first) : CH;
-    const flipIn = i === 0 ? Math.sin((Math.PI / 2) * ioCubic(prog(x, 36.0, 36.25))) : 1;
+    const flipIn = i === 0 ? Math.sin((Math.PI / 2) * oCubic(prog(x, 35.98, 36.2))) : 1;
     const ord = Math.min(i, NC - i), app = i === 0 ? 1 : oBack(prog(x, 36.15 + 0.03 * ord, 36.55 + 0.03 * ord), 1.6);
     const proj = (a, b) => {
-      const X3 = RR * sphi + cphi * w * a * flipIn * app, Y3 = h * b * app, Z3 = RR * (1 - cphi) + sphi * w * a * flipIn * app;
+      let X3, Y3, Z3;
+      if (!P) { X3 = RR * sphi + cphi * w * a * flipIn * app; Y3 = h * b * app; Z3 = RR * (1 - cphi) + sphi * w * a * flipIn * app; }
+      else { X3 = w * a * flipIn * app; Y3 = RR * sphi + cphi * h * b * app; Z3 = RR * (1 - cphi) + sphi * h * b * app; }   // 9:16: roda vertical
       const y2 = Y3 * ca - (Z3 - RR) * sa, z2 = RR + (Z3 - RR) * ca + Y3 * sa, s = FOC / (FOC + z2);
       return [cx + X3 * s, RCY + y2 * s, s, z2];
     };
     const fl = ioExpo(prog(x, 38.5 + 0.035 * i, 39.55 + 0.035 * i)), r = clipRect(i, Math.max(x, 40)), rm = rectMap(r);
     const map = (a, b) => { const p = proj(a, b); if (fl <= 0) return p; const q = rm(a, b); return [mix(p[0], q[0], fl), mix(p[1], q[1], fl)]; };
     const z = proj(0, 0)[3] * (1 - fl);
-    cards.push({ i, z, map, cphi, fl, s: proj(0, 0)[2], app });
+    cards.push({ i, z, map, cphi, fl, s: proj(0, 0)[2], app, aspect: r[2] / r[3] });
   }
   cards.sort((a, b) => b.z - a.z);
   const fz = focusZ(x), dofOn = prog(x, 36.2, 36.45);
@@ -1078,7 +1136,7 @@ function s10(c, x) {
   // clipes (os mesmos frames do anel 3D)
   const pxh = phX(x);
   // saída em "ripple delete": cada clipe some da esquerda para a direita e os seguintes correm para o buraco
-  const rip = (C) => ioExpo(prog(x, 43.0 + 0.05 * C.lane + 0.06 * (C.i % 4), 43.3 + 0.05 * C.lane + 0.06 * (C.i % 4)));
+  const rip = (C) => ioExpo(prog(x, 43.0 + 0.04 * C.lane + 0.06 * C.k, 43.3 + 0.04 * C.lane + 0.06 * C.k));
   S.clips.forEach((C) => {
     const e = rip(C), r = clipRect(C.i, x);
     let shift = 0; for (const D of S.clips) if (D.lane === C.lane && D.i < C.i) shift += (D.w + 10 * U) * rip(D);
@@ -1087,7 +1145,7 @@ function s10(c, x) {
     c.save();
     c.save(); c.beginPath(); c.roundRect(rr[0], rr[1], rr[2], rr[3], Math.min(14 * U, rr[2] / 2)); c.clip();
     c.fillStyle = CARD_BG[C.i]; c.fillRect(rr[0], rr[1], rr[2], rr[3]);
-    cardContent(c, C.i, rectMap(rr), 0.5);
+    if (C.i === 0) cardContent(c, 0, rectMap(rr), 0.5); else drawImgQuad(c, thumb(C.i), rectMap(rr), cropTo(thumb(C.i), C.w / C.h), 6);
     if (pxh >= rr[0] && pxh <= rr[0] + rr[2] && x < PH1) { c.fillStyle = "rgba(255,255,255,0.16)"; c.fillRect(rr[0], rr[1], rr[2], rr[3]); }
     c.restore(); c.restore();
   });
@@ -1119,7 +1177,8 @@ function s10(c, x) {
   const ls = 1 - iBack(prog(x, 42.95, 43.12));
   if (ls > 0.01) {
     const Lt = lay(tc(T(x)), FI((P ? 50 : 30) * U, 600));
-    c.save(); c.translate(hx + 30 * U, head[1] + 17 * U); c.scale(ls, ls); c.fillStyle = PAPER; glyphs(c, Lt, 0, Lt.cap / 2, null); c.restore();
+    const lxp = hx + 30 * U + Lt.w > W - 40 * U ? hx - 30 * U - Lt.w : hx + 30 * U;      // o timecode nunca sai da tela
+    c.save(); c.translate(lxp, head[1] + 17 * U); c.scale(ls, ls); c.fillStyle = PAPER; glyphs(c, Lt, 0, Lt.cap / 2, null); c.restore();
   }
   tlTitle(c, x);
 }
@@ -1192,6 +1251,32 @@ function drawLogo(c, o) {
   }
 }
 const FILL_STEPS = [44.5, 45, 45.5, 46, 46.5, 47];       // o anel enche em passos, junto com os tiques
+/* as palavras do espelho, cada uma com uma entrada: "Parou." freia, "Olhou." abre como pálpebra, "Ficou." chega com soco */
+function gainWords(c, x, outU) {
+  const S = rcL();
+  GAIN.forEach((w, j) => {
+    const L = lay(w, FD(S.ws)), bh = bandH(L), last = j === GAIN.length - 1, at = GAIN_AT[j];
+    const o = last ? outU : iCubic(prog(x, GAIN_AT[j + 1], GAIN_AT[j + 1] + 0.2));
+    if (x < at || o >= 1) return;
+    const x0 = S.hx === null ? cx - L.w / 2 : S.hx, y0 = S.wy, band = () => { c.beginPath(); c.rect(-W, y0 - L.asc * 0.98, W * 3, bh); c.clip(); };
+    c.save(); c.fillStyle = last ? VIO : PAPER;
+    if (j === 0) {
+      band();
+      const u = prog(x, at, at + 0.3), k = x >= at + 0.3 ? 0.18 * wobble(x - at - 0.3, 2.4, 9) : 0;
+      glyphs(c, L, x0, y0, () => ({ dx: (1 - oExpo(u)) * 0.45 * W, sx: 1 + k, sy: 1 - 0.6 * k, dy: o * bh }));
+    } else if (j === 1) {
+      band();
+      const u = oExpo(prog(x, at, at + 0.35)), mid = y0 - L.cap / 2, hh = ((L.asc + L.desc) * u) / 2 + 0.5;
+      c.beginPath(); c.rect(-W, mid - hh, W * 3, 2 * hh); c.clip();
+      glyphs(c, L, x0, y0, () => ({ dy: o * bh }));
+    } else {
+      if (o > 0) band();
+      const s2 = mix(1.6, 1, oBack(prog(x, at, at + 0.35), 2.2)), wc = x0 + L.w / 2;
+      glyphs(c, L, x0, y0, (i) => ({ sx: s2, sy: s2, oy: L.cap / 2, dx: (gcx(L, x0, i) - wc) * (s2 - 1), dy: o * bh }));
+    }
+    c.restore();
+  });
+}
 const fillOf = (x) => FILL_STEPS.reduce((n, b) => n + oBack(prog(x, b, b + 0.22), 2.0), 0) / FILL_STEPS.length;
 function s11(c, x) {
   bg(c, INK);
@@ -1203,28 +1288,33 @@ function s11(c, x) {
   if (x < 47.95) {
     c.fillStyle = PAPER;
     header(c, x, ["Cada segundo", "conta."], 44.1, tOut);
-    slotWords(c, x, GAIN, GAIN_AT, PAPER, VIO, tOut(3));
+    gainWords(c, x, tOut(3));
     const rx = mix(RC.x, LG.x, mv), ry = mix(RC.y, LG.y, mv), sc = mix(1, sc1, mv);
     c.save(); c.translate(rx, ry); c.scale(sc, sc); c.translate(-RC.x, -RC.y);
     c.lineCap = "butt"; c.lineWidth = 12 * U;
     c.strokeStyle = G2; c.beginPath(); c.arc(RC.x, RC.y, R, 0, TAU); c.stroke();
-    if (f > 0) { c.strokeStyle = VIO; c.beginPath(); c.arc(RC.x, RC.y, R, -Math.PI / 2, -Math.PI / 2 + TAU * Math.min(f, 1)); c.stroke(); }
+    if (f > 0) {       // o tempo agora é ganho: uma fatia violeta que cresce em passos
+      const a1 = -Math.PI / 2 + TAU * Math.min(f, 1);
+      c.fillStyle = VIO; c.beginPath(); c.moveTo(RC.x, RC.y); c.arc(RC.x, RC.y, R - 6 * U, -Math.PI / 2, a1); c.closePath(); c.fill();
+      c.strokeStyle = VIO; c.beginPath(); c.arc(RC.x, RC.y, R, -Math.PI / 2, a1); c.stroke();
+    }
     if (nOut < 1) { c.globalAlpha = 1 - cl(nOut); ticks(c, TAU - 1e-4, (j, a) => (a <= TAU * f + 1e-6 && f > 0 ? PAPER : G3)); c.globalAlpha = 1; }
     drawPin(c, pin0, G3);
     if (f > 0 && nOut < 1) { const a = -Math.PI / 2 + TAU * Math.min(f, 1); blob(c, RC.x + R * Math.cos(a), RC.y + R * Math.sin(a), 17 * U * (1 - cl(nOut))); }
-    clockNumber(c, 0.5 * n, PAPER, (1 - nOut) * oBack(prog(x, 44.0, 44.3), 2));
+    clockNumber(c, 0.5 * n, PAPER, (1 - nOut) * oBack(prog(x, 44.0, 44.3), 2), PAPER);
     c.restore();
     return;
   }
   // o logo trava na batida 48 (com um pequeno overshoot)
   let lr = LG.r * (x >= 48 ? 1 + 0.1 * wobble(x - 48, 2.2, 7) : 1);
   for (const b of [49, 50]) if (x >= b) lr *= 1 + 0.015 * wobble(x - b, 2, 10);   // o logo respira nos bumbos do hold
+  lr *= 1 - 0.03 * bump(prog(x, 51.0, 51.2));                                    // e afunda junto com o clique do pino
   const L48 = oExpo(prog(x, 47.95, 48.25)), shock = prog(x, 48, 48.34);
   if (shock > 0 && shock < 1) { c.strokeStyle = VIO; c.lineWidth = 3 * U * Math.pow(1 - shock, 2); c.beginPath(); c.arc(LG.x, LG.y, LG.r * mix(1.05, 2.0, oExpo(shock)), 0, TAU); c.stroke(); }
   drawLogo(c, {
     x: LG.x, y: LG.y, r: lr, ring: L48, pinM: L48, thScale: sc1, pinFrom: { stem: toLG(pin0.stem), cap: toLG(pin0.cap) },
     stem: oBack(prog(x, 48.0, 48.3), 1.6), chev: oBack(prog(x, 48.04, 48.34), 1.6),
-    shine: prog(x, 50.5, 50.92), pinDy: 0.05 * LG.r * bump(prog(x, 51.0, 51.18)),
+    shine: prog(x, 50.5, 50.92), pinDy: 0.16 * LG.r * bump(prog(x, 51.0, 51.2)),
   });
   wordmark(c, x, 48.5, 52.0);
 }
@@ -1236,13 +1326,13 @@ function wordmark(c, x, a, outAt, skipWord) {
     if (u <= 0 || o >= 1) return false;
     return { dy: (1 - u) * bh + o * bh };
   });
-  const tl = S.tL, n = Math.floor(prog(x, 49.5, 50.7) * tl.text.length + 1e-9), o = iCubic(prog(x, outAt + 0.05, outAt + 0.35));
+  const tl = S.tL, n = Math.floor(prog(x, 49.3, 50.1) * tl.text.length + 1e-9), o = iCubic(prog(x, outAt + 0.05, outAt + 0.35));
   if (n > 0 && o < 1) {
     c.save(); c.beginPath(); c.rect(0, S.tbase - tl.asc, W, bandH(tl)); c.clip();
     c.fillStyle = G5; glyphs(c, tl, S.tx0, S.tbase + o * bandH(tl), (i) => (i < n ? null : false));
     c.restore();
   }
-  const caret = x >= 49.4 && x < 51.6 && (x < 50.7 || (x * 2) % 1 < 0.55);
+  const caret = x >= 49.2 && x < 51.6 && (x < 50.1 || (x * 2) % 1 < 0.55);
   if (caret) { const cxp = n > 0 ? S.tx0 + tl.xs[n - 1] + tl.ws[n - 1] + 6 * U : S.tx0; c.fillStyle = VIO; c.fillRect(cxp, S.tbase - tl.cap * 1.12, 3.5 * U, tl.cap * 1.38); }
 }
 
@@ -1254,95 +1344,117 @@ function cardLayout(lines, maxW, maxS) {   // bloco alinhado à esquerda e centr
   const bx = cx - bw / 2, b0 = cy - ((n - 1) * lh) / 2 + Ls[0].cap / 2, bases = Ls.map((_, i) => b0 + i * lh);
   return { fs, lh, Ls, rd, bx, bases, tx: bx + last.w + gap + rd, ty: bases[n - 1] - rd, nw: Ls.reduce((a, L) => a + nWords(L.text), 0) };
 }
+const FLYT = "movimento", FLYW = 2;       // a palavra do convite que chega voando (índice da palavra no cartão 2)
 let _s12;
 function s12L() {
   if (_s12) return _s12;
   const A = cardLayout(["Boas-vindas", "à Kronografx"], W * (P ? 0.84 : 0.7), (P ? 170 : 172) * U);
   const B = cardLayout(P ? ["Vamos dar", "movimento", "à sua ideia"] : ["Vamos dar movimento", "à sua ideia"], W * (P ? 0.86 : 0.8), (P ? 160 : 140) * U);
-  A.starts = Array.from({ length: A.nw }, (_, k) => 52.3 + 0.15 * k);
-  B.starts = Array.from({ length: B.nw }, (_, k) => 54.5 + 0.15 * k);
+  B.starts = Array.from({ length: B.nw }, (_, k) => 54.85 + 0.12 * k);
   const n = B.Ls.length; B.iw = wordSpan(B.Ls[n - 1], B.bx, nWords(B.Ls[n - 1].text) - 1);
   return (_s12 = { A, B });
 }
-const DOT12 = { fly: [52.5, 53.0], hop: [55.2, 55.6], home: [58.95, 59.6] };
-const SUCK0 = 58.2, SUCKD = 0.08;
-const FLYT = "movimento", FLYW = 2;     // a palavra do convite que chega voando (índice da palavra no cartão 2)   // o convite fica inteiro de ~b55,8 a b58,2; depois o ponto engole palavra por palavra
-function s12Dot(x) {                        // [x, y, raio] do ponto
+const DOT12 = { born: 52.12, fly: [52.4, 52.85], hop: [55.5, 55.85], home: [59.3, 59.6] };
+const KICKS12 = [56, 57, 58];                  // o convite segue vivo nos bumbos
+const SUCK0 = 58.0, SUCKD = 0.2;               // depois o ponto engole uma palavra a cada 6 quadros
+const suck = (x, k) => cl(iBack(prog(x, SUCK0 + SUCKD * k, SUCK0 + 0.35 + SUCKD * k), 1.4), -0.2, 1);
+function s12Dot(x) {                           // [x, y, raio] do ponto
   const { A, B } = s12L();
   if (x < DOT12.fly[0]) return [LG.x, LG.y, A.rd];
   if (x < DOT12.fly[1]) { const u = ioCubic(prog(x, ...DOT12.fly)); return [mix(LG.x, A.tx, u), mix(LG.y, A.ty, u) - Math.sin(Math.PI * u) * 0.12 * H, A.rd]; }
   if (x < DOT12.hop[0]) return [A.tx, A.ty, A.rd];
   if (x < DOT12.hop[1]) { const u = ioCubic(prog(x, ...DOT12.hop)); return [mix(A.tx, B.tx, u), mix(A.ty, B.ty, u) - Math.sin(Math.PI * u) * 0.16 * H, mix(A.rd, B.rd, u)]; }
-  if (x < DOT12.home[0]) return [B.tx, B.ty, B.rd];
+  let hy = 0; for (const b of KICKS12) hy -= 0.1 * B.fs * bump(prog(x, b - 0.22, b));
+  if (x < DOT12.home[0]) return [B.tx, B.ty + hy, B.rd];
   const u = ioExpo(prog(x, ...DOT12.home));
-  return [mix(B.tx, cx, u), mix(B.ty, cy, u) - Math.sin(Math.PI * u) * 0.1 * H, mix(B.rd, R0, ioCubic(prog(x, ...DOT12.home)))];
+  return [mix(B.tx, cx, u), mix(B.ty, cy, u) - Math.sin(Math.PI * u) * 0.08 * H, mix(B.rd, R0, ioCubic(prog(x, ...DOT12.home)))];
 }
-const suck = (x, k) => iExpo(prog(x, SUCK0 + SUCKD * k, SUCK0 + 0.4 + SUCKD * k));
 function s12(c, x) {
   bg(c, INK);
   const { A, B } = s12L(), [dx, dy, dr] = s12Dot(x);
-  // o logo grande se recolhe; dele nasce o ponto
+  // o convite acontece sobre o papel: uma íris abre a partir do ponto
+  const paper = ioExpo(prog(x, 54.55, 55.0));
+  if (paper > 0) blob(c, A.tx, A.ty, paper * Math.hypot(W, H), 1, 1, 0, PAPER);
+  // o logo se recolhe (com antecipação); dele nasce o ponto
   const lo = iBack(prog(x, 52.0, 52.3), 1.6);
   if (lo < 1) drawLogo(c, { x: LG.x, y: LG.y, r: LG.r * (1 - lo), ring: 1, stem: 1, chev: 1, shine: 0 });
   if (x < 52.7) wordmark(c, x, 48.5, 52.0, true);                     // só a tagline sai; o nome vira texto do cartão
   // cartão 1: "Boas-vindas / à Kronografx." — "Boas-vindas" entra numa onda (a mesma do "Olá.");
-  // "Kronografx" não é escrito de novo: as letras do wordmark deslizam até a segunda linha
-  c.fillStyle = PAPER;
-  const WM = wmL(), L0 = A.Ls[0], L1 = A.Ls[1], kOff = L1.text.indexOf("K");
-  const outA = (gi) => iCubic(prog(x, 54.25 + 0.05 * gi, 54.55 + 0.05 * gi));
-  const waveIn = (i) => { const st = 52.3 + 0.03 * i, u = prog(x, st, st + 0.35); return u <= 0 ? false : { sx: oBack(u, 2), sy: oBack(u, 2), dy: -A.fs * 0.22 * bump(u) }; };
-  const morph = (i) => {
-    if (i < kOff) { const u = prog(x, 52.45, 52.75); return u <= 0 ? false : { sx: oBack(u, 2), sy: oBack(u, 2) }; }   // o "à"
-    const j = i - kOff, e = ioExpo(prog(x, 52.0 + 0.02 * j, 52.55 + 0.02 * j)), r0 = WM.fs / A.fs;
-    const sx0 = WM.x0 + WM.L.xs[j] + WM.L.ws[j] / 2, ex = gcx(L1, A.bx, i);
-    return { dx: (sx0 - ex) * (1 - e), dy: (WM.base - A.bases[1]) * (1 - e), sx: mix(r0, 1, e), sy: mix(r0, 1, e) };
-  };
-  if (x < 54.0) { glyphs(c, L0, A.bx, A.bases[0], waveIn); glyphs(c, L1, A.bx, A.bases[1], morph); }
-  else {
-    maskLine(c, L0, A.bx, A.bases[0], (k) => { const o = outA(k); return o >= 1 ? false : { dy: o * bandH(L0) }; });
-    maskLine(c, L1, A.bx, A.bases[1], (k) => { const o = outA(1 + k); return o >= 1 ? false : { dy: o * bandH(L1) }; });
+  // "Kronografx" não é escrito de novo: as letras do wordmark deslizam em arcos até a segunda linha
+  if (x < 54.95) {
+    c.fillStyle = PAPER;
+    const WM = wmL(), L0 = A.Ls[0], L1 = A.Ls[1], kOff = L1.text.indexOf("K");
+    const outA = (gi) => iCubic(prog(x, 54.6 + 0.05 * gi, 54.9 + 0.05 * gi));
+    const waveIn = (i) => { const st = 52.3 + 0.02 * i, u = prog(x, st, st + 0.35); return u <= 0 ? false : { sx: oBack(u, 2), sy: oBack(u, 2), dy: -A.fs * 0.22 * bump(u) }; };
+    const morph = (i) => {
+      if (i < kOff) { const u = prog(x, 52.45, 52.75); return u <= 0 ? false : { sx: oBack(u, 2), sy: oBack(u, 2) }; }   // o "à"
+      const j = i - kOff, e = ioExpo(prog(x, 52.0 + 0.033 * j, 52.5 + 0.033 * j)), r0 = WM.fs / A.fs;
+      const sx0 = WM.x0 + WM.L.xs[j] + WM.L.ws[j] / 2, ex = gcx(L1, A.bx, i);
+      return { dx: (sx0 - ex) * (1 - e), dy: (WM.base - A.bases[1]) * (1 - e) + (j % 2 ? 1 : -1) * 20 * U * Math.sin(Math.PI * e), sx: mix(r0, 1, e), sy: mix(r0, 1, e) };
+    };
+    if (x < 54.4) { glyphs(c, L0, A.bx, A.bases[0], waveIn); glyphs(c, L1, A.bx, A.bases[1], morph); }
+    else {
+      maskLine(c, L0, A.bx, A.bases[0], (k) => { const o = outA(k); return o >= 1 ? false : { dy: o * bandH(L0) }; });
+      maskLine(c, L1, A.bx, A.bases[1], (k) => { const o = outA(1 + k); return o >= 1 ? false : { dy: o * bandH(L1) }; });
+    }
   }
-  // cartão 2: "Vamos dar movimento / à sua ideia." — no fim, o ponto engole tudo
+  // cartão 2, em tinta sobre o papel: "Vamos dar movimento / à sua ideia." — no fim, o ponto engole tudo
+  const push = 1 + 0.03 * ioCubic(prog(x, 55.9, 58.0));
+  c.save(); c.translate(cx, cy); c.scale(push, push); c.translate(-cx, -cy);
   let g = 0;
   B.Ls.forEach((L, li) => {
     const g0 = g, base = B.bases[li], bh = bandH(L), wm = wordMap(L.text);
     const fn = (k, i) => {
-      const gi = g0 + k, st = B.starts[gi], u = oExpo(prog(x, st, st + 0.55)), so = suck(x, B.nw - 1 - gi);
+      const gi = g0 + k, st = B.starts[gi], u = oExpo(prog(x, st, st + 0.5)), so = suck(x, B.nw - 1 - gi);
       if (u <= 0 || so >= 1) return false;
-      if (so > 0) { const gx = gcx(L, B.bx, i); return { dx: (dx - gx) * so, dy: (dy - base) * so, sx: 1 - so, sy: 1 - so }; }
+      if (x >= SUCK0) { const gx = gcx(L, B.bx, i); return { dx: (dx - gx) * so, dy: (dy - base) * so, sx: 1 - Math.max(so, 0), sy: 1 - Math.max(so, 0) }; }
       return { dy: (1 - u) * bh };
     };
+    c.fillStyle = INK;
     if (x >= SUCK0) glyphs(c, L, B.bx, base, (i) => (wm[i] < 0 ? false : fn(wm[i], i)));
     else {
       maskLine(c, L, B.bx, base, (k, i) => (g0 + k === FLYW ? false : fn(k, i)));
-      // a palavra que voa: três passadas (dois fantasmas violeta + a letra)
-      for (const [lag, al] of [[0.16, 0.18], [0.08, 0.36], [0, 1]]) {
+      // a palavra que voa do ponto, passando por baixo do texto: dois fantasmas violeta + a letra
+      for (const [lag, al] of [[0.16, 0.2], [0.08, 0.4], [0, 1]]) {
         glyphs(c, L, B.bx, base, (i) => {
           if (wm[i] < 0 || g0 + wm[i] !== FLYW) return false;
-          const j = i - L.text.indexOf(FLYT), t0 = 54.75 + 0.035 * j, u = ioCubic(prog(x, t0, t0 + 0.45) - lag);
-          if (prog(x, t0, t0 + 0.45) - lag <= 0 || (lag > 0 && u >= 1)) return false;
-          const S0 = [A.tx, A.ty], E = [gcx(L, B.bx, i), base], C = [(S0[0] + E[0]) / 2, Math.min(S0[1], E[1]) - 0.22 * H];
+          const j = i - L.text.indexOf(FLYT), t0 = 54.9 + 0.03 * j, p = prog(x, t0, t0 + 0.4) - lag;
+          if (p <= 0 || (lag > 0 && p >= 1)) return false;
+          const u = ioCubic(Math.min(p, 1)), S0 = [A.tx, A.ty], E = [gcx(L, B.bx, i), base], C = [(S0[0] + E[0]) / 2, Math.max(S0[1], E[1]) + 0.12 * H];
           const qx = (1 - u) * (1 - u) * S0[0] + 2 * (1 - u) * u * C[0] + u * u * E[0], qy = (1 - u) * (1 - u) * S0[1] + 2 * (1 - u) * u * C[1] + u * u * E[1];
           const sc = mix(0.3, 1, u);
-          return { dx: qx - E[0], dy: qy - E[1], sx: sc, sy: sc, color: lag > 0 ? VIO : PAPER, a: al };
+          return { dx: qx - E[0], dy: qy - E[1], sx: sc, sy: sc, color: lag > 0 ? VIO : INK, a: al };
         });
       }
-      c.fillStyle = PAPER;
     }
     g += nWords(L.text);
   });
-  underline(c, B.iw[0], B.iw[1], B.bases[B.bases.length - 1] + B.fs * 0.16, B.fs, oExpo(prog(x, SUCK0, SUCK0 + 0.25)), oExpo(prog(x, 55.85, 56.3)));
+  // o traço de "ideia" vira uma curva com keyframes nas pontas (evolui o traço de "você")
+  const ux0 = B.iw[0], ux1 = B.iw[1], uy = B.bases[B.bases.length - 1] + B.fs * 0.16;
+  let pulse = 1; for (const b of KICKS12) if (x >= b) pulse += 0.25 * wobble(x - b, 2, 9);
+  c.save(); c.lineWidth = 1;
+  const ua = oExpo(prog(x, SUCK0, SUCK0 + 0.25)), ub = oExpo(prog(x, 55.9, 56.35));
+  if (ub > ua) {
+    const pts = []; for (let k = 0; k <= 40; k++) { const t = k / 40, b0 = (1 - t) ** 3, b1 = 3 * (1 - t) ** 2 * t, b2 = 3 * (1 - t) * t * t, b3 = t ** 3;
+      pts.push([b0 * ux0 + b1 * (ux0 + (ux1 - ux0) * 0.3) + b2 * (ux0 + (ux1 - ux0) * 0.7) + b3 * ux1, b0 * uy + b1 * (uy + B.fs * 0.16) + b2 * (uy - B.fs * 0.08) + b3 * (uy + B.fs * 0.02)]); }
+    c.strokeStyle = VIO; c.lineWidth = 0.06 * B.fs * pulse; c.lineCap = "round"; c.lineJoin = "round"; polyPart(c, pts, ua, ub);
+    for (const [px, py, at] of [[pts[0][0], pts[0][1], 55.9], [pts[40][0], pts[40][1], 56.3]]) {
+      const ks = oBack(prog(x, at, at + 0.2), 2.4) * (1 - ua); if (ks <= 0) continue;
+      c.save(); c.translate(px, py); c.rotate(Math.PI / 4); const d = 0.05 * B.fs * ks; c.fillStyle = INK; c.fillRect(-d, -d, 2 * d, 2 * d); c.restore();
+    }
+  }
+  c.restore();
   // o ponto
-  const born = oBack(prog(x, 52.18, 52.36), 2.4);
-  if (born <= 0) return;
-  let r = dr * born, sx = 1, sy = 1, ang = 0;
-  if ((x > DOT12.fly[0] && x < DOT12.fly[1]) || (x > DOT12.hop[0] && x < DOT12.hop[1]) || x > DOT12.home[0]) { const st = stretchOf(s12Dot, x, 1 / 6000, 0.7); sx = st.s; sy = 1 / Math.sqrt(st.s); ang = st.ang; }
-  for (const land of [DOT12.fly[1], DOT12.hop[1]]) if (x >= land && x < land + 0.6) { const k = 0.34 * wobble(x - land, 2.4, 8); sx = 1 + k; sy = 1 - k; ang = 0; }
-  // a cada palavra engolida o ponto incha e volta com mola
-  for (let k = 0; k < B.nw; k++) { const d = x - (SUCK0 + 0.4 + SUCKD * k); if (d >= 0) { const w = wobble(d, 2.2, 9); r *= 1 + 0.15 * w; if (ang === 0) { sx *= 1 + 0.12 * w; sy *= 1 - 0.12 * w; } } }
-  // antecipação: achata antes do estouro do quadro 0 (o loop solta a mola)
-  if (x >= DOT12.home[1]) { const u = iCubic(prog(x, DOT12.home[1], 60)); sx = 1 + 0.18 * u; sy = 1 - 0.3 * u; ang = 0; }
-  blob(c, dx, dy + (sy < 1 && ang === 0 ? (1 - sy) * r : 0), r, sx, sy, ang);
+  const born = oBack(prog(x, DOT12.born, DOT12.born + 0.18), 2.4);
+  if (born > 0) {
+    let r = dr * born, sx = 1, sy = 1, ang = 0;
+    if ((x > DOT12.fly[0] && x < DOT12.fly[1]) || (x > DOT12.hop[0] && x < DOT12.hop[1]) || x > DOT12.home[0]) { const st = stretchOf(s12Dot, x, 1 / 6000, 0.7); sx = st.s; sy = 1 / Math.sqrt(st.s); ang = st.ang; }
+    for (const land of [DOT12.fly[1], DOT12.hop[1], ...KICKS12]) if (x >= land && x < land + 0.6) { const k = 0.34 * wobble(x - land, 2.4, 8); sx = 1 + k; sy = 1 - k; ang = 0; }
+    for (let k = 0; k < B.nw; k++) { const d = x - (SUCK0 + 0.35 + SUCKD * k); if (d >= 0) { const w = wobble(d, 2.2, 9); r *= 1 + 0.15 * w; if (ang === 0) { sx *= 1 + 0.12 * w; sy *= 1 - 0.12 * w; } } }
+    if (x >= DOT12.home[1]) { r = mix(R0, COVER, iExpo(prog(x, DOT12.home[1], 60))); sx = sy = 1; ang = 0; }   // o ponto inunda a tela: é o quadro 0
+    blob(c, dx, dy + (sy < 1 && ang === 0 ? (1 - sy) * r : 0), r, sx, sy, ang);
+  }
+  c.restore();
 }
 
 /* ================================================================ montagem */
@@ -1366,7 +1478,7 @@ function paint(c, x) {
     c.fillStyle = PAPER; c.fillRect(-PADB, H * (1 - e), W + 2 * PADB, H + PADB);
     s8(c, x, true);
   }
-  else if (x < 36) s8(c, x);
+  else if (x < 35.98) s8(c, x);
   else if (x < 40) s9(c, x);
   else if (x < 44) s10(c, x);
   else if (x < 52) s11(c, x);
@@ -1406,35 +1518,36 @@ function buildCues() {
   const pan = (px) => +(cl((px - cx) / (W / 2), -1, 1) * 0.55).toFixed(3);
   // S1 · "Olá."
   const s1 = s1L();
-  add(0, "pop", 0.9, { f: 1 }); add(0, "ping", 0.3);
-  add(Z0, "stretch", 0.3, { d: 0.15 });
-  add(0.25, "zip", 0.7, { d: Z1 - 0.25, p: -0.45 }); add(Z1, "zip", 0.6, { d: Z2 - Z1, p: 0.35, f: 1.25 });
+  add(0, "suck", 0.55, { d: C0 }); add(C0, "pop", 0.9, { f: 1 }); add(C0, "ping", 0.35);
+  add(C0, "stretch", 0.3, { d: Z0 - C0 });
+  add(Z0, "zip", 0.7, { d: Z1 - Z0, p: -0.45 }); add(Z1, "zip", 0.6, { d: Z2 - Z1, p: 0.35, f: 1.25 });
   s1.pass.forEach((x, i) => add(x, "pop", 0.5, { f: 1.25 + 0.18 * i, p: pan(gcx(s1.L, s1.x0, i)) }));
   add(Z2, "tock", 0.6, { p: pan(s1.endX) });
-  for (let i = 0; i < 4; i++) add(WAVE + 0.075 * i, "blip", 0.22, { f: 1 + 0.12 * i, p: pan(i < 3 ? gcx(s1.L, s1.x0, i) : s1.endX) });
-  HOPS1.forEach((b) => add(b + 0.28, "tock", 0.3, { f: 1.3, p: pan(s1.endX) }));
+  WAVES1.forEach((w) => { for (let i = 0; i < 3; i++) add(w + 0.06 * i, "blip", 0.2, { f: 1 + 0.12 * i, p: pan(gcx(s1.L, s1.x0, i)) }); });
+  HOPS1.forEach((b) => { add(b - 0.3, "bloop", 0.3); add(b, "tock", 0.45, { f: 1.2, p: pan(s1.endX) }); });
   add(3.45, "whoosh", 0.55, { d: 0.55, f: 1.2 });
   // S2 · "Que bom ter você aqui."
   const s2 = s2L();
   s2.starts.forEach((x) => add(x, "thup", 0.32));
   dropContacts(S2DROP).forEach(([x, l]) => add(x, "pop", 0.55 * l, { f: 0.8, p: pan(s2.tx) }));
   add(6.0, "scribble", 0.5, { d: 0.45 });
-  add(7.0, "whoosh", 0.35, { d: 0.4, f: 0.7 }); add(7.25, "bloop", 0.5); add(7.4, "suck", 0.4, { d: 0.42 }); add(7.78, "flick", 0.5);
+  add(7.25, "bloop", 0.5); add(7.4, "suck", 0.4, { d: 0.42 }); add(7.8, "flick", 0.5);
   // S3 · a dor
   for (let j = 0; j < 60; j += 2) add(8 + 0.75 * invert(ioCubic, j / 60), "ratchet", j % 10 === 0 ? 0.3 : 0.16, { p: pan(RC.x + RC.r * Math.cos((j / 60) * TAU - Math.PI / 2)) });
   add(8.3, "clack", 0.4);
-  for (let k = 0; k < 4; k++) add(8.0 + 0.12 * k, "thup", 0.22);
+  for (let k = 0; k < 5; k++) add(8.0 + 0.12 * k, "thup", 0.22);
   PAIN_AT.forEach((x) => add(x, "flick", 0.55));
-  add(14.5, "glitch", 0.8, { d: 0.3 });
+  add(14.75, "glitch", 0.8, { d: 0.25 });
   [0, 2, 3].forEach((k) => add(FALL[k][0], "fall", 0.4, { d: 0.9, p: k === 2 ? pan(RC.x) : P ? 0 : pan(rcL().hx) }));
   // S4 · "Sem ritmo, ninguém fica."
   add(16.0, "blip", 0.3, { f: 0.8 });
   add(17, "bonk", 0.5, { p: pan(s4L().tr1) });
-  add(17.45, "pop", 0.4, { f: 1.5 }); add(17.51, "pop", 0.4, { f: 1.7 });
-  add(17.6, "stretch", 0.4, { d: 0.8 }); add(18.2, "flip", 0.45); add(18.4, "thup", 0.3); add(18.0, "swish", 0.3, { d: 0.5 }); add(19.0, "swish", 0.35, { d: 0.5 });
+  add(17.0, "pop", 0.4, { f: 1.5 }); add(17.06, "pop", 0.4, { f: 1.7 });
+  add(17.1, "stretch", 0.4, { d: 0.8 }); add(17.5, "flip", 0.45); add(17.78, "thup", 0.4); add(18.0, "swish", 0.3, { d: 0.5 }); add(19.0, "swish", 0.35, { d: 0.5 });
+  add(19.85, "whoosh", 0.4, { d: 0.15, f: 1.4 });
   // S5 · "Cada frame pensado pra prender o olhar."
-  let g = 0; s5L().a.Ls.forEach((L, li) => { for (let i = 0; i < L.text.length; i++) if (L.text[i] !== " ") { if (li === 1) add(20.2 + 0.03 * i + 0.22, "tic", 0.22, { f: 0.9 + 0.05 * i }); else add(20 + 0.028 * g++ + 0.17, "thud", 0.3); } });
-  add(21.0, "whoosh", 0.55, { d: 0.5, f: 0.8 }); add(22.0, "whoosh", 0.5, { d: 0.42, p: 0.5, f: 1.1 });
+  let g = 0; s5L().a.Ls.forEach((L, li) => { for (let i = 0; i < L.text.length; i++) if (L.text[i] !== " ") { if (li === 1) add(20.2 + 0.03 * i + 0.22, "tic", 0.22, { f: 0.9 + 0.05 * i }); else { if (g % 2 === 0) add(20 + 0.028 * g + 0.17, "tock", 0.3, { f: 0.7 }); g++; } } });
+  add(21.0, "whoosh", 0.45, { d: 0.3, f: 1.0 }); add(21.3, "thud", 0.45); add(22.0, "whoosh", 0.5, { d: 0.42, p: 0.5, f: 1.1 });
   add(22.5, "clack", 0.7); add(22.78, "tock", 0.35);
   add(23.0, "thup", 0.3); add(23.18, "pop", 0.45, { f: 1.4 }); add(23.3, "tic", 0.25); add(23.48, "tic", 0.25); add(23.6, "blip", 0.25, { f: 1.6 }); add(23.42, "pop", 0.35, { f: 1.1 });
   add(23.74, "whoosh", 0.5, { d: 0.3, f: 1.1 });
@@ -1443,7 +1556,7 @@ function buildCues() {
   add(27.6, "whoosh", 0.7, { d: 0.4, f: 1.3 });
   // S7 · tipografia cinética
   const r7 = s7L().rows;
-  for (let i = 0; i < 6; i++) add(27.84 + 0.04 * i, "tic", 0.3, { f: 1 + 0.08 * i, p: pan(gcx(r7[0].L, r7[0].x0, i)) });
+  for (let i = 0; i < 6; i++) add(27.7 + 0.04 * i, "tic", 0.3, { f: 1 + 0.08 * i, p: pan(gcx(r7[0].L, r7[0].x0, i)) });
   add(29, "boing", 0.6, { p: pan(r7[1].x0 + r7[1].L.w / 2) });
   for (let j = 0; j < 9; j++) add(30 + 0.025 * j, "swipe", 0.2, { p: j % 2 ? 0.4 : -0.4 });
   add(30.55, "glitch", 0.4, { d: 0.2 });
@@ -1466,25 +1579,27 @@ function buildCues() {
   RC = RB;
   for (let k = 0; k < 3; k++) add(44.1 + 0.12 * k, "thup", 0.22);
   FILL_STEPS.forEach((x, n) => add(x, "tick", 0.42, { f: 1 + 0.12 * n, p: pan(RC.x + RC.r * Math.cos(((n + 1) / 6) * TAU - Math.PI / 2)) }));
-  GAIN_AT.forEach((x, i) => add(x, "flick", 0.4 + 0.1 * i, { f: 1.2 }));
+  add(GAIN_AT[0], "zip", 0.4, { d: 0.3, f: 1.1 }); add(GAIN_AT[0] + 0.3, "tock", 0.4);
+  add(GAIN_AT[1], "swish", 0.4, { d: 0.35 }); add(GAIN_AT[2], "thud", 0.55); add(GAIN_AT[2], "pop", 0.45, { f: 1.2 });
   add(47.42, "suck", 0.5, { d: 0.58 }); add(48.0, "lock", 1.0); add(48.5, "whoosh", 0.35, { d: 0.5 });
-  const tl = wmL().tL.text; for (let i = 0; i < tl.length; i++) if (tl[i] !== " ") add(49.5 + 1.2 * (i / tl.length), "type", 0.26, { f: 0.9 + 0.2 * rnd(61, i) });
+  const tl = wmL().tL.text; for (let i = 0; i < tl.length; i++) if (tl[i] !== " ") add(49.3 + 0.8 * (i / tl.length), "type", 0.4, { f: 0.9 + 0.2 * rnd(61, i) });
   add(50.5, "shimmer", 0.45, { d: 0.42 }); add(51.0, "click", 0.55);
   // S12 · boas-vindas + convite + volta ao ponto
   const { A, B } = s12L();
-  add(52.0, "whoosh", 0.4, { d: 0.5, f: 0.8 }); add(52.0, "suck", 0.4, { d: 0.3 }); add(52.22, "pop", 0.6, { f: 1.1 });
-  add(DOT12.fly[0], "zip", 0.45, { d: 0.5, p: pan(A.tx) * 0.6 }); add(DOT12.fly[1], "tock", 0.55, { p: pan(A.tx) });
-  for (let i = 0; i < 11; i += 2) add(52.3 + 0.03 * i, "blip", 0.2, { f: 1 + 0.06 * i });
+  add(52.0, "suck", 0.4, { d: 0.3 }); add(52.05, "whoosh", 0.35, { d: 0.3, f: 0.8 }); add(DOT12.born, "pop", 0.6, { f: 1.1 });
   add(52.0, "swish", 0.35, { d: 0.55 }); add(52.45, "pop", 0.3, { f: 1.3 });
-  add(54.25, "whoosh", 0.35, { d: 0.35, f: 0.7 });
+  for (let i = 0; i < 11; i += 2) add(52.3 + 0.02 * i, "blip", 0.2, { f: 1 + 0.06 * i });
+  add(DOT12.fly[0], "zip", 0.45, { d: DOT12.fly[1] - DOT12.fly[0], p: pan(A.tx) * 0.6 }); add(DOT12.fly[1], "tock", 0.55, { p: pan(A.tx) });
+  add(54.55, "whoosh", 0.5, { d: 0.45, f: 0.7 });
   B.starts.forEach((x, k) => { if (k !== FLYW) add(x, "thup", 0.34); });
-  add(54.75, "whoosh", 0.4, { d: 0.75, f: 1.1 }); for (let j = 0; j < FLYT.length; j += 2) add(54.75 + 0.035 * j + 0.45, "tic", 0.16, { f: 1 + 0.05 * j });
+  add(54.9, "whoosh", 0.4, { d: 0.6, f: 1.1 }); for (let j = 0; j < FLYT.length; j += 2) add(54.9 + 0.03 * j + 0.4, "tic", 0.16, { f: 1 + 0.05 * j });
   add(DOT12.hop[0], "bloop", 0.45); add(DOT12.hop[1], "pop", 0.5, { f: 0.85, p: pan(B.tx) });
-  add(55.85, "scribble", 0.5, { d: 0.45 });
-  add(SUCK0, "suck", 0.45, { d: 0.4 + SUCKD * B.nw });
-  for (let k = 0; k < B.nw; k++) add(SUCK0 + 0.4 + SUCKD * k, "pop", 0.26, { f: 1.4 + 0.05 * k, p: pan(B.tx) });
-  add(DOT12.home[0], "whoosh", 0.4, { d: DOT12.home[1] - DOT12.home[0], f: 0.9 });
-  add(DOT12.home[1], "stretch", 0.25, { d: 60 - DOT12.home[1], f: 0.7 });
+  add(55.9, "scribble", 0.45, { d: 0.45, f: 1.3 }); add(55.9, "tic", 0.25, { f: 1.4 }); add(56.3, "tic", 0.25, { f: 1.6 });
+  KICKS12.forEach((b) => add(b, "tock", 0.3, { f: 1.1, p: pan(B.tx) }));
+  add(SUCK0, "suck", 0.45, { d: 0.35 + SUCKD * B.nw });
+  for (let k = 0; k < B.nw; k++) add(SUCK0 + 0.35 + SUCKD * k, "pop", 0.28, { f: 1.4 + 0.05 * k, p: pan(B.tx) });
+  add(DOT12.home[0], "whoosh", 0.35, { d: DOT12.home[1] - DOT12.home[0], f: 0.9 });
+  add(DOT12.home[1], "whoosh", 0.55, { d: 60 - DOT12.home[1], f: 1.3 });
   RC = RA;
   return C.sort((a, b) => a.x - b.x);
 }

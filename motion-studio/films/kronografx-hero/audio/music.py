@@ -56,7 +56,7 @@ for s in range(14):
 for i in range(20, 44):
     half = 36 <= i < 40                                  # meio tempo no anel 3D: bumbo só nos tempos pares
     if not half or i % 2 == 0: drums.add(kick(1.0), b(i)); kick_times.append(b(i))
-    if i % 2 == 1: drums.add(clap(1.0 if half else 0.8), b(i), p=-0.05)
+    if i % 2 == 1 and i != 33: drums.add(clap(1.0 if half else 0.8), b(i), p=-0.05)   # b33: o toggle da UI fica sozinho
     if i == 31: continue                                 # break: meia batida sem chimbal antes da UI (b31,5–32)
     drums.add(hat(0.5, open_=True), b(i + 0.5), p=0.2)
     for s in (0.25, 0.75):
@@ -104,7 +104,8 @@ for k in (13, 14):
     seq = [arp[0] + 12, arp[2] + 12, arp[1] + 12, arp[3] + 12, arp[2] + 12, arp[3] + 12, arp[1] + 12, arp[2] + 12]
     for s, m in enumerate(seq):
         keys.add(pluck(m, 0.5, 0.40 if k == 13 else 0.32), b(4 * k + s * 0.5), p=(-0.35 if s % 2 else 0.35))
-fx.add(riser(b(1.0), 0.35, f0=600, f1=6000), b(59))   # puxa de volta para o "Olá" (loop)
+rz = riser(b(1.0), 0.35, f0=600, f1=6000); rz[-samples(0.006):] *= np.linspace(1, 0, samples(0.006))   # sem corte seco na emenda
+fx.add(rz, b(59))   # puxa de volta para o começo (loop)
 
 # ---------------------------------------------------------------- mix da trilha
 sc = sidechain(L, kick_times, depth=0.55, release=0.13)[:, None]

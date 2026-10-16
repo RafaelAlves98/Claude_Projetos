@@ -71,7 +71,7 @@ for fmt in (sys.argv[1:] or ["16x9", "9x16"]):
     # ducking: a trilha abaixa 6 dB por 80 ms nos gestos de interface, para o clique aparecer
     duck = np.ones(len(music))
     for cu in cues:
-        if cu["k"] in ("toggle", "click", "spin", "type"):
+        if cu["k"] in ("toggle", "click", "spin"):
             t0 = off + cu["x"] * per; i0 = samples(t0); n0 = samples(0.08); r0 = samples(0.03)
             env = np.concatenate([np.full(n0, db(-6)), np.linspace(db(-6), 1, r0)])
             seg = duck[max(0, i0): i0 + len(env)]; duck[max(0, i0): i0 + len(env)] = np.minimum(seg, env[: len(seg)])
@@ -83,7 +83,6 @@ for fmt in (sys.argv[1:] or ["16x9", "9x16"]):
         if abs(dl) < 0.05 and true_peak(y) <= CEIL: break
         y = y * db(dl)
     y = limiter(y)
-    ramp = samples(0.003); y[:ramp] *= np.linspace(0, 1, ramp)[:, None]; y[-ramp:] *= np.linspace(1, 0, ramp)[:, None]   # emenda do loop sem estalo
     path = os.path.join(OUT, f"audio-{fmt}.wav")
     sf.write(path, y.astype(np.float32), SR, subtype="PCM_24")
     print(f"{fmt}: {len(cues)} efeitos · trilha {Lm:.1f} LUFS · efeitos {Lf:.1f}→{Lf + 20*np.log10(gfx):.1f} LUFS · "

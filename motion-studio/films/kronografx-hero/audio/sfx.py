@@ -165,7 +165,7 @@ def v_swipe(v, **_):
 
 
 def v_type(v, f=1.0, **_):
-    d = 0.04; out = np.zeros(samples(d)); k = hp(nz(0.008), 2000 * f) * env_d(0.008, 0.0015) * 0.9
+    d = 0.04; out = np.zeros(samples(d)); k = hp(nz(0.008), 3500 * f) * env_d(0.008, 0.0015) * 1.1
     out[: len(k)] += k
     return out * v + tone(130 * f, d, 0.01, 0.35 * v)
 
@@ -240,5 +240,6 @@ def render(cues, offset, period, dur=30.0, tail=3.0):
     for c in cues:
         fn = VOICES[c["k"]]
         x = fn(c.get("v", 0.5), **{k: c[k] for k in ("d", "f") if k in c})
-        tr.add(np.asarray(x, dtype=np.float64), offset + c["x"] * period, p=c.get("p", 0.0))
+        t = offset + c["x"] * period
+        tr.add(np.asarray(x, dtype=np.float64), t + dur if t < 0 else t, p=c.get("p", 0.0))   # antes de t = 0: entra no fim (o loop devolve ao começo)
     return tr.buf

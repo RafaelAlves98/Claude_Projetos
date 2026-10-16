@@ -33,5 +33,27 @@ for o in strong:
     if w.max() > thr: offs.append(o - (lo + int(np.argmax(w))))
 if offs:
     oa = np.array(offs); print(f"diferença por par (quadros): mediana {np.median(oa):+.0f} · média {oa.mean():+.2f} · |d|≤1 em {np.mean(np.abs(oa) <= 1):.0%} dos pares")
+# linha de base: a mesma taxa com o som deslocado no tempo (deslocamentos circulares aleatórios e por batidas inteiras).
+# Se o filme muda de imagem o tempo todo, a taxa "por acaso" é alta; o que importa é ficar bem acima dela.
+def rate(shift):
+    sh = [(o + shift) % n for o in strong]
+    return np.mean([vo[max(0, o - 2):o + 3].max() > thr for o in sh])
+rng = np.random.default_rng(7)
+null_r = np.array([rate(int(r)) for r in rng.integers(15, n - 15, 200)])
+beat_r = np.array([rate(k * 30 + 15) for k in range(1, 60)])     # meia batida fora do lugar
+real = len(hit) / max(1, len(strong))
+print(f"linha de base (acaso): média {null_r.mean():.2f} · p95 {np.percentile(null_r, 95):.2f} · z = {(real - null_r.mean()) / (null_r.std() + 1e-9):.1f}"
+      f" · deslocado meia batida: {beat_r.mean():.2f}")
+# média da mudança visual alinhada aos eventos sonoros do film.js (cues): pico no quadro 0 = o gesto e o som coincidem
+import os
+cf = os.path.join(os.path.dirname(os.path.abspath(path)), "cues-" + ("9x16" if "9x16" in path else "16x9") + ".json")
+if os.path.exists(cf):
+    cj = json.load(open(cf)); fr = [int(round((cj["offset_s"] + q["x"] * cj["periodo_s"]) * FPS)) for q in cj["cues"]]
+    fr = [f for f in fr if 8 <= f < n - 8]
+    prof = np.array([np.mean([v[f + L] for f in fr]) for L in range(-8, 9)])   # energia de mudança visual em volta de cada evento
+    base = np.array([np.mean([v[(f + int(r)) % n] for f in fr]) for r in rng.integers(30, n - 30, 200)])
+    pk = int(np.argmax(prof)) - 8
+    print(f"alinhado aos {len(fr)} eventos sonoros: pico da mudança visual no quadro {pk:+d} · no quadro 0 = {prof[8] / base.mean():.2f}× o acaso (p95 do acaso {np.percentile(base, 95) / base.mean():.2f}×)")
+    print("  perfil (−8…+8 quadros, × acaso): " + " ".join(f"{q / base.mean():.2f}" for q in prof))
 miss = sorted(set(strong) - set(hit))
 print("sem evento visual (s):", " ".join(f"{m / FPS:.2f}" for m in miss[:40]))
