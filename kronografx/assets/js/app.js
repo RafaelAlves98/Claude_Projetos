@@ -273,16 +273,30 @@
   }, { rootMargin: "100px 0px" }) : null;
   function playVisible() { if (vio) $$("video[data-loop]").forEach(function (v) { vio.observe(v); }); }
 
-  /* ---------- som do vídeo do hero (começa mudo) ---------- */
-  var heroSound = $("#heroSound");
-  if (heroSound) heroSound.addEventListener("click", function () {
-    var on = heroSound.getAttribute("aria-pressed") !== "true";
-    heroSound.setAttribute("aria-pressed", on ? "true" : "false");
-    $$("video[data-hero]").forEach(function (v) {
-      v.muted = !on;
-      if (on && v.offsetParent && v.paused) { v.preload = "auto"; v.play().catch(function () {}); }
+  /* ---------- vídeo do hero: play com som; pausa ao sair da tela ---------- */
+  var heroFilm = $(".hero__film"), heroSound = $("#heroSound");
+  if (heroFilm) {
+    var heroVids = $$("video[data-hero]");
+    var heroOn = function () { return heroVids.filter(function (v) { return v.offsetParent; })[0]; };
+    $("#heroPlay").addEventListener("click", function () {
+      var v = heroOn(); if (!v) return;
+      v.muted = false; heroSound.setAttribute("aria-pressed", "true");
+      v.play().catch(function () {}); v.focus();
     });
-  });
+    heroSound.addEventListener("click", function () {
+      var on = heroSound.getAttribute("aria-pressed") !== "true";
+      heroSound.setAttribute("aria-pressed", on ? "true" : "false");
+      heroVids.forEach(function (v) { v.muted = !on; });
+    });
+    heroVids.forEach(function (v) {
+      v.addEventListener("play", function () { heroFilm.classList.add("is-on"); });
+      v.addEventListener("pause", function () { heroFilm.classList.remove("is-on"); });
+      v.addEventListener("click", function () { if (!v.paused) v.pause(); });
+    });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) heroVids.forEach(function (v) { v.pause(); });
+    }).observe(heroFilm);
+  }
 
   /* ---------- arsenal fixo com 3 telas ---------- */
   var ars = $("#arsenal"), slides = $$(".arsenal__slide"), dots = $$(".arsenal__dots i"), cur = -1;
