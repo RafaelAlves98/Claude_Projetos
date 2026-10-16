@@ -65,6 +65,7 @@ window.KRONO = {
     },
     {
       id: "starbucks-seu-nome",
+      publicado: "2026-10-16",   // data em que entrou no site (AAAA-MM-DD): o mais recente vai para o anúncio do topo
       titulo: "Seu nome no café",
       cliente: "Starbucks",
       conceitual: true,

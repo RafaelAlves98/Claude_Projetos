@@ -99,7 +99,7 @@ das revisões) e `ferramentas/gerar_legal.py`.
 
 ### Seções da home (em ordem)
 1. **Nav em pílula** fixa (`.pill-nav`), fica escura (`.on-dark`) sobre `#arsenal`, `#confianca` e o hero de projeto. No celular (≤860px) vira menu hambúrguer.
-2. **Hero** — anúncio dinâmico (`#announce`): passa por **todos os projetos** do `dados.js` a cada 4,5 s ("NOVO" no 1º, "PROJETO" nos outros; texto = chave `hero.announce` com `{t}` título e `{c}` cliente; pausa no hover/foco; parado com movimento reduzido; no celular quebra em 2 linhas), status "Agenda aberta para novos projetos", título com gradiente, 2 botões e o **vídeo de boas-vindas** (`.hero__film`): `hero-16x9.mp4` no computador, `hero-9x16.mp4` em ≤600px (o oculto não carrega), não toca sozinho: botão central `#heroPlay` ("Assistir com som") dá play com áudio; depois aparece o botão de som `#heroSound`; pausa ao sair da tela ou ao clicar no vídeo (chaves `hero.film`/`hero.play`/`hero.sound`); poster = quadro do logo. Fonte do filme: `motion-studio/films/kronografx-hero/` (`sh tools/web.sh` gera as versões do site).
+2. **Hero** — anúncio automático (`#announce`): mostra o projeto com a data `publicado` mais recente do `dados.js` (selo "NOVO" até 60 dias depois; depois "ÚLTIMO PROJETO"; texto = chave `hero.announce` com `{t}` título e `{c}` cliente; no celular quebra em 2 linhas), status "Agenda aberta para novos projetos", título com gradiente, 2 botões e o **vídeo de boas-vindas** (`.hero__film`): `hero-16x9.mp4` no computador, `hero-9x16.mp4` em ≤600px (o oculto não carrega), não toca sozinho: botão central `#heroPlay` ("Assistir com som") dá play com áudio; depois aparece o botão de som `#heroSound`; pausa ao sair da tela ou ao clicar no vídeo (chaves `hero.film`/`hero.play`/`hero.sound`); poster = quadro do logo. Fonte do filme: `motion-studio/films/kronografx-hero/` (`sh tools/web.sh` gera as versões do site).
 3. **Reel** — carrossel inclinado (-3°) com frames 9:16, rolagem infinita (lista duplicada), pausa no hover; cada card leva ao projeto.
 4. **Sobre** — "Kronografx, o estúdio do Rafael."
 5. **Arsenal** — seção *sticky* de 330vh com 3 telas que trocam conforme o scroll:
@@ -199,12 +199,12 @@ Todos de 2026, disciplina "Motion Design".
    - `assets/img/<slug>-still-1..6.jpg` (frames da página do projeto, em ordem narrativa)
    - `assets/img/frames/<slug>-1..6.jpg` (frames 9:16 do carrossel da home, **420×746**)
 2. Adicionar um objeto em `projetos` no `dados.js` com os campos:
-   `id, titulo, cliente, subtitulo, categoria, disciplina, ano, formato, duracao, cor, cor2, vertical, video, capa, fundo, specs[], historia[], frames[], nota`
+   `id, publicado, titulo, cliente, subtitulo, categoria, disciplina, ano, formato, duracao, cor, cor2, vertical, video, capa, fundo, specs[], historia[], frames[], nota`
    e, se o vídeo não tiver som, `audio: false`.
    A **ordem** do array define a ordem nos cards (os 4 primeiros vão para a home; com 1 ou 3, o 1º fica largo).
    `fundo` é a imagem apagada atrás do card — use uma de boa resolução se o projeto for o 1º (card largo).
 3. Adicionar entradas `["assets/img/frames/<slug>-N.jpg", "<id>"]` em `carrossel` (intercalar os projetos).
-4. O anúncio do hero se monta sozinho a partir de `projetos` (o 1º do array leva o selo "NOVO") — nada a editar.
+4. Preencher `publicado: "AAAA-MM-DD"` (dia em que entra no site): o anúncio do topo passa sozinho para o projeto mais recente, com selo "NOVO" por 60 dias.
 5. Projeto conceitual (marca sem vínculo) → `conceitual: true`, preencher `nota` com o aviso "Projeto conceitual de portfólio,
    sem vínculo com ..." **e** incluir o projeto na lista da seção "Marcas de terceiros e projetos conceituais" do `termos.html`
    (atualizando a data de "Última atualização"). Projeto de cliente real → confirmar que há autorização para o portfólio.

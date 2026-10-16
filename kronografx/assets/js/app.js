@@ -299,23 +299,15 @@
     }).observe(heroFilm);
   }
 
-  /* ---------- anúncio do hero: passa por todos os projetos (o 1º do dados.js é o NOVO) ---------- */
+  /* ---------- anúncio do hero: o projeto publicado mais recentemente (campo "publicado" no dados.js) ---------- */
   function renderAnnounce() {
     var a = $("#announce"); if (!a || !P.length) return;
-    var i = +(a.getAttribute("data-i") || 0) % P.length, p = P[i];
+    var p = P.reduce(function (m, x) { return (x.publicado || "") > (m.publicado || "") ? x : m; }, P[0]);
+    var dias = p.publicado ? (Date.now() - new Date(p.publicado + "T00:00:00").getTime()) / 864e5 : 1e9;
     a.setAttribute("href", "#/projeto/" + p.id);
-    $("#annTag").textContent = t(i ? "hero.proj" : "hero.new");
+    $("#annTag").textContent = t(dias <= 60 ? "hero.new" : "hero.proj");   // "NOVO" só nos primeiros 60 dias
     $("#annText").textContent = t("hero.announce").replace("{t}", tp(p, "titulo")).replace("{c}", p.cliente);
   }
-  var annEl = $("#announce");
-  if (annEl && P.length > 1 && !reduce) setInterval(function () {
-    if (document.hidden || annEl.matches(":hover, :focus-within")) return;
-    annEl.classList.add("is-swap");
-    setTimeout(function () {
-      annEl.setAttribute("data-i", (+(annEl.getAttribute("data-i") || 0) + 1) % P.length);
-      renderAnnounce(); annEl.classList.remove("is-swap");
-    }, 300);
-  }, 4500);
 
   /* ---------- arsenal fixo com 3 telas ---------- */
   var ars = $("#arsenal"), slides = $$(".arsenal__slide"), dots = $$(".arsenal__dots i"), cur = -1;
