@@ -26,5 +26,12 @@ thr = np.percentile(vo, 75)
 hit = [o for o in strong if vo[max(0, o - 2):o + 3].max() > thr]
 print(json.dumps({"quadros": int(n), "melhor_defasagem_quadros": best, "correlacao_em_0": round(cc[8], 3), "correlacao_max": round(max(cc), 3),
                   "ataques_fortes": len(strong), "com_evento_visual_a_2q": len(hit), "taxa": round(len(hit) / max(1, len(strong)), 3)}, ensure_ascii=False))
+# para cada ataque forte, o pico visual mais próximo (±3 quadros): diferença em quadros (+ = som depois da imagem)
+offs = []
+for o in strong:
+    lo, hi = max(0, o - 3), min(n, o + 4); w = vo[lo:hi]
+    if w.max() > thr: offs.append(o - (lo + int(np.argmax(w))))
+if offs:
+    oa = np.array(offs); print(f"diferença por par (quadros): mediana {np.median(oa):+.0f} · média {oa.mean():+.2f} · |d|≤1 em {np.mean(np.abs(oa) <= 1):.0%} dos pares")
 miss = sorted(set(strong) - set(hit))
 print("sem evento visual (s):", " ".join(f"{m / FPS:.2f}" for m in miss[:40]))

@@ -201,19 +201,6 @@ const RC = { r: (P ? 300 : 290) * U, x: P ? cx : cx + 370 * U, y: cy + (P ? 20 :
 const PIN = (R, x0, y0) => ({ stem: [x0 - 13 * U, y0 - R - 46 * U, 26 * U, 34 * U], cap: [x0 - 42 * U, y0 - R - 68 * U, 84 * U, 24 * U] });
 function drawPin(c, pin, col) { c.fillStyle = col; c.fillRect(...pin.stem); c.beginPath(); c.roundRect(...pin.cap, 10 * U); c.fill(); }
 function lerpRect(a, b, u) { return a.map((v, i) => mix(v, b[i], u)); }
-function caption(c, text, x, a, b, theme) {
-  const fs = (P ? 46 : 34) * U, L = lay(text, FI(fs, 500)), rd = 0.2 * fs, gap = 0.6 * fs;
-  const tot = 2 * rd + gap + L.w, x0 = cx - tot / 2, y = H - (P ? 250 : 104) * U;
-  const u = oExpo(prog(x, a, a + 0.5)), v = ioCubic(prog(x, b - 0.35, b));
-  if (u <= 0 || v >= 1) return;
-  const bh = bandH(L), dy = (1 - u) * bh + v * bh;
-  c.save();
-  c.beginPath(); c.rect(0, y - L.asc, W, bh); c.clip();
-  blob(c, x0 + rd, y - L.xh * 0.5 + dy, rd, 1, 1, 0, theme === "vio" ? PAPER : VIO);
-  c.fillStyle = theme === "light" ? G3 : theme === "vio" ? PAPER : G5;
-  glyphs(c, L, x0 + 2 * rd + gap, y + dy, null);
-  c.restore();
-}
 function shake(x) {
   let dx = 0, dy = 0;
   for (const [b, a] of [[20, 26], [48, 18], [14.5, 9]]) {
@@ -225,7 +212,7 @@ function shake(x) {
 }
 
 /* ================================================================ S1 · "Olá." (0–4) */
-const R0 = 16 * U, Z1 = 0.72, Z2 = 1.0;      // Z1: fim da ida à esquerda · Z2: o ponto pousa (palma da batida 1)                                   // o ponto do quadro 0 (e do último: loop)
+const R0 = 20 * U, Z1 = 0.72, Z2 = 1.0;      // Z1: fim da ida à esquerda · Z2: o ponto pousa (palma da batida 1)                                   // o ponto do quadro 0 (e do último: loop)
 let _s1;
 function s1L() {
   if (_s1) return _s1;
@@ -337,20 +324,21 @@ function rcL() {
   const nf = (P ? 172 : 190) * U, NF = FD(nf), digW = Math.max(...("0123456789".split("").map((d) => lay(d, NF).w))), comW = lay(",", NF).w;
   const hs = (P ? 112 : 124) * U, ws = (P ? 104 : 112) * U;
   const hy = P ? [RC.y - RC.r - 252 * U, RC.y - RC.r - 128 * U] : [cy - 150 * U, cy - 14 * U];
-  return (_rc = { nf, NF, digW, comW, hs, ws, hy, hx: P ? null : 150 * U, wy: P ? RC.y + RC.r + 185 * U : cy + 200 * U, lab: lay("SEGUNDOS", FI((P ? 36 : 30) * U, 600)) });
+  return (_rc = { nf, NF, digW, comW, hs, ws, hy, hx: P ? null : 150 * U, wy: P ? RC.y + RC.r + 185 * U : cy + 200 * U, lab: lay("segundos", FD((P ? 62 : 52) * U)) });
 }
-function clockNumber(c, v, x, col, scale = 1) {
+/* número do cronômetro em células fixas + "segundos" (grande o bastante para o celular) */
+function clockNumber(c, v, col, scale = 1) {
+  if (scale <= 0.001) return;
   const S = rcL(), d = Math.floor(v + 1e-9), t = Math.round((v - d) * 10) % 10;
   const chars = [String(d), ",", String(t)], widths = [S.digW, S.comW, S.digW];
-  const tot = widths.reduce((a, b) => a + b, 0), base = RC.y + lay("0", S.NF).cap / 2 - 26 * U;
-  c.save(); c.translate(RC.x, base - lay("0", S.NF).cap / 2); c.scale(scale, scale); c.translate(-RC.x, -(base - lay("0", S.NF).cap / 2));
+  const cap = lay("0", S.NF).cap, tot = widths.reduce((a, b) => a + b, 0), base = RC.y + cap / 2 - 40 * U;
+  const lab = S.lab, lbase = base + (P ? 90 : 78) * U, piv = (base - cap + lbase) / 2;
+  c.save(); c.translate(RC.x, piv); c.scale(scale, scale); c.translate(-RC.x, -piv);
   c.fillStyle = col; c.font = S.NF; c.textBaseline = "alphabetic"; c.textAlign = "center";
   let xx = RC.x - tot / 2;
   chars.forEach((ch, i) => { c.fillText(ch, xx + widths[i] / 2, base); xx += widths[i]; });
   c.textAlign = "left";
-  const lab = S.lab, tr = 0.22 * lab.cap;
-  c.fillStyle = G4;
-  glyphs(c, lab, RC.x - (lab.w + (lab.text.length - 1) * tr) / 2, base + 70 * U, null, tr);
+  c.fillStyle = G5; glyphs(c, lab, RC.x - lab.w / 2, lbase, null);
   c.restore();
 }
 function ticks(c, sweep, colOf) {
@@ -363,23 +351,27 @@ function ticks(c, sweep, colOf) {
   }
 }
 /* cabeçalho em duas linhas: à esquerda no 16:9, centrado no 9:16 */
-function header(c, x, lines, st) {
+function header(c, x, lines, st, outFn) {
   const S = rcL(); let k0 = 0;
   lines.forEach((t, li) => {
     const L = lay(t, FD(S.hs)), bh = bandH(L), kk = k0;
-    maskLine(c, L, S.hx === null ? cx - L.w / 2 : S.hx, S.hy[li], (k) => ({ dy: (1 - oExpo(prog(x, st + 0.12 * (kk + k), st + 0.55 + 0.12 * (kk + k)))) * bh }));
+    maskLine(c, L, S.hx === null ? cx - L.w / 2 : S.hx, S.hy[li], (k) => {
+      const o = outFn ? outFn(kk + k) : 0;
+      if (o >= 1) return false;
+      return { dy: (1 - oExpo(prog(x, st + 0.12 * (kk + k), st + 0.55 + 0.12 * (kk + k)))) * bh + o * bh };
+    });
     k0 += nWords(t);
   });
 }
 /* palavras que rolam num slot abaixo do anel */
-function slotWords(c, x, list, at, col, lastCol) {
+function slotWords(c, x, list, at, col, lastCol, outU = 0) {
   const S = rcL();
   list.forEach((w, j) => {
-    const L = lay(w, FD(S.ws)), bh = bandH(L);
-    const u = oExpo(prog(x, at[j], at[j] + 0.4)), o = j + 1 < list.length ? oExpo(prog(x, at[j + 1], at[j + 1] + 0.4)) : 0;
-    if (u <= 0 || o >= 1) return;
-    c.fillStyle = j === list.length - 1 && lastCol ? lastCol : col;
-    maskLine(c, L, S.hx === null ? cx - L.w / 2 : S.hx, S.wy, () => ({ dy: (1 - u) * bh - o * bh }));
+    const L = lay(w, FD(S.ws)), bh = bandH(L), last = j === list.length - 1;
+    const u = oExpo(prog(x, at[j], at[j] + 0.4)), o = last ? 0 : oExpo(prog(x, at[j + 1], at[j + 1] + 0.4)), e = last ? outU : 0;
+    if (u <= 0 || o >= 1 || e >= 1) return;
+    c.fillStyle = last && lastCol ? lastCol : col;
+    maskLine(c, L, S.hx === null ? cx - L.w / 2 : S.hx, S.wy, () => ({ dy: (1 - u) * bh - o * bh + e * bh }));
   });
 }
 function feed(c, x) {
@@ -409,8 +401,10 @@ function feed(c, x) {
   g.addColorStop(0, rgba(INK, 0.94)); g.addColorStop(1, rgba(INK, 0.45));
   c.fillStyle = g; c.fillRect(-PADB, -PADB, W + 2 * PADB, H + 2 * PADB);
 }
-const fallOf = (x, k) => { const u = prog(x, 15 + 0.07 * k, 15.78 + 0.07 * k); return { dy: Math.pow(u, 2.2) * H * 1.3, rot: (k % 2 ? 1 : -1) * 0.5 * u * u }; };
-function grp(c, tr, px, py, fn) { c.save(); c.translate(px, py + tr.dy); c.rotate(tr.rot); c.translate(-px, -py); fn(); c.restore(); }
+/* queda em cascata: o que está mais embaixo cai primeiro (nada passa por cima de nada), rotação ≤ 6° */
+const FALL = [[15.3, -1], [15.18, 1], [15.18, 1], [15.1, -1], [15.18, 1]];   // 0 título · 1 número · 2 anel · 3 palavra · 4 ponto
+const fallOf = (x, k) => { const [st, dir] = FALL[k], u = prog(x, st, st + 0.66); return { dy: Math.pow(u, 2.2) * H * 1.35, dx: dir * 90 * U * u, rot: dir * 0.1 * u * u }; };
+function grp(c, tr, px, py, fn) { c.save(); c.translate(px + (tr.dx || 0), py + tr.dy); c.rotate(tr.rot); c.translate(-px, -py); fn(); c.restore(); }
 function s3content(c, x) {
   bg(c, INK);
   feed(c, x);
@@ -434,7 +428,7 @@ function s3content(c, x) {
   grp(c, fallOf(x, 1), RC.x, RC.y, () => {
     const v = x < 8.5 ? 3 : Math.max(0, 3 - (T(x) - T(8.5)));
     const disp = Math.ceil(v * 10 - 1e-6) / 10, s = oBack(prog(x, 8.15, 8.5), 2) * (1 + 0.14 * wobble(x - 14.5, 2, 7));
-    if (s > 0.01) clockNumber(c, disp, x, x >= 14.5 ? G5 : PAPER, s);
+    if (s > 0.01) clockNumber(c, disp, PAPER, s);
   });
   // "Seu público te dá"
   grp(c, fallOf(x, 0), P ? cx : S.hx, S.hy[0], () => { c.fillStyle = PAPER; header(c, x, ["Seu público", "te dá"], 8.2); });
@@ -448,11 +442,11 @@ function s3content(c, x) {
   });
 }
 function s3(c, x) {
-  if (x < 14.5 || x >= 15.0) { s3content(c, x); return; }
+  if (x < 14.5 || x >= 14.8) { s3content(c, x); return; }   // glitch curto; depois o 0,0 fica limpo até a queda
   gctx.setTransform(1, 0, 0, 1, 0, 0);
   s3content(gctx, x);
   const seed = Math.floor((x - 14.5) * 22);
-  const amp = (x < 14.64 ? 1 : 0.6 * (1 - prog(x, 14.64, 15.0))) * (rnd(91, seed) > 0.25 ? 1 : 0.2);
+  const amp = (x < 14.6 ? 1 : 0.6 * (1 - prog(x, 14.6, 14.8))) * (rnd(91, seed) > 0.25 ? 1 : 0.2);
   bg(c, INK);
   let y = 0, j = 0;
   while (y < H) {
@@ -468,9 +462,9 @@ function s3(c, x) {
 let _s4;
 function s4L() {
   if (_s4) return _s4;
-  const fs = (P ? 104 : 96) * U, lh = fs * 1.12;
-  const tx = P ? 96 * U : 170 * U, ty1 = P ? 330 * U : cy - 40 * U;
-  const gs = (P ? 600 : 460) * U, gx = P ? cx : cx + 390 * U, gy = P ? cy + 10 * U : cy - 80 * U;
+  const gs = (P ? 600 : 440) * U, gx = P ? cx : cx + 470 * U, gy = P ? cy + 10 * U : cy - 80 * U, tx = P ? 96 * U : 150 * U;
+  const fs = P ? 104 * U : fit(["todo mundo fica.", "ninguém fica."], FD, gx - gs / 2 - 46 * U - 70 * U - tx, 124 * U), lh = fs * 1.12;
+  const ty1 = P ? 330 * U : cy - 30 * U;
   const trY = P ? cy + 520 * U : cy + 300 * U, tr0 = P ? cx - 400 * U : gx - 300 * U, tr1 = P ? cx + 400 * U : gx + 300 * U;
   return (_s4 = { fs, lh, tx, ty1, ty2: ty1 + lh, gs, gx, gy, trY, tr0, tr1, cs: 116 * U });
 }
@@ -665,6 +659,15 @@ function s6Pos(x) {
   const u = e, w0 = (1 - u) * (1 - u), w1 = 2 * (1 - u) * u, w2 = u * u;
   return [w0 * a[0] + w1 * k[0] + w2 * b[0], w0 * a[1] + w1 * k[1] + w2 * b[1]];
 }
+function shapePath(c, ra, rb, e, rot, scale) {
+  c.beginPath();
+  for (let j = 0; j <= NS; j++) {
+    const jj = j % NS, t = (jj / NS) * TAU, r = mix(ra[jj], rb[jj], e) * S6R * scale;
+    const xx = r * Math.cos(t + rot), yy = r * Math.sin(t + rot);
+    j ? c.lineTo(xx, yy) : c.moveTo(xx, yy);
+  }
+  c.closePath();
+}
 function s6Shape(c, x, mode, col) {
   const { i, e } = s6Seg(x), [px, py] = s6Pos(x), ra = RAD[i], rb = RAD[i + 1];
   const rot = (i + e) * (Math.PI / 2);
@@ -674,25 +677,23 @@ function s6Shape(c, x, mode, col) {
   const st = stretchOf(s6Pos, x, 1 / 7000, 0.45);
   c.save(); c.translate(px, py);
   c.rotate(st.ang); c.scale(st.s, 1 / Math.sqrt(st.s)); c.rotate(-st.ang);
-  c.beginPath();
-  for (let j = 0; j <= NS; j++) {
-    const jj = j % NS, t = (jj / NS) * TAU, r = mix(ra[jj], rb[jj], e) * S6R * sc;
-    const xx = r * Math.cos(t + rot), yy = r * Math.sin(t + rot);
-    j ? c.lineTo(xx, yy) : c.moveTo(xx, yy);
-  }
-  c.closePath();
-  if (mode === "fill") { c.fillStyle = col; c.fill(); } else { c.strokeStyle = col; c.lineWidth = 2 * U; c.stroke(); }
-  // furo da engrenagem
-  const gw = i === 2 ? e : i === 3 ? 1 - e : 0;
-  if (mode === "fill" && gw > 0.01) blob(c, 0, 0, 0.3 * S6R * oBack(gw, 1.2), 1, 1, 0, INK);
+  shapePath(c, ra, rb, e, rot, sc);
+  if (mode === "fill") {
+    c.fillStyle = col; c.fill();
+    const gw = i === 2 ? e : i === 3 ? 1 - e : 0;                       // furo da engrenagem
+    if (gw > 0.01) blob(c, 0, 0, 0.3 * S6R * oBack(gw, 1.2), 1, 1, 0, INK);
+    // a moldura 16:9 se esvazia: o miolo cresce mais rápido e a borda violeta passa pela câmera
+    const hole = sc * 0.93 * oExpo(prog(x, 27.62, 27.92));
+    if (grow > 0 && hole > 0.01) { shapePath(c, ra, rb, e, rot, hole); c.fillStyle = INK; c.fill(); }
+  } else { c.strokeStyle = col; c.lineWidth = 3 * U; c.stroke(); }
   c.restore();
 }
 function s6(c, x) {
   bg(c, INK);
   const grow = x >= 27.6 ? ioExpo(prog(x, 27.6, 28.0)) : 0;
-  // trajetória pontilhada + keyframes (losangos)
   if (grow < 1) {
-    c.fillStyle = G3;
+    // trajetória pontilhada + keyframes (losangos), como no After Effects
+    c.fillStyle = rgba(PAPER, 0.5);
     for (let i = 0; i < 4; i++) {
       if (x < 24 + i) break;
       const e = i < Math.floor(x - 24) ? 1 : s6Seg(x).e, k = s6Ctrl(i), pts = quadPts(KF[i], k, KF[i + 1], 60);
@@ -700,38 +701,39 @@ function s6(c, x) {
       for (let j = 1; j < pts.length; j++) {
         acc += Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]);
         if (j / (pts.length - 1) > e) break;
-        if (acc > 22 * U) { acc = 0; c.beginPath(); c.arc(pts[j][0], pts[j][1], 3 * U, 0, TAU); c.fill(); }
+        if (acc > 22 * U) { acc = 0; c.beginPath(); c.arc(pts[j][0], pts[j][1], 3.5 * U, 0, TAU); c.fill(); }
       }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const at = i === 0 ? 24 : 24 + (i - 1) + 0.55, s = oBack(prog(x, at, at + 0.25), 2.4);
-      if (s <= 0 || (i === 4)) continue;
+      if (s <= 0) continue;
       const [a, b] = KF[i]; c.save(); c.translate(a, b); c.rotate(Math.PI / 4); const d = 11 * U * s;
       c.fillStyle = PAPER; c.fillRect(-d, -d, 2 * d, 2 * d); c.restore();
     }
-    // onion skin
-    for (let j = 3; j >= 1; j--) { c.globalAlpha = [0, 0.55, 0.35, 0.2][j]; s6Shape(c, x - 0.045 * j, "stroke", G4); }
+    // onion skin violeta
+    for (let j = 3; j >= 1; j--) { c.globalAlpha = [0, 0.42, 0.28, 0.16][j]; s6Shape(c, x - 0.045 * j, "stroke", VIO); }
     c.globalAlpha = 1;
   }
-  s6Shape(c, x, "fill", mixc(VIO, PAPER, grow));
-  caption(c, "Motion design", x, 24.15, 27.6, "dark");
+  s6Shape(c, x, "fill", VIO);
 }
 
-/* ================================================================ S7 · tipografia cinética (28–32) */
+/* ================================================================ S7 · tipografia cinética: uma composição em escada que se monta (28–32) */
 let _s7;
 function s7L() {
   if (_s7) return _s7;
-  const one = (t, maxW, maxS) => { const fs = fit([t], FD, maxW, maxS), L = lay(t, FD(fs)); return { fs, L, x0: cx - L.w / 2, base: cy + L.cap / 2 }; };
-  const m = one("MOTION", W * (P ? 0.86 : 0.7), 360 * U), d = one("DESIGN", W * (P ? 0.86 : 0.7), 360 * U), v = one("VFX", W * (P ? 0.8 : 0.5), 420 * U);
-  const pfs = fit(["PÓS."], FD, W * (P ? 0.7 : 0.45), 380 * U), pL = lay("PÓS", FD(pfs)), rd = pfs * 0.075, gap = pfs * 0.04;
-  const px0 = cx - (pL.w + gap + 2 * rd) / 2, pbase = cy + pL.cap / 2;
-  const tops = [0, 1, 2].map((i) => [gcx(pL, px0, i), pbase - pL.cap * (i === 1 ? 1.27 : 1.0) - rd]);
-  tops.push([px0 + pL.w + gap + rd, pbase - rd]);
-  return (_s7 = { m, d, v, p: { fs: pfs, L: pL, rd, x0: px0, base: pbase, tops } });
+  const words = ["MOTION", "DESIGN", "VFX", "PÓS"];
+  const indent = P ? [0, 0.03, 0.14, 0.28] : [0, 0.12, 0.3, 0.42];
+  const x0 = 0.08 * W, fs = fit(["MOTION", "DESIGN"], FD, (P ? 0.84 : 0.5) * W, (P ? 250 : 230) * U);
+  const lh = fs * 0.9, Ls = words.map((t) => lay(t, FD(fs))), cap = Ls[0].cap, b0 = cy - (3 * lh) / 2 + cap / 2;
+  const rows = Ls.map((L, i) => ({ L, x0: x0 + indent[i] * W, base: b0 + i * lh }));
+  const rd = fs * 0.075, gap = fs * 0.04, p = rows[3];
+  const tops = [0, 1, 2].map((i) => [gcx(p.L, p.x0, i), p.base - p.L.cap * (i === 1 ? 1.27 : 1.0) - rd]);
+  tops.push([p.x0 + p.L.w + gap + rd, p.base - rd]);
+  return (_s7 = { fs, lh, rows, rd, tops });
 }
 const HOPS = [31.22, 31.47, 31.72, 31.97];
 function s7Dot(x) {
-  const S = s7L().p, t = S.tops;
+  const S = s7L(), t = S.tops;
   if (x < HOPS[0]) { const u = prog(x, 31.0, HOPS[0]); return [t[0][0], mix(-S.rd * 3, t[0][1], u * u)]; }
   for (let j = 0; j < 3; j++) if (x < HOPS[j + 1]) {
     const u = prog(x, HOPS[j], HOPS[j + 1]);
@@ -740,46 +742,50 @@ function s7Dot(x) {
   return t[3];
 }
 function s7(c, x, skipDot) {
-  const S = s7L();
-  let theme = "dark";
-  if (x < 29) {                        // MOTION: as letras viram como cartas
-    bg(c, PAPER); theme = "light"; c.fillStyle = INK;
-    glyphs(c, S.m.L, S.m.x0, S.m.base, (i) => {
-      const u = prog(x, 28 + 0.04 * i, 28.42 + 0.04 * i);
-      if (u <= 0) return false;
-      return { sy: Math.cos((1 - oBack(u, 1.8)) * (Math.PI / 2)), oy: S.m.L.cap / 2 };
-    });
-  } else if (x < 30) {                 // DESIGN: mola que abre do centro
-    bg(c, INK); c.fillStyle = PAPER;
-    const sp = spring(x - 29, 1.7, 7);
-    glyphs(c, S.d.L, S.d.x0, S.d.base, (i) => {
-      const gx = gcx(S.d.L, S.d.x0, i);
-      return { dx: (gx - cx) * (sp - 1), sx: Math.max(sp, 0.002), sy: 1 + (1 - sp) * 0.5, oy: S.d.L.cap / 2 };
-    });
-  } else if (x < 31) {                 // VFX: fatias que se encaixam
-    bg(c, VIO); theme = "vio"; c.fillStyle = PAPER;
-    const n = 9, top = S.v.base - S.v.L.cap * 1.06, hh = (S.v.L.cap * 1.12) / n;
+  bg(c, INK);
+  const S = s7L(), R = S.rows;
+  // a cada batida a composição inteira "respira" no bumbo
+  let k = 1; for (const b of [29, 30, 31]) if (x >= b) k *= 1 - 0.03 * wobble(x - b, 2.2, 9);
+  c.save(); c.translate(cx, cy); c.scale(k, k); c.translate(-cx, -cy);
+  c.fillStyle = PAPER;
+  // MOTION: as letras viram como cartas
+  glyphs(c, R[0].L, R[0].x0, R[0].base, (i) => {
+    const u = prog(x, 28 + 0.04 * i, 28.42 + 0.04 * i);
+    if (u <= 0) return false;
+    return { sy: Math.cos((1 - oBack(u, 1.8)) * (Math.PI / 2)), oy: R[0].L.cap / 2 };
+  });
+  // DESIGN: mola que abre do centro da palavra
+  if (x >= 29) {
+    const sp = spring(x - 29, 1.7, 7), wc = R[1].x0 + R[1].L.w / 2;
+    glyphs(c, R[1].L, R[1].x0, R[1].base, (i) => ({ dx: (gcx(R[1].L, R[1].x0, i) - wc) * (sp - 1), sx: Math.max(sp, 0.002), sy: 1 + (1 - sp) * 0.5, oy: R[1].L.cap / 2 }));
+  }
+  // VFX: fatias que se encaixam (a única palavra violeta)
+  if (x >= 30) {
+    const L = R[2].L, n = 9, top = R[2].base - L.cap * 1.06, hh = (L.cap * 1.12) / n;
+    c.fillStyle = VIO;
     for (let j = 0; j < n; j++) {
       let dx = (1 - oExpo(prog(x, 30 + 0.025 * j, 30.42 + 0.025 * j))) * W * 0.95 * (j % 2 ? 1 : -1);
       if (x >= 30.55 && x < 30.75) dx += (rnd(77, j * 13 + Math.floor((x - 30.55) * 30)) - 0.5) * 110 * U * (1 - prog(x, 30.55, 30.75));
       c.save(); c.beginPath(); c.rect(-W, top + j * hh, W * 3, hh + 0.6); c.clip();
-      glyphs(c, S.v.L, S.v.x0 + dx, S.v.base, null);
+      glyphs(c, L, R[2].x0 + dx, R[2].base, null);
       c.restore();
     }
-  } else {                             // PÓS: o ponto quica de letra em letra até virar o ponto final
-    bg(c, INK); c.fillStyle = PAPER;
-    const p = S.p;
-    maskLine(c, p.L, p.x0, p.base, (k, i) => {
+    c.fillStyle = PAPER;
+  }
+  // PÓS: sobe da máscara; o ponto quica de letra em letra até virar o ponto final
+  if (x >= 31) {
+    const p = R[3];
+    maskLine(c, p.L, p.x0, p.base, (kk, i) => {
       const u = oExpo(prog(x, 31 + 0.04 * i, 31.4 + 0.04 * i)), hit = wobble(x - HOPS[i], 2.4, 9);
       if (u <= 0) return false;
       return { dy: (1 - u) * bandH(p.L), sy: 1 - (x >= HOPS[i] ? 0.12 * hit : 0) };
     });
-    if (!skipDot && x >= 31.0) {
+    if (!skipDot) {
       const [dx, dy] = s7Dot(x), last = HOPS.findLast((h) => h <= x), sq = last !== undefined ? 0.3 * Math.exp(-(x - last) * 12) : 0;
-      blob(c, dx, dy + p.rd * sq, p.rd, 1 + sq * 0.8, 1 - sq);
+      blob(c, dx, dy + S.rd * sq, S.rd, 1 + sq * 0.8, 1 - sq);
     }
   }
-  caption(c, "Tipografia cinética", x, 28.15, 32.4, theme);
+  c.restore();
 }
 
 /* ================================================================ S8 · UI animada (32–35,75) */
@@ -802,27 +808,28 @@ function s8(c, x, noBg) {
   if (!noBg) bg(c, PAPER);
   const S = s8L(), { w, h, L: Lx, T: Ty } = S;
   const flip = Math.cos((Math.PI / 2) * ioCubic(prog(x, 35.5, 35.75)));
-  // o ponto do "PÓS." vira o card
+  // o ponto do "PÓS." voa até virar o avatar; o card branco nasce de onde ele estava
+  const av = [Lx + 74 * U, Ty + 76 * U], d7 = s7Dot(32.0), du = ioCubic(prog(x, 32.0, 32.5));
+  const dotP = [mix(d7[0], av[0], du), mix(d7[1], av[1], du) - Math.sin(Math.PI * du) * 120 * U], dotR = mix(s7L().rd, 32 * U, du);
   const g = ioExpo(prog(x, 32.22, 32.66));
   if (g < 1) {
-    const d7 = s7Dot(32.0), u = ioCubic(prog(x, 32.0, 32.4));
-    const px = mix(d7[0], S.x, u), py = mix(d7[1], S.y, u) - Math.sin(Math.PI * u) * 90 * U;
-    const rd = s7L().p.rd, ww = mix(2 * rd, w, g), hh = mix(2 * rd, h, g), rr = mix(rd, 40 * U, g);
-    c.fillStyle = mixc(VIO, WHITE, g); c.beginPath(); c.roundRect(px - ww / 2, py - hh / 2, ww, hh, rr); c.fill();
-    caption(c, "UI animada", x, 32.4, 35.5, "light");
+    if (g > 0) {
+      const ccx = mix(d7[0], S.x, g), ccy = mix(d7[1], S.y, g), ww = w * g, hh = h * g;
+      c.fillStyle = WHITE; c.beginPath(); c.roundRect(ccx - ww / 2, ccy - hh / 2, ww, hh, 40 * U * g); c.fill();
+    }
+    const st = stretchOf((xx) => { const v = ioCubic(prog(xx, 32.0, 32.5)); return [mix(d7[0], av[0], v), mix(d7[1], av[1], v) - Math.sin(Math.PI * v) * 120 * U]; }, x, 1 / 6000, 0.7);
+    blob(c, dotP[0], dotP[1], dotR, st.s, 1 / Math.sqrt(st.s), st.ang);
     return;
   }
   c.save(); c.translate(S.x, S.y); c.scale(flip, 1); c.translate(-S.x, -S.y);
   c.save(); c.shadowColor = "rgba(10,10,11,0.10)"; c.shadowBlur = 60 * U; c.shadowOffsetY = 24 * U;
   c.fillStyle = WHITE; c.beginPath(); c.roundRect(Lx, Ty, w, h, 40 * U); c.fill(); c.restore();
-  // cabeçalho: avatar, linhas skeleton, toggle
-  const av = oBack(prog(x, 32.5, 32.75), 2);
-  blob(c, Lx + 74 * U, Ty + 76 * U, 32 * U * av, 1, 1, 0, G6);
-  c.fillStyle = G6;
-  for (const [i, bw, bh2, yy] of [[0, 250, 18, 58], [1, 160, 14, 88]]) {
-    const u = oExpo(prog(x, 32.55 + 0.07 * i, 32.95 + 0.07 * i));
-    if (u > 0) { c.beginPath(); c.roundRect(Lx + 128 * U, Ty + yy * U, bw * U * u, bh2 * U, bh2 * U / 2); c.fill(); }
-  }
+  // cabeçalho: avatar (o ponto), título, linha skeleton, toggle
+  blob(c, av[0], av[1], 32 * U);
+  const tL = lay("UI animada", FI((P ? 44 : 38) * U, 600)), tb = Ty + 72 * U, tu = oExpo(prog(x, 32.55, 33.0));
+  c.fillStyle = INK; maskLine(c, tL, Lx + 128 * U, tb, () => (tu <= 0 ? false : { dy: (1 - tu) * bandH(tL) }));
+  const bu = oExpo(prog(x, 32.65, 33.05));
+  if (bu > 0) { c.fillStyle = G6; c.beginPath(); c.roundRect(Lx + 128 * U, Ty + 88 * U, 160 * U * bu, 14 * U, 7 * U); c.fill(); }
   const ts = oBack(prog(x, 32.6, 32.85), 2), tx = Lx + w - 92 * U, ty = Ty + 76 * U;
   if (ts > 0) {
     const on = spring(x - 33.0, 1.4, 7);
@@ -869,39 +876,54 @@ function s8(c, x, noBg) {
     const cs = 1.45 * U * (1 - 0.16 * bump(prog(x, 33.97, 34.16)));
     cursorPath(c, px, py, cs); c.fillStyle = INK; c.fill(); c.strokeStyle = WHITE; c.lineWidth = 3 * U; c.lineJoin = "round"; c.stroke();
   }
-  caption(c, "UI animada", x, 32.4, 35.5, "light");
 }
 
-/* ================================================================ S9 · anel 3D de frames (35,75–40) */
+/* ================================================================ S9 · anel 3D de frames, foco que muda e plate → comp (35,75–40) */
 const NC = 12, CW = 280 * U, CH = 360 * U, RR = (P ? 540 : 700) * U, FOC = 1500 * U;
 const CARD_BG = [WHITE, VIO, "#18181c", PAPER, G2, "#1f1f24", PAPER, VIO, "#18181c", G3, PAPER, "#18181c"];
-function cardContent(c, i, map, s) {      // conteúdo em coordenadas locais (a, b) ∈ [-0,5; 0,5]
+const cbuf = document.createElement("canvas"); cbuf.width = W; cbuf.height = H;
+const cbx = cbuf.getContext("2d");
+/* conteúdo em coordenadas locais (a, b) ∈ [-0,5; 0,5]. wire = "plate": só o arame, antes da composição */
+function cardContent(c, i, map, s, wire) {
   const P2 = (a, b) => map(a, b);
-  const rect = (a0, b0, a1, b1, col) => { poly(c, [P2(a0, b0), P2(a1, b0), P2(a1, b1), P2(a0, b1)]); c.fillStyle = col; c.fill(); };
-  const circ = (a, b, r, col, n = 28) => { const pts = []; for (let k = 0; k < n; k++) { const t = (k / n) * TAU; pts.push(P2(a + (r * Math.cos(t)) / CW * U, b + (r * Math.sin(t)) / CH * U)); } poly(c, pts); c.fillStyle = col; c.fill(); };
+  const F = (col) => { if (wire) { c.strokeStyle = G4; c.lineWidth = Math.max(1, 2.4 * U * s); c.lineJoin = "round"; c.stroke(); } else { c.fillStyle = col; c.fill(); } };
+  const rect = (a0, b0, a1, b1, col) => { poly(c, [P2(a0, b0), P2(a1, b0), P2(a1, b1), P2(a0, b1)]); F(col); };
+  const circ = (a, b, r, col, n = 28) => { const pts = []; for (let k = 0; k < n; k++) { const t = (k / n) * TAU; pts.push(P2(a + (r * Math.cos(t)) / CW * U, b + (r * Math.sin(t)) / CH * U)); } poly(c, pts); F(col); };
+  const line = (pts, col, wpx) => { c.strokeStyle = wire ? G4 : col; c.lineWidth = Math.max(1, (wire ? 2.4 : wpx) * U * s); c.lineCap = "round"; c.beginPath(); pts.forEach((p, k) => (k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]))); c.stroke(); };
   switch (i) {
     case 0: rect(-0.36, -0.38, 0.1, -0.33, G6); rect(-0.36, -0.29, -0.05, -0.25, G6);
       for (let k = 0; k < 7; k++) { const hh = 0.08 + 0.2 * rnd(3, k); rect(-0.36 + k * 0.105, 0.12 - hh, -0.29 + k * 0.105, 0.12, VIO); }
       rect(-0.25, 0.26, 0.25, 0.37, VIO); break;
     case 1: circ(0, 0, 92, PAPER); break;
-    case 2: { const R = 120; poly(c, LOGO.stem.map(([a, b]) => P2((a * R) / CW * U, (b * R) / CH * U))); c.fillStyle = "#9a3cf9"; c.fill();
-      poly(c, LOGO.chev.map(([a, b]) => P2((a * R) / CW * U, (b * R) / CH * U))); c.fillStyle = "#d3d8df"; c.fill(); break; }
+    case 2: { const R = 120; poly(c, LOGO.stem.map(([a, b]) => P2((a * R) / CW * U, (b * R) / CH * U))); F("#9a3cf9");
+      poly(c, LOGO.chev.map(([a, b]) => P2((a * R) / CW * U, (b * R) / CH * U))); F("#d3d8df"); break; }
     case 3: for (let k = 0; k < 5; k++) rect(-0.36, -0.34 + k * 0.15, 0.36, -0.27 + k * 0.15, INK); break;
-    case 4: poly(c, [P2(0, -0.26), P2(0.32, 0.24), P2(-0.32, 0.24)]); c.fillStyle = VIO; c.fill(); break;
+    case 4: poly(c, [P2(0, -0.26), P2(0.32, 0.24), P2(-0.32, 0.24)]); F(VIO); break;
     case 5: for (let a = 0; a < 4; a++) for (let b = 0; b < 5; b++) circ(-0.27 + a * 0.18, -0.32 + b * 0.16, 11, PAPER, 12); break;
-    case 6: { const pts = []; for (let k = 0; k < 40; k++) { const t = (k / 40) * TAU, r = 100 * RAD[1][Math.floor((k / 40) * NS)]; pts.push(P2((r * Math.cos(t)) / CW * U, (r * Math.sin(t)) / CH * U)); } poly(c, pts); c.fillStyle = VIO; c.fill(); break; }
+    case 6: { const pts = []; for (let k = 0; k < 40; k++) { const t = (k / 40) * TAU, r = 100 * RAD[1][Math.floor((k / 40) * NS)]; pts.push(P2((r * Math.cos(t)) / CW * U, (r * Math.sin(t)) / CH * U)); } poly(c, pts); F(VIO); break; }
     case 7: for (let k = 0; k < 5; k++) { const hh = 0.15 + 0.5 * rnd(9, k); rect(-0.34 + k * 0.14, 0.34 - hh, -0.25 + k * 0.14, 0.34, INK); } break;
-    case 8: { c.strokeStyle = PAPER; c.lineWidth = Math.max(1, 8 * U * s); c.lineCap = "round"; c.beginPath(); for (let k = 0; k <= 30; k++) { const a = -0.36 + (k / 30) * 0.72, p = P2(a, Math.sin(k / 30 * TAU * 1.5) * 0.14); k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.stroke(); break; }
-    case 9: poly(c, [P2(0, -0.27), P2(0.3, 0), P2(0, 0.27), P2(-0.3, 0)]); c.fillStyle = PAPER; c.fill(); break;
+    case 8: { const pts = []; for (let k = 0; k <= 30; k++) pts.push(P2(-0.36 + (k / 30) * 0.72, Math.sin((k / 30) * TAU * 1.5) * 0.14)); line(pts, PAPER, 8); break; }
+    case 9: poly(c, [P2(0, -0.27), P2(0.3, 0), P2(0, 0.27), P2(-0.3, 0)]); F(PAPER); break;
     case 10: circ(0, 0, 100, VIO); circ(0, 0, 52, PAPER); break;
-    case 11: { c.lineWidth = Math.max(1, 9 * U * s); for (const [col, a0, a1] of [[G2, 0, TAU], [VIO, -Math.PI / 2, Math.PI * 0.9]]) { c.strokeStyle = col; c.beginPath(); for (let k = 0; k <= 40; k++) { const t = a0 + (a1 - a0) * (k / 40), p = P2((95 * Math.cos(t)) / CW * U, (95 * Math.sin(t)) / CH * U); k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.stroke(); } break; }
+    case 11: for (const [col, a0, a1] of [[G2, 0, TAU], [VIO, -Math.PI / 2, Math.PI * 0.9]]) { const pts = []; for (let k = 0; k <= 40; k++) { const t = a0 + (a1 - a0) * (k / 40); pts.push(P2((95 * Math.cos(t)) / CW * U, (95 * Math.sin(t)) / CH * U)); } line(pts, col, 9); } break;
   }
 }
+function plateBg(c, map, s) {
+  poly(c, [map(-0.5, -0.5), map(0.5, -0.5), map(0.5, 0.5), map(-0.5, 0.5)]); c.fillStyle = "#141418"; c.fill();
+  c.strokeStyle = G2; c.lineWidth = Math.max(1, 1.5 * U * s);
+  for (let k = 1; k < 4; k++) { const a = -0.5 + k / 4, p = map(a, -0.5), q = map(a, 0.5); c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(q[0], q[1]); c.stroke(); }
+  for (let k = 1; k < 5; k++) { const b = -0.5 + k / 5, p = map(-0.5, b), q = map(0.5, b); c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(q[0], q[1]); c.stroke(); }
+}
+const STEPS9 = [36.5, 37, 37.5, 38];
 function ringTheta(x) {
   let th = (x - 35.75) * 0.1;
-  for (const s of [36.5, 37, 37.5, 38]) th += (Math.PI / 6) * oBack(prog(x, s, s + 0.36), 1.5);
+  for (const s of STEPS9) th += (Math.PI / 6) * oBack(prog(x, s, s + 0.36), 1.5);
   return th;
 }
+/* o frame que chega à frente em cada passo começa como "plate" (arame) e uma cortina violeta revela a composição */
+function wipeOf(i, x) { const n = (NC - i) % NC; if (n < 1 || n > 4) return 1; const b = STEPS9[n - 1]; return ioCubic(prog(x, b + 0.06, b + 0.44)); }
+/* rack focus: o foco pula entre a frente e o fundo a cada passo */
+function focusZ(x) { let z = 0; for (const [b, v] of [[36.5, 0], [37, 1.7], [37.5, 0], [38, 1.7]]) z = mix(z, v, ioCubic(prog(x, b, b + 0.3))); return z * RR; }
 /* layout final dos clipes (timeline) */
 let _tl;
 function tlL() {
@@ -923,6 +945,28 @@ function tlL() {
 const SNAP = [40.25, 40.5, 40.75];
 function clipRect(i, x) { const C = tlL().clips[i], s = oBack(prog(x, SNAP[C.lane], SNAP[C.lane] + 0.32), 2); return [C.x + C.off * (1 - s), C.y, C.w, C.h]; }
 const rectMap = (r) => (a, b) => [r[0] + (a + 0.5) * r[2], r[1] + (b + 0.5) * r[3]];
+function drawCard(c, k, x) {
+  const quad = [k.map(-0.5, -0.5), k.map(0.5, -0.5), k.map(0.5, 0.5), k.map(-0.5, 0.5)];
+  const front = (quad[1][0] - quad[0][0]) * (quad[3][1] - quad[0][1]) - (quad[1][1] - quad[0][1]) * (quad[3][0] - quad[0][0]) > 0;
+  if (!front) { poly(c, quad); c.fillStyle = "#1a1a1f"; c.fill(); }
+  else {
+    const wp = k.fl > 0 ? 1 : wipeOf(k.i, x);
+    const comp = () => { poly(c, quad); c.fillStyle = CARD_BG[k.i]; c.fill(); cardContent(c, k.i, k.map, k.s, false); };
+    const plate = () => { plateBg(c, k.map, k.s); cardContent(c, k.i, k.map, k.s, true); };
+    if (wp >= 1) comp();
+    else if (wp <= 0) plate();
+    else {
+      const aw = -0.5 + wp;
+      c.save(); poly(c, [k.map(-0.5, -0.5), k.map(aw, -0.5), k.map(aw, 0.5), k.map(-0.5, 0.5)]); c.clip(); comp(); c.restore();
+      c.save(); poly(c, [k.map(aw, -0.5), k.map(0.5, -0.5), k.map(0.5, 0.5), k.map(aw, 0.5)]); c.clip(); plate(); c.restore();
+      const p0 = k.map(aw, -0.5), p1 = k.map(aw, 0.5);
+      c.strokeStyle = VIO; c.lineWidth = 5 * U * k.s; c.lineCap = "butt"; c.beginPath(); c.moveTo(p0[0], p0[1]); c.lineTo(p1[0], p1[1]); c.stroke();
+    }
+  }
+  const dark = cl((k.z / (2 * RR)) * 0.75) * (1 - k.fl);
+  if (dark > 0.01) { poly(c, quad); c.fillStyle = rgba(INK, dark); c.fill(); }
+  return quad;
+}
 function s9(c, x) {
   bg(c, INK);
   const th = ringTheta(x), tilt = mix(0.24, 0.1, ioCubic(prog(x, 36, 38.5)));
@@ -947,16 +991,20 @@ function s9(c, x) {
     cards.push({ i, z, map, cphi, fl, s: proj(0, 0)[2], app });
   }
   cards.sort((a, b) => b.z - a.z);
+  const fz = focusZ(x), dofOn = prog(x, 35.95, 36.3);
   for (const k of cards) {
     if (k.app <= 0.001) continue;
-    const quad = [k.map(-0.5, -0.5), k.map(0.5, -0.5), k.map(0.5, 0.5), k.map(-0.5, 0.5)];
-    const front = (quad[1][0] - quad[0][0]) * (quad[3][1] - quad[0][1]) - (quad[1][1] - quad[0][1]) * (quad[3][0] - quad[0][0]) > 0;
-    poly(c, quad); c.fillStyle = front ? CARD_BG[k.i] : "#1a1a1f"; c.fill();
-    if (front) cardContent(c, k.i, k.map, k.s);
-    const dark = cl((k.z / (2 * RR)) * 0.75) * (1 - k.fl);
-    if (dark > 0.01) { poly(c, quad); c.fillStyle = rgba(INK, dark); c.fill(); }
+    const blur = Math.min(14 * U, (Math.abs(k.z - fz) / RR) * 10 * U) * dofOn * (1 - k.fl);
+    if (blur < 0.6) { drawCard(c, k, x); continue; }
+    // profundidade de campo: o frame fora de foco é desenhado à parte e desfocado
+    const q = [k.map(-0.5, -0.5), k.map(0.5, -0.5), k.map(0.5, 0.5), k.map(-0.5, 0.5)], pad = blur * 3 + 4;
+    const x0 = Math.max(0, Math.floor(Math.min(...q.map((p) => p[0])) - pad)), x1 = Math.min(W, Math.ceil(Math.max(...q.map((p) => p[0])) + pad));
+    const y0 = Math.max(0, Math.floor(Math.min(...q.map((p) => p[1])) - pad)), y1 = Math.min(H, Math.ceil(Math.max(...q.map((p) => p[1])) + pad));
+    if (x1 <= x0 || y1 <= y0) continue;
+    cbx.setTransform(1, 0, 0, 1, 0, 0); cbx.clearRect(x0, y0, x1 - x0, y1 - y0);
+    drawCard(cbx, k, x);
+    c.save(); c.filter = `blur(${blur.toFixed(2)}px)`; c.drawImage(cbuf, x0, y0, x1 - x0, y1 - y0, x0, y0, x1 - x0, y1 - y0); c.restore();
   }
-  caption(c, "3D & VFX", x, 36.1, 38.6, "dark");
 }
 
 /* ================================================================ S10 · timeline (40–44) */
@@ -964,6 +1012,12 @@ const PH0 = 40.75, PH1 = 43.0;
 function phX(x) { const S = tlL(); return S.lx0 + S.len * prog(x, PH0, PH1); }
 const KFX = (k) => tlL().lx0 + tlL().len * ((k + 0.5) / 10);
 function tc(t) { const s = Math.floor(t), f = Math.floor((t - s) * 60 + 1e-6), p = (n) => String(n).padStart(2, "0"); return `00:00:${p(s)}:${p(f)}`; }
+function tlTitle(c, x) {   // o nome do serviço vira o título do painel da timeline (sem legenda solta)
+  const S = tlL(), L = lay("Edição & finalização", FI((P ? 46 : 38) * U, 600)), y = S.headY - (P ? 86 : 70) * U, bh = bandH(L);
+  const u = oExpo(prog(x, 40.15, 40.6)), o = iCubic(prog(x, 42.9, 43.15));
+  if (u <= 0 || o >= 1) return;
+  c.fillStyle = G5; maskLine(c, L, S.lx0, y, () => ({ dy: (1 - u) * bh + o * bh }));
+}
 function s10(c, x) {
   bg(c, INK);
   const S = tlL(), col = oExpo(prog(x, 43.1, 43.5));
@@ -993,7 +1047,7 @@ function s10(c, x) {
   }
   // playhead → vira o cronômetro
   const drop = oBack(prog(x, 40.6, 40.9), 1.8);
-  if (drop <= 0) { caption(c, "Edição & finalização", x, 40.2, 43.0, "dark"); return; }
+  if (drop <= 0) { tlTitle(c, x); return; }
   const toC = ioExpo(prog(x, 43.0, 43.3)), hx = mix(pxh, RC.x, toC), m = ioExpo(prog(x, 43.3, 43.95));
   const ytop = S.headY + 30 * U, ybot = S.botY;
   const N = 120, pts = [];
@@ -1012,10 +1066,10 @@ function s10(c, x) {
   if (m < 0.01) { poly(c, [[hx - 16 * U, head[1] + 34 * U], [hx + 16 * U, head[1] + 34 * U], [hx, head[1] + 50 * U]]); c.fill(); }
   const ls = 1 - iBack(prog(x, 42.95, 43.12));
   if (ls > 0.01) {
-    const Lt = lay(tc(T(x)), FI(28 * U, 600));
+    const Lt = lay(tc(T(x)), FI((P ? 38 : 30) * U, 600));
     c.save(); c.translate(hx + 30 * U, head[1] + 17 * U); c.scale(ls, ls); c.fillStyle = PAPER; glyphs(c, Lt, 0, Lt.cap / 2, null); c.restore();
   }
-  caption(c, "Edição & finalização", x, 40.2, 43.0, "dark");
+  tlTitle(c, x);
 }
 
 /* ================================================================ S11 · "Cada segundo conta." → logo (44–52) */
@@ -1031,8 +1085,8 @@ let _wm;
 function wmL() {
   if (_wm) return _wm;
   const fs = (P ? 150 : 128) * U, L = lay("Kronografx", FD(fs)), base = LG.y + LG.r + (P ? 205 : 172) * U;
-  const tL = lay("Motion design · VFX · Pós-produção", FI((P ? 40 : 36) * U, 500));
-  return (_wm = { fs, L, x0: cx - L.w / 2, base, tL, tx0: cx - tL.w / 2, tbase: base + (P ? 92 : 78) * U });
+  const tL = lay("Motion design · VFX · Pós-produção", FI((P ? 48 : 40) * U, 500));
+  return (_wm = { fs, L, x0: cx - L.w / 2, base, tL, tx0: cx - tL.w / 2, tbase: base + (P ? 104 : 86) * U });
 }
 const D2R = Math.PI / 180;
 function conicFor(c, x0, y0, stops) { const g = c.createConicGradient(0, x0, y0); stops.forEach(([deg, col]) => g.addColorStop(((deg % 360) + 360) % 360 / 360, col)); return g; }
@@ -1040,7 +1094,7 @@ function conicFor(c, x0, y0, stops) { const g = c.createConicGradient(0, x0, y0)
 function drawLogo(c, o) {
   const { x: lx, y: ly, r: R } = o;
   if (R <= 0.5) return;
-  const e = o.ring, th = mix(12 * U, LOGO.th * R, e);
+  const e = o.ring, th = mix(12 * U * (o.thScale || 1), LOGO.th * R, e);
   const gA = (LOGO.arcB[0] - LOGO.arcA[1]) / 2 * (1 - e), gB = (360 + LOGO.arcA[0] - LOGO.arcB[1]) / 2 * (1 - e);
   const A = [LOGO.arcA[0] - gB, LOGO.arcA[1] + gA], B = [LOGO.arcB[0] - gA, LOGO.arcB[1] + gB];
   const ga = conicFor(c, lx, ly, [[0, "#7c21fc"], [29.4, "#7c21fc"], [57, "#c06cff"], [95, "#bb66fd"], [112, "#8a4cdc"], [137.6, "#4d26b6"], [200, "#4d26b6"], [236.4, "#d4d9df"], [300, "#dfe3ea"], [320, "#ffffff"], [330, "#e0ccfe"], [340, "#9f5cfd"], [350, "#7c21fc"], [359.9, "#7c21fc"]]);
@@ -1051,7 +1105,7 @@ function drawLogo(c, o) {
   }
   // pino
   const pinL = [lx + LOGO.pin[0] * R, ly + LOGO.pin[1] * R + (o.pinDy || 0), LOGO.pin[2] * R, LOGO.pin[3] * R];
-  const pw = PIN(o.r0 || R, lx, ly), pe = cl(o.pinM === undefined ? 1 : o.pinM);
+  const pw = o.pinFrom || PIN(o.r0 || R, lx, ly), pe = cl(o.pinM === undefined ? 1 : o.pinM);
   c.fillStyle = mixc(G3, "#f0f0f3", pe);
   const ps = lerpRect(pw.stem, pinL, pe), pc = lerpRect(pw.cap, pinL, pe);
   c.fillRect(ps[0], ps[1], ps[2], ps[3]); c.beginPath(); c.roundRect(pc[0], pc[1], pc[2], pc[3], 10 * U * (1 - pe) + 1); c.fill();
@@ -1077,48 +1131,40 @@ function drawLogo(c, o) {
     }
   }
 }
+const FILL_STEPS = [44.5, 45, 45.5, 46, 46.5, 47];       // o anel enche em passos, junto com os tiques
+const fillOf = (x) => FILL_STEPS.reduce((n, b) => n + oBack(prog(x, b, b + 0.22), 2.0), 0) / FILL_STEPS.length;
 function s11(c, x) {
   bg(c, INK);
-  const S = rcL(), R = RC.r;
-  const out = iBack(prog(x, 47.72, 47.98), 1.4);           // antecipação: tudo encolhe antes da trava
-  const f = ioCubic(prog(x, 44.15, 47.5));
-  const L48 = oExpo(prog(x, 47.95, 48.3));                  // anel → logo
-  if (x < 48.3) {
-    // texto + número + palavras (somem na antecipação)
-    const sc = 1 - out;
-    if (sc > 0.01) {
-      const ax = P ? cx : S.hx;
-      c.save(); c.translate(ax, S.hy[0]); c.scale(sc, sc); c.translate(-ax, -S.hy[0]);
-      c.fillStyle = PAPER; header(c, x, ["Cada segundo", "conta."], 44.1);
-      c.restore();
-      c.save(); c.translate(ax, S.wy); c.scale(sc, sc); c.translate(-ax, -S.wy);
-      slotWords(c, x, GAIN, GAIN_AT, PAPER, VIO);
-      c.restore();
-      clockNumber(c, Math.floor(3 * f * 10 + 1e-6) / 10, x, PAPER, sc * oBack(prog(x, 44.0, 44.3), 2));
-    }
-    if (L48 <= 0) {
-      const ring = 1 - 0.08 * ioCubic(prog(x, 47.72, 47.98));
-      c.save(); c.translate(RC.x, RC.y); c.scale(ring, ring); c.translate(-RC.x, -RC.y);
-      c.lineCap = "butt"; c.lineWidth = 12 * U;
-      c.strokeStyle = G2; c.beginPath(); c.arc(RC.x, RC.y, R, 0, TAU); c.stroke();
-      if (f > 0) { c.strokeStyle = VIO; c.beginPath(); c.arc(RC.x, RC.y, R, -Math.PI / 2, -Math.PI / 2 + TAU * f); c.stroke(); }
-      ticks(c, TAU - 1e-4, (j, a) => (a <= TAU * f + 1e-6 && f > 0 ? PAPER : G3));
-      drawPin(c, PIN(R, RC.x, RC.y), G3);
-      if (f > 0) { const a = -Math.PI / 2 + TAU * f; blob(c, RC.x + R * Math.cos(a), RC.y + R * Math.sin(a), 17 * U * (1 - out)); }
-      c.restore();
-      return;
-    }
+  const R = RC.r, f = fillOf(x), n = FILL_STEPS.filter((b) => x >= b).length;
+  const tOut = (k) => iCubic(prog(x, 47.42 + 0.05 * k, 47.7 + 0.05 * k));   // o texto sai pela máscara antes da trava
+  const nOut = iBack(prog(x, 47.55, 47.85), 1.4);                            // o número encolhe para dentro do anel
+  const mv = iCubic(prog(x, 47.66, 47.95));                                  // e o anel, sozinho, viaja até o logo
+  const sc1 = LG.r / R, pin0 = PIN(R, RC.x, RC.y), toLG = (r) => [LG.x + (r[0] - RC.x) * sc1, LG.y + (r[1] - RC.y) * sc1, r[2] * sc1, r[3] * sc1];
+  if (x < 47.95) {
+    c.fillStyle = PAPER;
+    header(c, x, ["Cada segundo", "conta."], 44.1, tOut);
+    slotWords(c, x, GAIN, GAIN_AT, PAPER, VIO, tOut(3));
+    const rx = mix(RC.x, LG.x, mv), ry = mix(RC.y, LG.y, mv), sc = mix(1, sc1, mv);
+    c.save(); c.translate(rx, ry); c.scale(sc, sc); c.translate(-RC.x, -RC.y);
+    c.lineCap = "butt"; c.lineWidth = 12 * U;
+    c.strokeStyle = G2; c.beginPath(); c.arc(RC.x, RC.y, R, 0, TAU); c.stroke();
+    if (f > 0) { c.strokeStyle = VIO; c.beginPath(); c.arc(RC.x, RC.y, R, -Math.PI / 2, -Math.PI / 2 + TAU * Math.min(f, 1)); c.stroke(); }
+    if (nOut < 1) { c.globalAlpha = 1 - cl(nOut); ticks(c, TAU - 1e-4, (j, a) => (a <= TAU * f + 1e-6 && f > 0 ? PAPER : G3)); c.globalAlpha = 1; }
+    drawPin(c, pin0, G3);
+    if (f > 0 && nOut < 1) { const a = -Math.PI / 2 + TAU * Math.min(f, 1); blob(c, RC.x + R * Math.cos(a), RC.y + R * Math.sin(a), 17 * U * (1 - cl(nOut))); }
+    clockNumber(c, 0.5 * n, PAPER, (1 - nOut) * oBack(prog(x, 44.0, 44.3), 2));
+    c.restore();
+    return;
   }
-  // o logo trava na batida 48
-  const lx = mix(RC.x, LG.x, L48), ly = mix(RC.y, LG.y, L48), lr = mix(RC.r * 0.92, LG.r, L48);
+  // o logo trava na batida 48 (com um pequeno overshoot)
+  const L48 = oExpo(prog(x, 47.95, 48.25)), lr = LG.r * (x >= 48 ? 1 + 0.07 * wobble(x - 48, 2.2, 7) : 1);
   const shock = prog(x, 48, 48.8);
   if (shock > 0 && shock < 1) { c.strokeStyle = G3; c.lineWidth = 4 * U * Math.pow(1 - shock, 2); c.beginPath(); c.arc(LG.x, LG.y, LG.r * mix(1.05, 2.3, oExpo(shock)), 0, TAU); c.stroke(); }
   drawLogo(c, {
-    x: lx, y: ly, r: lr, r0: lr, ring: L48, pinM: L48,
+    x: LG.x, y: LG.y, r: lr, ring: L48, pinM: L48, thScale: sc1, pinFrom: { stem: toLG(pin0.stem), cap: toLG(pin0.cap) },
     stem: oBack(prog(x, 48.0, 48.3), 1.6), chev: oBack(prog(x, 48.04, 48.34), 1.6),
     shine: prog(x, 50.5, 50.92), pinDy: 0.05 * LG.r * bump(prog(x, 51.0, 51.18)),
   });
-  // wordmark + tagline
   wordmark(c, x, 48.5, 52.0);
 }
 function wordmark(c, x, a, outAt) {
@@ -1139,64 +1185,79 @@ function wordmark(c, x, a, outAt) {
   if (caret) { const cxp = n > 0 ? S.tx0 + tl.xs[n - 1] + tl.ws[n - 1] + 6 * U : S.tx0; c.fillStyle = VIO; c.fillRect(cxp, S.tbase - tl.cap * 1.12, 3.5 * U, tl.cap * 1.38); }
 }
 
-/* ================================================================ S12 · convite + volta ao ponto (52–60) */
+/* ================================================================ S12 · "Boas-vindas à Kronografx." + convite + volta ao ponto (52–60) */
+function cardLayout(lines, maxW, maxS) {   // bloco alinhado à esquerda e centrado na tela, com o ponto violeta no fim
+  const fs = fit(lines.map((t, i) => (i === lines.length - 1 ? t + "." : t)), FD, maxW, maxS), lh = fs * 1.08, Ls = lines.map((t) => lay(t, FD(fs)));
+  const rd = fs * 0.075, gap = fs * 0.045, n = Ls.length, last = Ls[n - 1];
+  const bw = Math.max(...Ls.map((L, i) => (i === n - 1 ? L.w + gap + 2 * rd : L.w)));
+  const bx = cx - bw / 2, b0 = cy - ((n - 1) * lh) / 2 + Ls[0].cap / 2, bases = Ls.map((_, i) => b0 + i * lh);
+  return { fs, lh, Ls, rd, bx, bases, tx: bx + last.w + gap + rd, ty: bases[n - 1] - rd, nw: Ls.reduce((a, L) => a + nWords(L.text), 0) };
+}
 let _s12;
 function s12L() {
   if (_s12) return _s12;
-  const lines = P ? ["Vamos dar", "movimento", "à sua ideia"] : ["Vamos dar movimento", "à sua ideia"];
-  const fs = (P ? 150 : 124) * U, lh = fs * 1.1, Ls = lines.map((t) => lay(t, FD(fs)));
-  const rd = fs * 0.075, gap = fs * 0.045, n = Ls.length;
-  const b0 = P ? cy - 80 * U : cy + 60 * U, bases = Ls.map((_, i) => b0 + i * lh);
-  const xs = Ls.map((L, i) => cx - (L.w + (i === n - 1 ? gap + 2 * rd : 0)) / 2);
-  const starts = []; let k = 0;
-  Ls.forEach((L) => { for (let j = 0; j < nWords(L.text); j++) starts.push(53 + 0.25 * k++); });
-  const last = Ls[n - 1], tx = xs[n - 1] + last.w + gap + rd, ty = bases[n - 1] - rd;
-  const iw = wordSpan(last, xs[n - 1], nWords(last.text) - 1);
-  const wl = lay("Boas-vindas à Kronografx.", FI((P ? 50 : 44) * U, 600));
-  return (_s12 = { fs, lh, Ls, rd, xs, bases, starts, tx, ty, iw, wl, wy: P ? cy - 300 * U : cy - 140 * U, ly: P ? cy - 470 * U : cy - 270 * U, lr: (P ? 70 : 56) * U, nw: k });
+  const A = cardLayout(["Boas-vindas", "à Kronografx"], W * (P ? 0.84 : 0.7), (P ? 170 : 172) * U);
+  const B = cardLayout(P ? ["Vamos dar", "movimento", "à sua ideia"] : ["Vamos dar movimento", "à sua ideia"], W * (P ? 0.86 : 0.8), (P ? 160 : 140) * U);
+  A.starts = Array.from({ length: A.nw }, (_, k) => 52.3 + 0.15 * k);
+  B.starts = Array.from({ length: B.nw }, (_, k) => 54.5 + 0.15 * k);
+  const n = B.Ls.length; B.iw = wordSpan(B.Ls[n - 1], B.bx, nWords(B.Ls[n - 1].text) - 1);
+  return (_s12 = { A, B });
 }
-const S12DROP = 54.5;
-function suck(x, k) { return iExpo(prog(x, 56.0 + 0.16 * k, 56.6 + 0.16 * k)); }
+const DOT12 = { fly: [52.5, 53.0], hop: [55.2, 55.6], home: [58.0, 59.2] };
+function s12Dot(x) {                        // [x, y, raio] do ponto
+  const { A, B } = s12L();
+  if (x < DOT12.fly[0]) return [LG.x, LG.y, A.rd];
+  if (x < DOT12.fly[1]) { const u = ioCubic(prog(x, ...DOT12.fly)); return [mix(LG.x, A.tx, u), mix(LG.y, A.ty, u) - Math.sin(Math.PI * u) * 0.12 * H, A.rd]; }
+  if (x < DOT12.hop[0]) return [A.tx, A.ty, A.rd];
+  if (x < DOT12.hop[1]) { const u = ioCubic(prog(x, ...DOT12.hop)); return [mix(A.tx, B.tx, u), mix(A.ty, B.ty, u) - Math.sin(Math.PI * u) * 0.16 * H, mix(A.rd, B.rd, u)]; }
+  if (x < DOT12.home[0]) return [B.tx, B.ty, B.rd];
+  const u = ioExpo(prog(x, ...DOT12.home));
+  return [mix(B.tx, cx, u), mix(B.ty, cy, u) - Math.sin(Math.PI * u) * 0.1 * H, mix(B.rd, R0, ioCubic(prog(x, ...DOT12.home)))];
+}
+const suck = (x, k) => iExpo(prog(x, 57.0 + 0.12 * k, 57.55 + 0.12 * k));
 function s12(c, x) {
   bg(c, INK);
-  const S = s12L(), D = [S.tx, S.ty];
-  const mv = ioExpo(prog(x, 52.0, 52.6));
-  // logo encolhe e sobe
-  const lo = suck(x, 1);
-  if (lo < 1) {
-    const lx = mix(LG.x, cx, mv), ly = mix(LG.y, S.ly, mv), lr = mix(LG.r, S.lr, mv);
-    drawLogo(c, { x: mix(lx, D[0], lo), y: mix(ly, D[1], lo), r: lr * (1 - lo), ring: 1, stem: 1, chev: 1, shine: 0 });
-  }
+  const { A, B } = s12L(), [dx, dy, dr] = s12Dot(x);
+  // o logo grande se recolhe; dele nasce o ponto
+  const lo = iBack(prog(x, 52.0, 52.3), 1.6);
+  if (lo < 1) drawLogo(c, { x: LG.x, y: LG.y, r: LG.r * (1 - lo), ring: 1, stem: 1, chev: 1, shine: 0 });
   if (x < 52.7) wordmark(c, x, 48.5, 52.0);
-  // "Boas-vindas à Kronografx."
-  const wo = suck(x, 2), wl = S.wl;
+  // cartão 1: "Boas-vindas / à Kronografx." (a mesma onda do "Olá." passa pelas letras)
   c.fillStyle = PAPER;
-  if (wo > 0 && wo < 1) glyphs(c, wl, cx - wl.w / 2, S.wy, (i) => { const gx = gcx(wl, cx - wl.w / 2, i); return { dx: (D[0] - gx) * wo, dy: (D[1] - S.wy) * wo, sx: 1 - wo, sy: 1 - wo }; });
-  else if (wo <= 0) maskLine(c, wl, cx - wl.w / 2, S.wy, (k) => { const u = oExpo(prog(x, 52.45 + 0.1 * k, 52.95 + 0.1 * k)); return u <= 0 ? false : { dy: (1 - u) * bandH(wl) }; });
-  // "Vamos dar movimento à sua ideia."
-  let g0 = 0;
-  S.Ls.forEach((L, li) => {
-    const gs = g0, base = S.bases[li], bh = bandH(L);
+  let g = 0;
+  A.Ls.forEach((L, li) => {
+    const g0 = g, base = A.bases[li], bh = bandH(L);
+    maskLine(c, L, A.bx, base, (k, i) => {
+      const gi = g0 + k, st = A.starts[gi], u = oExpo(prog(x, st, st + 0.55)), o = iCubic(prog(x, 54.25 + 0.05 * gi, 54.55 + 0.05 * gi));
+      if (u <= 0 || o >= 1) return false;
+      const wv = li === 0 ? -A.fs * 0.12 * bump(prog(x, 53.5 + 0.035 * i, 53.82 + 0.035 * i)) : 0;
+      return { dy: (1 - u) * bh + o * bh + wv };
+    });
+    g += nWords(L.text);
+  });
+  // cartão 2: "Vamos dar movimento / à sua ideia." — no fim, o ponto engole tudo
+  g = 0;
+  B.Ls.forEach((L, li) => {
+    const g0 = g, base = B.bases[li], bh = bandH(L), wm = wordMap(L.text);
     const fn = (k, i) => {
-      const g = gs + k, st = S.starts[g], u = oExpo(prog(x, st, st + 0.55)), so = suck(x, 3 + (S.nw - 1 - g));
+      const gi = g0 + k, st = B.starts[gi], u = oExpo(prog(x, st, st + 0.55)), so = suck(x, B.nw - 1 - gi);
       if (u <= 0 || so >= 1) return false;
-      if (so > 0) { const gx = gcx(L, S.xs[li], i); return { dx: (D[0] - gx) * so, dy: (D[1] - base) * so, sx: 1 - so, sy: 1 - so }; }
+      if (so > 0) { const gx = gcx(L, B.bx, i); return { dx: (dx - gx) * so, dy: (dy - base) * so, sx: 1 - so, sy: 1 - so }; }
       return { dy: (1 - u) * bh };
     };
-    if (suck(x, 3) > 0) glyphs(c, L, S.xs[li], base, (i) => { const wm = wordMap(L.text); return wm[i] < 0 ? false : fn(wm[i], i); });
-    else maskLine(c, L, S.xs[li], base, fn);
-    g0 += nWords(L.text);
+    if (x >= 57.0) glyphs(c, L, B.bx, base, (i) => (wm[i] < 0 ? false : fn(wm[i], i)));
+    else maskLine(c, L, B.bx, base, fn);
+    g += nWords(L.text);
   });
-  // traço em "ideia"
-  underline(c, S.iw[0], S.iw[1], S.bases[S.bases.length - 1] + S.fs * 0.16, S.fs, oExpo(prog(x, 56.0, 56.3)), oExpo(prog(x, 55.0, 55.45)));
-  // o ponto: cai, quica, engole tudo e volta ao centro, do tamanho do quadro 0
-  if (x < 58.0) bouncingDot(c, x, S12DROP, S.tx, S.ty, S.rd * (1 + 0.25 * bump(prog(x, 57.6, 58.0))), S.ty + 0.15 * H, 0.22 * S.fs);
-  else {
-    const pos = (xx) => { const v = ioExpo(prog(xx, 58.0, 59.0)); return [mix(S.tx, cx, v), mix(S.ty, cy, v) - Math.sin(Math.PI * v) * 0.12 * H]; };
-    const [px, py] = pos(x), st = stretchOf(pos, x, 1 / 6000, 0.8);
-    const r = mix(S.rd, R0, ioCubic(prog(x, 58.0, 59.0))) * (1 - 0.22 * bump(prog(x, 59.2, 60)));
-    blob(c, px, py, r, st.s, 1 / Math.sqrt(st.s), st.ang);
-  }
+  underline(c, B.iw[0], B.iw[1], B.bases[B.bases.length - 1] + B.fs * 0.16, B.fs, oExpo(prog(x, 57.0, 57.25)), oExpo(prog(x, 55.85, 56.3)));
+  // o ponto
+  const born = oBack(prog(x, 52.18, 52.36), 2.4);
+  if (born <= 0) return;
+  let r = dr * born, sx = 1, sy = 1, ang = 0;
+  if ((x > DOT12.fly[0] && x < DOT12.fly[1]) || (x > DOT12.hop[0] && x < DOT12.hop[1]) || x > DOT12.home[0]) { const st = stretchOf(s12Dot, x, 1 / 6000, 0.7); sx = st.s; sy = 1 / Math.sqrt(st.s); ang = st.ang; }
+  for (const land of [DOT12.fly[1], DOT12.hop[1]]) if (x >= land && x < land + 0.6) { const k = 0.34 * wobble(x - land, 2.4, 8); sx = 1 + k; sy = 1 - k; ang = 0; }
+  r *= (1 + 0.25 * bump(prog(x, 57.0, 58.0))) * (1 - 0.22 * bump(prog(x, 59.2, 60)));
+  blob(c, dx, dy + (sy < 1 && ang === 0 ? (1 - sy) * r : 0), r, sx, sy, ang);
 }
 
 /* ================================================================ montagem */
@@ -1257,7 +1318,7 @@ window.grab = async (f, t) => {
 function buildCues() {
   const C = [], add = (x, k, v = 0.5, o = {}) => C.push({ x: +x.toFixed(4), k, v, ...o });
   const pan = (px) => +(cl((px - cx) / (W / 2), -1, 1) * 0.55).toFixed(3);
-  // S1
+  // S1 · "Olá."
   const s1 = s1L();
   add(0, "pop", 0.9, { f: 1 }); add(0, "ping", 0.3);
   add(0.25, "stretch", 0.3, { d: 0.25 });
@@ -1266,67 +1327,74 @@ function buildCues() {
   add(Z2, "tock", 0.6, { p: pan(s1.endX) });
   for (let i = 0; i < 4; i++) add(WAVE + 0.075 * i, "blip", 0.22, { f: 1 + 0.12 * i, p: pan(i < 3 ? gcx(s1.L, s1.x0, i) : s1.endX) });
   add(3.45, "whoosh", 0.55, { d: 0.55, f: 1.2 });
-  // S2
+  // S2 · "Que bom ter você aqui."
   const s2 = s2L();
   s2.starts.forEach((x) => add(x, "thup", 0.32));
   dropContacts(S2DROP).forEach(([x, l]) => add(x, "pop", 0.55 * l, { f: 0.8, p: pan(s2.tx) }));
   add(6.0, "scribble", 0.5, { d: 0.45 });
   add(7.0, "whoosh", 0.35, { d: 0.4, f: 0.7 }); add(7.25, "bloop", 0.5); add(7.55, "whoosh", 0.5, { d: 0.45, f: 0.6 });
-  // S3
+  // S3 · a dor
   for (let j = 0; j < 60; j += 2) add(8 + 0.75 * invert(ioCubic, j / 60), "ratchet", j % 10 === 0 ? 0.3 : 0.16, { p: pan(RC.x + RC.r * Math.cos((j / 60) * TAU - Math.PI / 2)) });
   add(8.3, "clack", 0.4);
-  for (let k = 0; k < 3; k++) add(8.2 + 0.12 * k, "thup", 0.22);
+  for (let k = 0; k < 4; k++) add(8.2 + 0.12 * k, "thup", 0.22);
   PAIN_AT.forEach((x) => add(x, "flick", 0.55));
-  add(14.5, "glitch", 0.8, { d: 0.5 }); add(15.0, "fall", 0.5, { d: 1.0 });
-  // S4
+  add(14.5, "glitch", 0.8, { d: 0.3 });
+  [0, 2, 3].forEach((k) => add(FALL[k][0], "fall", 0.4, { d: 0.9, p: k === 2 ? pan(RC.x) : P ? 0 : pan(rcL().hx) }));
+  // S4 · "Sem ritmo, ninguém fica."
   add(16.0, "blip", 0.3, { f: 0.8 });
   add(17, "bonk", 0.45, { p: pan(s4L().tr1) }); add(18, "bonk", 0.45, { p: pan(s4L().tr0) });
   add(18.0, "pop", 0.4, { f: 1.5 }); add(18.06, "pop", 0.4, { f: 1.7 });
   add(18.15, "stretch", 0.4, { d: 0.85 }); add(18.5, "flip", 0.45); add(18.88, "thup", 0.3); add(19.0, "swish", 0.35, { d: 0.5 });
-  // S5
+  // S5 · "Cada frame pensado pra prender o olhar."
   let g = 0; s5L().a.Ls.forEach((L) => { for (const ch of L.text) if (ch !== " ") add(20 + 0.028 * g++ + 0.17, "thud", 0.3); });
   add(21.0, "whoosh", 0.55, { d: 0.5, f: 0.8 }); add(22.0, "whoosh", 0.5, { d: 0.42, p: 0.5, f: 1.1 });
   add(22.5, "clack", 0.7); add(22.78, "tock", 0.35);
   add(23.0, "thup", 0.3); add(23.18, "pop", 0.45, { f: 1.4 }); add(23.3, "tic", 0.25); add(23.48, "tic", 0.25); add(23.6, "blip", 0.25, { f: 1.6 }); add(23.42, "pop", 0.35, { f: 1.1 });
   add(23.74, "whoosh", 0.5, { d: 0.3, f: 1.1 });
-  // S6
+  // S6 · morph
   for (let i = 0; i < 4; i++) { add(24 + i, "morph", 0.6, { d: 0.55, p: pan((KF[i][0] + KF[i + 1][0]) / 2) }); add(24.55 + i, "tock", 0.3, { p: pan(KF[i + 1][0]) }); }
   add(27.6, "whoosh", 0.7, { d: 0.4, f: 1.3 });
-  // S7
-  for (let i = 0; i < 6; i++) add(28 + 0.04 * i, "tic", 0.3, { f: 1 + 0.08 * i });
-  add(29, "boing", 0.6);
+  // S7 · tipografia cinética
+  const r7 = s7L().rows;
+  for (let i = 0; i < 6; i++) add(28 + 0.04 * i, "tic", 0.3, { f: 1 + 0.08 * i, p: pan(gcx(r7[0].L, r7[0].x0, i)) });
+  add(29, "boing", 0.6, { p: pan(r7[1].x0 + r7[1].L.w / 2) });
   for (let j = 0; j < 9; j++) add(30 + 0.025 * j, "swipe", 0.2, { p: j % 2 ? 0.4 : -0.4 });
   add(30.55, "glitch", 0.4, { d: 0.2 });
-  HOPS.forEach((x, i) => add(x, "pop", 0.55, { f: 1 + 0.15 * i, p: pan(s7L().p.tops[i][0]) }));
+  add(31.0, "thup", 0.3);
+  HOPS.forEach((x, i) => add(x, "pop", 0.55, { f: 1 + 0.15 * i, p: pan(s7L().tops[i][0]) }));
   add(32.0, "whoosh", 0.6, { d: 0.45, f: 0.9 });
-  // S8
-  add(32.22, "pop", 0.5, { f: 0.7 }); add(32.55, "type", 0.3); add(32.62, "type", 0.3);
+  // S8 · UI animada
+  add(32.22, "pop", 0.5, { f: 0.7 }); add(32.5, "tock", 0.35); add(32.55, "thup", 0.3); add(32.65, "type", 0.3);
   add(33.0, "toggle", 0.6); add(34.0, "click", 0.8); add(34.1, "spin", 0.15, { d: 0.9 }); add(35.0, "chime", 0.7); add(35.5, "whoosh", 0.5, { d: 0.3, f: 1.4 });
-  // S9
+  // S9 · 3D + VFX
   for (let o = 1; o <= 6; o++) add(35.9 + 0.03 * o, "pop", 0.2, { f: 1 + 0.06 * o });
-  [36.5, 37, 37.5, 38].forEach((x) => add(x, "rotate", 0.55, { d: 0.36 }));
+  STEPS9.forEach((x) => { add(x, "rotate", 0.55, { d: 0.36 }); add(x + 0.06, "shimmer", 0.16, { d: 0.38 }); });
   add(38.5, "whoosh", 0.6, { d: 1.0, f: 0.8 });
   for (let i = 0; i < NC; i++) add(39.55 + 0.035 * i, "thup", 0.22);
-  // S10
-  SNAP.forEach((x) => add(x, "snap", 0.55)); add(40.6, "pop", 0.4, { f: 0.9 });
+  // S10 · timeline
+  add(40.15, "thup", 0.25); SNAP.forEach((x) => add(x, "snap", 0.55)); add(40.6, "pop", 0.4, { f: 0.9 });
   for (let k = 0; k < 10; k++) { const kx = KFX(k); add(PH0 + (PH1 - PH0) * ((kx - tlL().lx0) / tlL().len), "blip", 0.28, { f: 1 + 0.07 * k, p: pan(kx) }); }
   add(43.0, "fall", 0.45, { d: 0.6 }); add(43.3, "swirl", 0.55, { d: 0.65 });
-  // S11
-  for (let j = 5; j <= 60; j += 5) add(44.15 + 3.35 * invert(ioCubic, j / 60), "tick", 0.3, { f: 1 + j / 60, p: pan(RC.x + RC.r * Math.cos((j / 60) * TAU - Math.PI / 2)) });
-  for (let k = 0; k < 3; k++) add(44.1 + 0.14 * k, "thup", 0.22);
+  // S11 · "Cada segundo conta." → logo
+  for (let k = 0; k < 3; k++) add(44.1 + 0.12 * k, "thup", 0.22);
+  FILL_STEPS.forEach((x, n) => add(x, "tick", 0.42, { f: 1 + 0.12 * n, p: pan(RC.x + RC.r * Math.cos(((n + 1) / 6) * TAU - Math.PI / 2)) }));
   GAIN_AT.forEach((x, i) => add(x, "flick", 0.4 + 0.1 * i, { f: 1.2 }));
-  add(47.72, "suck", 0.6, { d: 0.26 }); add(48.0, "lock", 1.0); add(48.5, "whoosh", 0.35, { d: 0.5 });
+  add(47.42, "suck", 0.5, { d: 0.5 }); add(48.0, "lock", 1.0); add(48.5, "whoosh", 0.35, { d: 0.5 });
   const tl = wmL().tL.text; for (let i = 0; i < tl.length; i++) if (tl[i] !== " ") add(49.5 + 1.2 * (i / tl.length), "type", 0.26, { f: 0.9 + 0.2 * rnd(61, i) });
   add(50.5, "shimmer", 0.45, { d: 0.42 }); add(51.0, "click", 0.55);
-  // S12
-  add(52.0, "whoosh", 0.45, { d: 0.6, f: 0.8 });
-  for (let k = 0; k < 4; k++) add(52.45 + 0.1 * k, "thup", 0.2);
-  const s12 = s12L(); s12.starts.forEach((x) => add(x, "thup", 0.36));
-  dropContacts(S12DROP).forEach(([x, l]) => add(x, "pop", 0.55 * l, { f: 0.85, p: pan(s12.tx) }));
-  add(55.0, "scribble", 0.5, { d: 0.45 });
-  add(56.0, "suck", 0.45, { d: 1.6 });
-  for (let k = 1; k < 3 + s12.nw; k++) add(56.6 + 0.16 * k, "pop", 0.22, { f: 1.4 + 0.05 * k });
-  add(58.0, "whoosh", 0.4, { d: 1.0, f: 0.9 });
+  // S12 · boas-vindas + convite + volta ao ponto
+  const { A, B } = s12L();
+  add(52.0, "whoosh", 0.4, { d: 0.5, f: 0.8 }); add(52.0, "suck", 0.4, { d: 0.3 }); add(52.22, "pop", 0.6, { f: 1.1 });
+  add(DOT12.fly[0], "zip", 0.45, { d: 0.5, p: pan(A.tx) * 0.6 }); add(DOT12.fly[1], "tock", 0.55, { p: pan(A.tx) });
+  A.starts.forEach((x) => add(x, "thup", 0.36));
+  for (let i = 0; i < 11; i += 2) add(53.5 + 0.035 * i, "blip", 0.16, { f: 1 + 0.06 * i });
+  add(54.25, "whoosh", 0.35, { d: 0.35, f: 0.7 });
+  B.starts.forEach((x) => add(x, "thup", 0.34));
+  add(DOT12.hop[0], "bloop", 0.45); add(DOT12.hop[1], "pop", 0.5, { f: 0.85, p: pan(B.tx) });
+  add(55.85, "scribble", 0.5, { d: 0.45 });
+  add(57.0, "suck", 0.45, { d: 1.1 });
+  for (let k = 0; k < B.nw; k++) add(57.55 + 0.12 * k, "pop", 0.22, { f: 1.4 + 0.05 * k, p: pan(B.tx) });
+  add(DOT12.home[0], "whoosh", 0.4, { d: 1.2, f: 0.9 });
   return C.sort((a, b) => a.x - b.x);
 }
 
