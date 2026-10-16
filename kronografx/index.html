@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kronografx · Motion Design, VFX e Pós-produção</title>
+<meta name="description" content="Kronografx é um estúdio de motion design, VFX e pós-produção. Roteiro, animação e finalização em um só lugar.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kronografx">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Kronografx · Motion Design, VFX e Pós-produção">
+<meta property="og:description" content="Cada frame pensado pra prender o olhar.">
+<meta property="og:image" content="https://kronografx.com/assets/img/og-image.jpg">
+<meta property="og:url" content="https://kronografx.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/calsans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#app">Pular para o conteúdo</a>
+
+<!-- ============ NAVEGAÇÃO EM PÍLULA ============ -->
+<nav class="pill-nav" id="pillNav" aria-label="Principal">
+  <a class="pill-nav__brand" href="#/" aria-label="Kronografx, início">
+    <img src="assets/img/mark.png" alt="" width="24" height="24"><span>Kronografx</span>
+  </a>
+  <div class="pill-nav__links" id="navLinks">
+    <a href="#/" data-nav="home">Início</a>
+    <a href="#/projetos" data-nav="projetos">Projetos</a>
+    <a href="#/faq" data-nav="faq">FAQ</a>
+    <a href="#/contato" data-nav="contato">Contato</a>
+  </div>
+  <a class="pill-nav__cta" data-wa href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg>
+    <span>Chamar no WhatsApp</span>
+  </a>
+  <button class="pill-nav__burger" id="burger" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu"><span></span><span></span></button>
+</nav>
+
+<main id="app" tabindex="-1">
+
+<!-- =====================================================
+     PÁGINA: INÍCIO
+     ===================================================== -->
+<section class="page" id="page-home" data-page="home">
+
+  <div id="hero" class="hero">
+    <div class="hero__bg" aria-hidden="true"><i></i><i></i></div>
+    <div class="wrap hero__inner">
+      <a class="announce rv" href="#/projeto/e2-3-sinais">
+        <span class="announce__tag">NOVO</span>
+        <span>3 Sinais, para a E2 Finanças, já está no ar</span>
+        <span aria-hidden="true">→</span>
+      </a>
+      <p class="status rv"><i></i>Agenda aberta para novos projetos</p>
+      <h1 class="hero__title rv">Cada frame pensado pra <span class="grad">prender o olhar.</span></h1>
+      <p class="hero__sub rv">Estúdio de <b>motion design</b>, <b>VFX</b> e <b>pós-produção</b>. Roteiro, animação e finalização com acabamento de cinema, tudo em um só lugar.</p>
+      <div class="hero__btns rv">
+        <a class="btn btn--dark" href="#/projetos">Ver projetos <span aria-hidden="true">→</span></a>
+        <a class="btn btn--light" data-wa href="#" target="_blank" rel="noopener">Falar com a gente</a>
+      </div>
+      <p class="hero__note rv">Atendimento 100% online, para qualquer lugar do Brasil.</p>
+    </div>
+  </div>
+
+  <div id="reel" class="reel">
+    <div class="reel__tilt">
+      <div class="reel__row" id="reelRow"></div>
+    </div>
+    <p class="reel__cap">Frames reais dos projetos · toque em qualquer um pra abrir</p>
+  </div>
+
+  <div id="sobre" class="sobre">
+    <div class="wrap sobre__grid">
+      <div class="sobre__card rv">
+        <div class="sobre__card-in">
+          <img src="assets/img/mark-lg.png" alt="Marca da Kronografx" width="260" height="260">
+          <span class="chip chip--white sobre__chip-a">Motion · VFX · Pós</span>
+          <span class="chip chip--dark sobre__chip-b">χρόνος</span>
+        </div>
+      </div>
+      <div class="sobre__text">
+        <p class="label rv">QUEM ESTÁ POR TRÁS</p>
+        <h2 class="h2 rv">Kronografx,<br>o estúdio do Rafael.</h2>
+        <p class="rv">A Kronografx nasceu para cuidar de tudo o que acontece com a imagem depois da ideia: <b>motion design, efeitos visuais e pós-produção</b>.</p>
+        <p class="rv">O nome vem de <b>khrónos</b>, "tempo" em grego. É com ele que a gente trabalha: cada corte decide o ritmo, cada frame decide o que o público sente.</p>
+        <p class="rv">Nada é improvisado. <b>Cada projeto passa por roteiro, direção de arte, animação e finalização</b> antes de chegar à sua tela.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="arsenal" class="arsenal">
+    <div class="arsenal__sticky">
+      <div class="arsenal__slide is-on" data-slide="0">
+        <div class="arsenal__visual">
+          <div class="ae">
+            <div class="ae__bar"><span></span><span></span><span></span><b>Kronografx · Comp 1</b></div>
+            <div class="ae__view"><video data-loop src="assets/video/e2-loop.mp4" poster="assets/img/e2-loop.jpg" muted loop playsinline preload="none"></video></div>
+            <div class="ae__tl">
+              <div class="ae__tc" id="aeTc">0:00:00:00</div>
+              <div class="ae__ruler"></div>
+              <div class="ae__layers">
+                <div class="ae__l"><em>Título</em><i style="--a:4%;--b:38%;--c:#7c5cff"></i></div>
+                <div class="ae__l"><em>Card 01</em><i style="--a:18%;--b:70%;--c:#38bdf8"></i></div>
+                <div class="ae__l"><em>Gráfico</em><i style="--a:30%;--b:92%;--c:#34d399"></i></div>
+                <div class="ae__l"><em>Câmera</em><i style="--a:0%;--b:100%;--c:#f472b6"></i></div>
+                <div class="ae__l"><em>Nulo 1</em><i style="--a:10%;--b:60%;--c:#fbbf24"></i></div>
+                <div class="ae__l"><em>Fundo</em><i style="--a:0%;--b:100%;--c:#94a3b8"></i></div>
+              </div>
+              <div class="ae__head" id="aeHead"></div>
+            </div>
+          </div>
+        </div>
+        <div class="arsenal__text">
+          <p class="label label--light">NOSSO ARSENAL</p>
+          <p class="arsenal__n">01 · MOTION &amp; VFX</p>
+          <h2 class="arsenal__t">After Effects</h2>
+          <p class="arsenal__p">É daqui que sai o <b>movimento</b>: tipografia cinética, interfaces animadas, composição e efeitos. Cada curva de animação é ajustada à mão, quadro a quadro.</p>
+        </div>
+      </div>
+
+      <div class="arsenal__slide" data-slide="1">
+        <div class="arsenal__visual">
+          <div class="rig">
+            <div class="rig__row"><span>Processador</span><b>Ryzen 7 5700X</b><em>8 núcleos · 16 threads</em></div>
+            <div class="rig__row"><span>Placa de vídeo</span><b>Radeon RX 7600</b><em>aceleração de render</em></div>
+            <div class="rig__row"><span>Memória</span><b>32 GB DDR4</b><em>3200 MHz</em></div>
+            <div class="rig__row"><span>Refrigeração</span><b>Water cooler</b><em>render longo sem gargalo</em></div>
+            <div class="rig__render">
+              <div class="rig__render-top"><span>Renderizando · kronografx_final.mp4</span><b id="rigPct">0%</b></div>
+              <div class="rig__bar"><i id="rigBar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="arsenal__text">
+          <p class="label label--light">NOSSO ARSENAL</p>
+          <p class="arsenal__n">02 · ESTAÇÃO DE TRABALHO</p>
+          <h2 class="arsenal__t">Máquina dedicada</h2>
+          <p class="arsenal__p">Uma estação montada <b>só para animação e render</b>. Mais fôlego para prévias em tempo real e arquivos finais pesados.</p>
+        </div>
+      </div>
+
+      <div class="arsenal__slide" data-slide="2">
+        <div class="arsenal__visual">
+          <div class="fmts">
+            <figure style="--ar:1.7778"><div><video data-loop src="assets/video/reel.mp4" muted loop playsinline preload="none" poster="assets/img/reel-capa.jpg"></video></div><figcaption>16:9 · YouTube e TV</figcaption></figure>
+            <figure style="--ar:1"><div><video data-loop src="assets/video/reel.mp4" muted loop playsinline preload="none" poster="assets/img/reel-capa.jpg"></video></div><figcaption>1:1 · Feed</figcaption></figure>
+            <figure style="--ar:.5625"><div><video data-loop src="assets/video/e2-loop.mp4" muted loop playsinline preload="none" poster="assets/img/e2-loop.jpg"></video></div><figcaption>9:16 · Reels</figcaption></figure>
+          </div>
+        </div>
+        <div class="arsenal__text">
+          <p class="label label--light">NOSSO ARSENAL</p>
+          <p class="arsenal__n">03 · ENTREGA</p>
+          <h2 class="arsenal__t">Todas as telas</h2>
+          <p class="arsenal__p">O enquadramento é pensado desde o início para a peça funcionar <b>no feed, no YouTube e na TV</b>, sem cortes improvisados.</p>
+        </div>
+      </div>
+
+      <div class="arsenal__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div id="processo" class="processo">
+    <div class="wrap">
+      <p class="label rv">COMO A GENTE TRABALHA</p>
+      <h2 class="h2 rv">Do briefing ao<br>arquivo final.</h2>
+      <p class="lede rv">Um fluxo só, sem repassar etapa para terceiros. Você acompanha cada fase e aprova antes de seguir para a próxima.</p>
+      <div class="cards4">
+        <article class="card rv"><span class="card__n">01</span><span class="card__ic">✍️</span><h3>Roteiro</h3><p>Entendemos o objetivo e o público e escrevemos um roteiro com gancho rápido, pensado para reter até o último segundo.</p></article>
+        <article class="card rv"><span class="card__n">02</span><span class="card__ic">🎨</span><h3>Direção de arte</h3><p>Styleframes definem cor, tipografia e linguagem. Você aprova o visual antes de qualquer animação.</p></article>
+        <article class="card rv"><span class="card__n">03</span><span class="card__ic">🎬</span><h3>Animação e VFX</h3><p>Motion, composição e efeitos no After Effects, com rodadas de ajuste combinadas desde o início.</p></article>
+        <article class="card rv"><span class="card__n">04</span><span class="card__ic">🚀</span><h3>Finalização</h3><p>Cor, som e exportação no formato certo para cada tela, pronto para publicar.</p></article>
+      </div>
+    </div>
+  </div>
+
+  <div id="confianca" class="confianca">
+    <div class="wrap">
+      <p class="label label--light rv">POR QUE A KRONOGRAFX</p>
+      <h2 class="h2 h2--light rv">Estúdio de verdade.<br>Processo claro do início ao fim.</h2>
+      <div class="cards4">
+        <article class="card card--dark rv"><span class="card__ic">📝</span><h3>Proposta por escrito</h3><p>Escopo, prazo e valor documentados antes de começar. Sem surpresa no meio do caminho.</p></article>
+        <article class="card card--dark rv"><span class="card__ic">🖥️</span><h3>Estação dedicada</h3><p>Máquina montada para animação e render, com fôlego para projetos pesados.</p></article>
+        <article class="card card--dark rv"><span class="card__ic">💬</span><h3>Fala direto com quem faz</h3><p>Sem intermediário: quem atende é quem anima. Resposta rápida pelo WhatsApp.</p></article>
+        <article class="card card--dark rv"><span class="card__ic">📐</span><h3>Formato certo</h3><p>Versões em 9:16, 16:9, 1:1 ou 4:5, prontas para cada plataforma.</p></article>
+      </div>
+    </div>
+  </div>
+
+  <div id="showcase" class="showcase">
+    <div class="wrap">
+      <div class="showcase__head">
+        <div>
+          <p class="label rv">PORTFÓLIO</p>
+          <h2 class="h2 rv">Projetos em<br>destaque.</h2>
+        </div>
+        <a class="link-u rv" href="#/projetos">Ver todos os projetos →</a>
+      </div>
+      <div class="pgrid" id="homeGrid"></div>
+    </div>
+  </div>
+
+  <div id="cta-final" class="cta-final">
+    <div class="wrap">
+      <div class="cta-box rv">
+        <img src="assets/img/mark.png" alt="" width="56" height="56">
+        <h2>Bora tirar sua ideia do papel?</h2>
+        <p>Chama no WhatsApp. Você conta o que precisa e já sai da conversa com os próximos passos.</p>
+        <a class="btn btn--dark" data-wa href="#" target="_blank" rel="noopener">Chamar no WhatsApp <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     PÁGINA: PROJETOS
+     ===================================================== -->
+<section class="page" id="page-projetos" data-page="projetos" hidden>
+  <div class="wrap page-head">
+    <p class="label">PORTFÓLIO</p>
+    <h1 class="h1">Nossos projetos</h1>
+    <p class="lede">Cada vídeo nasceu de roteiro próprio, design sob medida e animação quadro a quadro. Toque em qualquer um para ver como foi feito.</p>
+  </div>
+  <div class="wrap">
+    <div class="filters" id="filters" role="group" aria-label="Filtrar projetos"></div>
+    <div class="pgrid pgrid--all" id="allGrid"></div>
+  </div>
+</section>
+
+<!-- =====================================================
+     PÁGINA: PROJETO (preenchida pelo script)
+     ===================================================== -->
+<section class="page" id="page-projeto" data-page="projeto" hidden>
+  <div class="phero" id="pHero">
+    <div class="wrap">
+      <a class="back" href="#/projetos">← Todos os projetos</a>
+      <p class="phero__cat" id="pCat"></p>
+      <h1 class="phero__title" id="pTitle"></h1>
+      <div class="phero__chips" id="pChips"></div>
+    </div>
+  </div>
+
+  <div class="wrap pbody" id="pBody">
+    <div class="pbody__text">
+      <h2 class="h3">Como esse projeto nasceu</h2>
+      <div id="pStory"></div>
+      <p class="pnote" id="pNote"></p>
+    </div>
+    <div class="pbody__media">
+      <div class="player" id="pPlayer">
+        <video id="pVideo" playsinline preload="metadata"></video>
+        <button class="player__play" id="pPlay" aria-label="Assistir com som"><span class="tri" aria-hidden="true"></span></button>
+      </div>
+      <div class="specbar" id="pSpecs"></div>
+      <p class="pmedia__hint">🎧 Assista com som para a experiência completa</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="h3">Frames do projeto</h2>
+    <p class="muted">Quadros tirados do vídeo final. Arraste para o lado.</p>
+  </div>
+  <div class="frames" id="pFrames"></div>
+
+  <div class="wrap">
+    <div class="pcta" id="pCta">
+      <div>
+        <h2>Quer um vídeo assim<br>para a sua marca?</h2>
+        <p>Conta a ideia pra gente. Você recebe proposta com escopo, prazo e valor.</p>
+      </div>
+      <a class="btn btn--white" data-wa href="#" target="_blank" rel="noopener">Chamar no WhatsApp →</a>
+    </div>
+    <a class="pnext" id="pNext" href="#/projetos"></a>
+  </div>
+</section>
+
+<!-- =====================================================
+     PÁGINA: FAQ
+     ===================================================== -->
+<section class="page" id="page-faq" data-page="faq" hidden>
+  <div class="wrap page-head">
+    <p class="label">DÚVIDAS FREQUENTES</p>
+    <h1 class="h1">Perguntas e respostas</h1>
+    <p class="lede">O que costumam perguntar antes de fechar um projeto, respondido sem enrolação.</p>
+  </div>
+  <div class="wrap faq" id="faqList"></div>
+  <div class="wrap faq-more">
+    <p>Ficou alguma dúvida?</p>
+    <a class="btn btn--dark" data-wa href="#" target="_blank" rel="noopener">Pergunta no WhatsApp →</a>
+  </div>
+</section>
+
+<!-- =====================================================
+     PÁGINA: CONTATO
+     ===================================================== -->
+<section class="page" id="page-contato" data-page="contato" hidden>
+  <div class="wrap page-head">
+    <p class="label">CONTATO</p>
+    <h1 class="h1">Bora conversar?</h1>
+    <p class="lede">Você já viu os projetos. Agora é só chamar: a resposta é rápida.</p>
+  </div>
+  <div class="wrap contact2">
+    <article class="ccard ccard--wa">
+      <span class="ccard__ic ccard__ic--wa"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg></span>
+      <h3>WhatsApp</h3>
+      <p>O caminho mais rápido. Manda o que você precisa e a gente responde com os próximos passos.</p>
+      <a class="btn btn--dark" data-wa href="#" target="_blank" rel="noopener">Chamar agora</a>
+    </article>
+    <article class="ccard">
+      <span class="ccard__ic">✉️</span>
+      <h3>E-mail e redes</h3>
+      <p>Prefere e-mail? Manda por lá. Os bastidores ficam no Instagram.</p>
+      <div class="ccard__chips">
+        <a class="chip chip--line" href="mailto:contato@kronografx.com">contato@kronografx.com</a>
+        <a class="chip chip--line" href="https://instagram.com/kronografx" target="_blank" rel="noopener">@kronografx</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a class="pill-nav__brand" href="#/"><img src="assets/img/mark.png" alt="" width="24" height="24"><span>Kronografx</span></a>
+      <p>Estúdio de motion design, VFX e pós-produção. Roteiro, animação e finalização para marcas e produtoras de todo o Brasil.</p>
+    </div>
+    <div><p class="footer__h">NAVEGAR</p><a href="#/">Início</a><a href="#/projetos">Projetos</a></div>
+    <div><p class="footer__h">SUPORTE</p><a href="#/faq">Perguntas frequentes</a><a href="#/contato">Contato</a><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a></div>
+    <div><p class="footer__h">SOCIAL</p><a href="https://instagram.com/kronografx" target="_blank" rel="noopener">Instagram</a><a href="mailto:contato@kronografx.com">E-mail</a></div>
+  </div>
+  <div class="wrap footer__bar"><p>© <span id="year">2026</span> Kronografx</p><p>Motion design · VFX · Pós-produção</p></div>
+</footer>
+
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
