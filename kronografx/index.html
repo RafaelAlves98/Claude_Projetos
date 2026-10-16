@@ -20,7 +20,7 @@
 <link rel="preload" href="assets/fonts/calsans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-(function(){try{var d=document.documentElement,s=localStorage;var th=s.getItem("kg-theme");if(th!=="light"&&th!=="dark")th=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);var L=["pt","en","es","fr"],l=s.getItem("kg-lang");if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l}catch(e){}})();
+(function(){var d=document.documentElement,th=null,l=null,L=["pt","en","es","fr"];try{th=localStorage.getItem("kg-theme");l=localStorage.getItem("kg-lang")}catch(e){}if(th!=="light"&&th!=="dark")th=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l})();
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script type="application/ld+json">

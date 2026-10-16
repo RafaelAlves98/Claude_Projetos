@@ -20,7 +20,7 @@
 <link rel="preload" href="assets/fonts/calsans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-(function(){try{var d=document.documentElement,s=localStorage;var th=s.getItem("kg-theme");if(th!=="light"&&th!=="dark")th=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);var L=["pt","en","es","fr"],l=s.getItem("kg-lang");if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l}catch(e){}})();
+(function(){var d=document.documentElement,th=null,l=null,L=["pt","en","es","fr"];try{th=localStorage.getItem("kg-theme");l=localStorage.getItem("kg-lang")}catch(e){}if(th!=="light"&&th!=="dark")th=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l})();
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -262,6 +262,606 @@
           <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
         </ul>
         <p>Veja também os <a href="termos.html">Termos de Uso</a>. Esta política é regida pelas leis brasileiras.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== EN ===== -->
+  <div class="wrap legal" data-l="en" lang="en">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#en-resumo">Quick summary</a></li>
+        <li><a href="#en-quem-somos">Who is responsible for your data</a></li>
+        <li><a href="#en-dados-que-tratamos">What data we process</a></li>
+        <li><a href="#en-finalidades">What we use your data for</a></li>
+        <li><a href="#en-bases-legais">Legal bases</a></li>
+        <li><a href="#en-compartilhamento">Who we share data with</a></li>
+        <li><a href="#en-transferencia-internacional">International data transfers</a></li>
+        <li><a href="#en-armazenamento">How long we keep your data</a></li>
+        <li><a href="#en-seguranca">Security</a></li>
+        <li><a href="#en-seus-direitos">Your rights and how to exercise them</a></li>
+        <li><a href="#en-cookies">Cookies</a></li>
+        <li><a href="#en-criancas">Children and adolescents</a></li>
+        <li><a href="#en-links-terceiros">Third-party links and services</a></li>
+        <li><a href="#en-alteracoes">Changes to this policy</a></li>
+        <li><a href="#en-contato">Contact</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>This English text is a translation provided for your convenience. In case of any discrepancy, the original Portuguese version prevails. You can read it by choosing “Português” in the site's language selector.</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>This Privacy Policy explains, in a straightforward way, how Kronografx processes the personal data of people who visit the kronografx.com website and of people who contact us through our channels. It follows the Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 – LGPD, Brazil's General Data Protection Law) and the Marco Civil da Internet (Lei nº 12.965/2014, Brazil's Internet Civil Rights Framework).</p>
+        <p>The rules for using the site and our services are in the <a href="termos.html">Terms of Use</a>.</p>
+      </div>
+
+      <section id="en-resumo">
+        <h2>Quick summary</h2>
+        <ul>
+          <li><b>The site doesn't ask for or store anything you type.</b> There is no form, sign-up, login, client area, newsletter, store or payment.</li>
+          <li><b>The site's code doesn't set cookies</b> and doesn't use audience analytics tools, advertising pixels or other trackers. Fonts and videos are hosted on the site's own server, so your visit doesn't send data to any companies other than the hosting provider (and the infrastructure services it uses to deliver the site).</li>
+          <li><b>Technical access data</b> (such as IP address, date and time, and page accessed) may be logged by the hosting provider, as happens with any website.</li>
+          <li><b>You decide whether you want to talk to us.</b> Contact happens via WhatsApp, email or Instagram. We receive whatever you choose to send us, plus the profile information those services show us (such as your name and photo).</li>
+          <li><b>We use your data to</b> reply to you, prepare the proposal, carry out the contracted project, keep a record of our service history with you and comply with legal obligations, such as issuing a nota fiscal (the official Brazilian tax invoice). <b>We don't sell your data.</b></li>
+          <li><b>You have rights</b> over your data and can exercise them at any time, free of charge, by emailing <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</li>
+        </ul>
+        <p>This summary is here to make reading easier, but it doesn't replace the full text below.</p>
+      </section>
+
+      <section id="en-quem-somos">
+        <h2>Who is responsible for your data</h2>
+        <p>The party responsible for processing your personal data (the “controller”, under the LGPD) is <b>Kronografx</b>, registered with the CNPJ (Brazil's National Registry of Legal Entities) under no. <b>69.317.795/0001-62</b>, a motion design, VFX (visual effects) and post-production studio serving clients all over Brazil 100% online.</p>
+        <p>For any matter regarding privacy and data protection, write to <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>. This is our communication channel with data subjects and the preferred channel for requests related to this policy, because it keeps a record of your request and of our reply. The other channels are listed in the “Contact” section at the end of this page.</p>
+      </section>
+
+      <section id="en-dados-que-tratamos">
+        <h2>What data we process</h2>
+        <p><b>1. When you just browse the site</b></p>
+        <p>The Kronografx site is a static page: it doesn't ask for or store anything you type, because there is nowhere to type. Even so, as with any website, the hosting provider may automatically log technical access data, such as:</p>
+        <ul>
+          <li>IP address;</li>
+          <li>date and time of access;</li>
+          <li>page or file accessed;</li>
+          <li>type of browser and device.</li>
+        </ul>
+        <p>This data is used only to keep the site running securely and to comply with the law. We don't use it to build profiles or for advertising.</p>
+        <p><b>2. When you contact us</b></p>
+        <p>The site's buttons and links open external services: WhatsApp (with the pre-written message “Olá, Kronografx! Vi o site e quero conversar sobre um projeto.” [“Hi, Kronografx! I saw the website and I'd like to talk about a project.”]), your email app or Instagram. From then on, we receive whatever you choose to share, for example:</p>
+        <ul>
+          <li>name, phone number and email address (and, on WhatsApp and Instagram, the profile information that is visible to us, such as your name and photo);</li>
+          <li>the company you work for or represent;</li>
+          <li>project details, briefing, references and files;</li>
+          <li>the history of conversations, proposals, approvals and deliveries.</li>
+        </ul>
+        <p>If you hire us for a project, we also process the data required to issue the nota fiscal (for example, full name or corporate name and CPF, the Brazilian individual taxpayer ID, or CNPJ).</p>
+        <p><b>3. Other people's data in project materials</b></p>
+        <p>Videos, photos, audio, briefings and other files sent for a project may contain third parties' data, such as the image and voice of people who appear in recordings. In these cases, the client is the one who decides how this material will be used, and Kronografx acts as a processor: it processes this data on the client's behalf, solely to carry out the project, following the instructions received and protecting the material. Kronografx is liable for anything it does in breach of the LGPD or of those instructions. It is the client's responsibility to ensure they have the necessary authorizations to use this material.</p>
+        <p>If you appear in material of this kind and want to exercise your rights, you can contact us: we will forward the request to the responsible client and help with whatever falls to us.</p>
+        <p>Showing the finished work in the site's portfolio is a separate use, which only happens when the client authorizes it.</p>
+        <p><b>4. Sensitive data</b></p>
+        <p>We don't ask for sensitive data, such as information about health, religion, political opinions, racial origin or biometrics. We ask that you not send this kind of information unless it is essential for the project. In that case, sensitive data will be processed only in the cases set out in art. 11 of the LGPD or, when it is contained in the client's materials, according to the client's instructions, in our capacity as processor.</p>
+      </section>
+
+      <section id="en-finalidades">
+        <h2>What we use your data for</h2>
+        <ul>
+          <li><b>Replying to your messages</b> and answering questions about our services;</li>
+          <li><b>Preparing the written proposal</b>, with scope, deadline and price, before starting any work;</li>
+          <li><b>Carrying out the contracted project</b>, including meetings, revision rounds, approvals and online deliveries;</li>
+          <li><b>Issuing the nota fiscal</b> and complying with legal, tax and accounting obligations;</li>
+          <li><b>Keeping the business history</b> (conversations, proposals and projects), to continue serving you and, if necessary, to defend ourselves against any claims;</li>
+          <li><b>Showing work in the site's portfolio</b>, only when the client authorizes it;</li>
+          <li><b>Keeping the site running securely</b>, preventing abuse and complying with what the law requires regarding access logs, where applicable.</li>
+        </ul>
+        <p>We don't use your data for other purposes without informing you first and, where the law requires, without asking for your authorization. We don't send advertising messages without your consent.</p>
+      </section>
+
+      <section id="en-bases-legais">
+        <h2>Legal bases</h2>
+        <p>The LGPD only allows personal data to be processed when there is a legal basis for it. We rely on the following, set out in art. 7º of the LGPD:</p>
+        <ul>
+          <li><b>Preliminary procedures and performance of a contract</b> (art. 7º, V): to respond to your request for a quote, prepare the proposal and carry out the contracted project.</li>
+          <li><b>Legitimate interest</b> (art. 7º, IX): to serve people who contact us on behalf of a company, keep the business history, show in the portfolio work that the client has authorized us to publish, and keep the site secure, always respecting your rights and what you can reasonably expect from us.</li>
+          <li><b>Compliance with a legal or regulatory obligation</b> (art. 7º, II): to issue the nota fiscal, comply with tax and accounting obligations and retain the site's access logs for the period set out in art. 15 of the Marco Civil da Internet, when such retention is required.</li>
+          <li><b>Regular exercise of rights</b> (art. 7º, VI): to defend ourselves, if necessary, in judicial, administrative or arbitration proceedings.</li>
+          <li><b>Consent</b> (art. 7º, I): only when we ask for your authorization for something specific. In that case, you can withdraw your consent at any time.</li>
+        </ul>
+        <p>Sensitive data is processed only in the cases set out in art. 11 of the LGPD. When Kronografx acts as a client's processor, the legal basis for the processing is defined by the client, who is the controller.</p>
+      </section>
+
+      <section id="en-compartilhamento">
+        <h2>Who we share data with</h2>
+        <p>We don't sell, rent or assign your personal data. It is shared only when necessary for the purposes of this policy, with:</p>
+        <ul>
+          <li><b>the site's hosting provider</b> (and the infrastructure services it uses to deliver the site), which keeps the site online and may log technical access data;</li>
+          <li><b>email, messaging and social media services</b> used to talk to you (such as WhatsApp and Instagram) and <b>online tools</b> for meetings, storage and file transfer used in the project;</li>
+          <li><b>the accounting firm (if any) and the nota fiscal issuing system</b>, to comply with tax and accounting obligations;</li>
+          <li><b>public authorities and the Judiciary</b>, when there is a legal obligation, a request from a competent authority or a court order.</li>
+        </ul>
+        <p>We share only the data needed in each case, and we seek to work with suppliers that adopt good security and data protection practices.</p>
+      </section>
+
+      <section id="en-transferencia-internacional">
+        <h2>International data transfers</h2>
+        <p>Some services we use to talk to you and work on the project, such as WhatsApp and Instagram (owned by Meta), email services and online file storage tools, may process and store data on servers outside Brazil. The same may happen with the site's hosting provider.</p>
+        <p>These transfers take place only in the cases set out in art. 33 of the LGPD, mainly when they are necessary to perform the contract or the preliminary procedures you requested, to comply with a legal obligation or for the regular exercise of rights (art. 33, IX). When these cases do not apply, the transfer must rely on the mechanisms recognized by the LGPD and regulated by the ANPD (Autoridade Nacional de Proteção de Dados, Brazil's National Data Protection Authority) in Resolução CD/ANPD nº 19/2024, such as standard contractual clauses. When you use these services, their respective privacy policies also apply.</p>
+      </section>
+
+      <section id="en-armazenamento">
+        <h2>How long we keep your data</h2>
+        <p>We keep data only for as long as necessary to fulfill the purposes of this policy, according to these criteria:</p>
+        <ul>
+          <li><b>Site access logs:</b> when they exist, they are held by the hosting provider, for the period it adopts. When retention is required, it is done confidentially, in a controlled and secure environment, for the 6-month period set out in art. 15 of the Marco Civil da Internet (Lei nº 12.965/2014), or longer if there is a request from a competent authority or a court order.</li>
+          <li><b>Contacts that didn't become a project:</b> for as long as needed to reply and follow up on the conversation and, after that, for up to 24 months after the last contact, to make it easier to serve you again. You can request deletion before then, at any time.</li>
+          <li><b>Contracted projects:</b> while the project is being carried out and, afterwards, for the period required by tax and accounting legislation and for the legal periods during which claims about the contract may still arise.</li>
+          <li><b>Project files and materials:</b> for the period agreed with the client or needed for adjustments and new versions. The client can request deletion, subject to legal obligations.</li>
+        </ul>
+        <p>Once the period ends, the data is deleted or anonymized, except when the law allows or requires it to be kept.</p>
+      </section>
+
+      <section id="en-seguranca">
+        <h2>Security</h2>
+        <p>We adopt reasonable technical and administrative measures, appropriate to Kronografx's size and to the type of data processed, to protect your data against unauthorized access, loss or misuse. The way the site itself was built also helps: since it has no forms, sign-ups or trackers, almost no personal data passes through it.</p>
+        <p>No system is completely secure. If a security incident occurs that may pose a significant risk or harm to you, we will notify you and the Autoridade Nacional de Proteção de Dados (ANPD), as required by the LGPD.</p>
+      </section>
+
+      <section id="en-seus-direitos">
+        <h2>Your rights and how to exercise them</h2>
+        <p>The LGPD (art. 18) guarantees you, as a data subject, the right to:</p>
+        <ul>
+          <li>confirm whether we process your data;</li>
+          <li>access the data we hold about you;</li>
+          <li>correct incomplete, inaccurate or outdated data;</li>
+          <li>request the anonymization, blocking or deletion of data that is unnecessary, excessive or processed in breach of the LGPD;</li>
+          <li>request the portability of your data to another provider, in accordance with ANPD regulations;</li>
+          <li>request the deletion of data processed based on your consent, except when the law allows it to be kept;</li>
+          <li>know which public and private entities we share your data with;</li>
+          <li>be informed about the possibility of not giving consent and about the consequences of not doing so;</li>
+          <li>revoke consent at any time;</li>
+          <li>object to processing carried out on another legal basis, if it is in breach of the LGPD.</li>
+        </ul>
+        <p><b>How to exercise them:</b> send an email to <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> saying what you would like. To protect your data, we may ask for information confirming your identity before fulfilling the request. Requests for confirmation and for access to data are answered immediately, in simplified form, or within 15 days, by means of a complete statement (art. 19 of the LGPD). Other requests are handled within the timeframes set by the LGPD and ANPD regulations. If we cannot fulfill a request (for example, because the law requires us to keep certain data), we will explain why. This service is free of charge.</p>
+        <p>We don't make decisions about you on a solely automated basis.</p>
+        <p><b>Complaints to the authorities:</b> if you believe your rights have not been respected, you can file a complaint with the Autoridade Nacional de Proteção de Dados (ANPD) through the website <a target="_blank" rel="noopener" href="https://www.gov.br/anpd">gov.br/anpd</a>. As a rule, the ANPD asks you to show that you contacted us first and that the request was not resolved (art. 55-J, V, of the LGPD), so please talk to us first: we want the chance to resolve it. You can also turn to consumer protection agencies, such as Procon (Brazil's public consumer protection agency), as provided in art. 18, §8º, of the LGPD.</p>
+      </section>
+
+      <section id="en-cookies">
+        <h2>Cookies</h2>
+        <p>The Kronografx site's code <b>doesn't set cookies or store data in your browser</b> (such as local storage) and doesn't use similar technologies, such as tracking pixels or audience analytics and advertising tools.</p>
+        <p>We also don't load fonts, videos, maps or other third-party content: everything comes from the site's own server. That's why there is no cookie notice for you to accept.</p>
+        <p>If we ever start using cookies or tools of this kind, we will update this policy and, where the law requires, ask for your consent beforehand.</p>
+      </section>
+
+      <section id="en-criancas">
+        <h2>Children and adolescents</h2>
+        <p>The Kronografx site and services are not directed at children and adolescents. Apart from project materials sent by clients, we do not, on our own initiative, intentionally collect data from people under 18. If we learn that we have received, through direct contact, data from a child or adolescent without the authorization of their parents or guardians, we will delete it.</p>
+        <p>When a project uses the image or voice of children or adolescents, the processing must serve their best interests (art. 14 of the LGPD), and it is the client's responsibility to obtain the authorizations required by law, such as the consent of one of the parents or of the legal guardian in the case of children. Kronografx processes this material only as described in “Other people's data in project materials”.</p>
+      </section>
+
+      <section id="en-links-terceiros">
+        <h2>Third-party links and services</h2>
+        <p>The site has links that open other companies' services: WhatsApp, Instagram and your email app. When you click, you leave the Kronografx site and start using these services, which have their own terms and privacy policies and process your data on their own account. We recommend that you read their policies; Kronografx does not control how these services process your data.</p>
+        <p>The pre-written WhatsApp message is only sent if you decide to send it, and you can edit it beforehand. The data you send us through any of these channels, however, is processed by Kronografx in accordance with this policy.</p>
+      </section>
+
+      <section id="en-alteracoes">
+        <h2>Changes to this policy</h2>
+        <p>We may update this policy to reflect changes to the site, our services or the law. The date of the last update is always shown at the top of this page. If a change is significant, we will give prominent notice on the site and, where the law requires, ask for your consent.</p>
+      </section>
+
+      <section id="en-contato">
+        <h2>Contact</h2>
+        <p>Questions, requests or complaints about privacy and data protection:</p>
+        <ul>
+          <li>Email (preferred channel): <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>See also the <a href="termos.html">Terms of Use</a>. This policy is governed by Brazilian law.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== ES ===== -->
+  <div class="wrap legal" data-l="es" lang="es">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#es-resumo">Resumen rápido</a></li>
+        <li><a href="#es-quem-somos">Quién es responsable de tus datos</a></li>
+        <li><a href="#es-dados-que-tratamos">Qué datos tratamos</a></li>
+        <li><a href="#es-finalidades">Para qué usamos tus datos</a></li>
+        <li><a href="#es-bases-legais">Bases legales</a></li>
+        <li><a href="#es-compartilhamento">Con quién compartimos</a></li>
+        <li><a href="#es-transferencia-internacional">Transferencia internacional de datos</a></li>
+        <li><a href="#es-armazenamento">Por cuánto tiempo guardamos tus datos</a></li>
+        <li><a href="#es-seguranca">Seguridad</a></li>
+        <li><a href="#es-seus-direitos">Tus derechos y cómo ejercerlos</a></li>
+        <li><a href="#es-cookies">Cookies</a></li>
+        <li><a href="#es-criancas">Niños y adolescentes</a></li>
+        <li><a href="#es-links-terceiros">Enlaces y servicios de terceros</a></li>
+        <li><a href="#es-alteracoes">Cambios en esta política</a></li>
+        <li><a href="#es-contato">Contacto</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>Este texto es una traducción ofrecida por conveniencia. En caso de divergencia, prevalece la versión original en portugués, disponible al elegir “Português” en el selector de idioma del sitio.</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>Esta Política de Privacidad explica, de forma directa, cómo Kronografx trata los datos personales de quienes visitan el sitio kronografx.com y de quienes se comunican con nosotros por nuestros canales. Sigue la Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 – LGPD, la Ley General de Protección de Datos Personales de Brasil) y el Marco Civil da Internet (Lei nº 12.965/2014, la ley brasileña que establece el marco legal de internet).</p>
+        <p>Las reglas de uso del sitio y de nuestros servicios están en los <a href="termos.html">Términos de Uso</a>.</p>
+      </div>
+
+      <section id="es-resumo">
+        <h2>Resumen rápido</h2>
+        <ul>
+          <li><b>El sitio no pide ni guarda nada de lo que escribas.</b> No hay formulario, registro, inicio de sesión, área de cliente, newsletter, tienda ni pagos.</li>
+          <li><b>El código del sitio no guarda cookies</b> y no usa herramientas de análisis de audiencia, píxeles de publicidad ni otros rastreadores. Las fuentes y los videos están en el propio servidor del sitio, así que tu visita no envía datos a otras empresas además del proveedor de hosting (y de los servicios de infraestructura que este use para entregar el sitio).</li>
+          <li><b>Los datos técnicos de acceso</b> (como dirección IP, fecha y hora y página visitada) pueden ser registrados por el proveedor de hosting, como ocurre en cualquier sitio.</li>
+          <li><b>Tú decides si quieres hablar con nosotros.</b> El contacto se hace por WhatsApp, por correo electrónico o por Instagram. Recibimos lo que decidas enviarnos, además de la información de tu perfil que esos servicios nos muestran (como nombre y foto).</li>
+          <li><b>Usamos tus datos para</b> responder, preparar la propuesta, ejecutar el proyecto contratado, mantener el historial de atención y cumplir obligaciones legales, como la emisión de la nota fiscal (la factura fiscal brasileña). <b>No vendemos tus datos.</b></li>
+          <li><b>Tienes derechos</b> sobre tus datos y puedes ejercerlos en cualquier momento, sin costo, por correo electrónico a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</li>
+        </ul>
+        <p>Este resumen facilita la lectura, pero no sustituye el texto completo que aparece a continuación.</p>
+      </section>
+
+      <section id="es-quem-somos">
+        <h2>Quién es responsable de tus datos</h2>
+        <p>El responsable del tratamiento de tus datos personales (el “controlador”, en los términos de la LGPD) es <b>Kronografx</b>, inscrita en el CNPJ (Cadastro Nacional da Pessoa Jurídica, el registro nacional de empresas de Brasil) con el nº <b>69.317.795/0001-62</b>, estudio de motion design, VFX (efectos visuales) y posproducción, con atención 100% online para clientes de todo Brasil.</p>
+        <p>Para cualquier asunto sobre privacidad y protección de datos, escribe a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>. Ese es nuestro canal de comunicación con los titulares de datos y el canal preferente para solicitudes relacionadas con esta política, porque deja constancia de tu solicitud y de nuestra respuesta. Los demás canales están en la sección “Contacto”, al final de esta página.</p>
+      </section>
+
+      <section id="es-dados-que-tratamos">
+        <h2>Qué datos tratamos</h2>
+        <p><b>1. Cuando solo navegas por el sitio</b></p>
+        <p>El sitio de Kronografx es una página estática: no pide ni guarda nada de lo que escribas, porque no hay dónde escribir. Aun así, como en cualquier sitio, el proveedor de hosting puede registrar automáticamente datos técnicos del acceso, como:</p>
+        <ul>
+          <li>dirección IP;</li>
+          <li>fecha y hora del acceso;</li>
+          <li>página o archivo visitado;</li>
+          <li>tipo de navegador y de dispositivo.</li>
+        </ul>
+        <p>Estos datos sirven solo para mantener el sitio funcionando con seguridad y cumplir la ley. No los usamos para crear perfiles ni para hacer publicidad.</p>
+        <p><b>2. Cuando te comunicas con nosotros</b></p>
+        <p>Los botones y enlaces del sitio abren servicios externos: WhatsApp (con el mensaje predefinido “Olá, Kronografx! Vi o site e quero conversar sobre um projeto.”, es decir, “¡Hola, Kronografx! Vi el sitio y quiero conversar sobre un proyecto.”), tu aplicación de correo electrónico o Instagram. A partir de ahí, recibimos lo que decidas compartir, por ejemplo:</p>
+        <ul>
+          <li>nombre, teléfono y correo electrónico (y, en WhatsApp y en Instagram, la información de tu perfil que es visible para nosotros, como nombre y foto);</li>
+          <li>la empresa en la que trabajas o que representas;</li>
+          <li>detalles del proyecto, briefing, referencias y archivos;</li>
+          <li>el historial de las conversaciones, propuestas, aprobaciones y entregas.</li>
+        </ul>
+        <p>Si contratas un proyecto, también tratamos los datos exigidos para emitir la nota fiscal (por ejemplo, nombre o razón social y CPF, el registro brasileño de personas físicas, o CNPJ).</p>
+        <p><b>3. Datos de otras personas en los materiales del proyecto</b></p>
+        <p>Videos, fotos, audios, briefings y otros archivos enviados para un proyecto pueden contener datos de terceros, como la imagen y la voz de personas que aparecen en las grabaciones. En esos casos, quien decide cómo se usará ese material es el cliente, y Kronografx actúa como operador: trata esos datos en nombre del cliente, solo para ejecutar el proyecto, siguiendo las instrucciones recibidas y protegiendo el material. Kronografx responde por lo que haga en desacuerdo con la LGPD o con esas instrucciones. Corresponde al cliente garantizar que cuenta con las autorizaciones necesarias para usar ese material.</p>
+        <p>Si apareces en un material de este tipo y quieres ejercer tus derechos, puedes comunicarte con nosotros: remitiremos la solicitud al cliente responsable y ayudaremos en lo que nos corresponda.</p>
+        <p>Mostrar el trabajo terminado en el portafolio del sitio es un uso aparte, que solo ocurre cuando el cliente lo autoriza.</p>
+        <p><b>4. Datos sensibles</b></p>
+        <p>No pedimos datos sensibles, como información sobre salud, religión, opinión política, origen racial o biometría. Te pedimos que no envíes este tipo de información, a menos que sea indispensable para el proyecto. En ese caso, los datos sensibles se tratarán solo en los supuestos del art. 11 de la LGPD o, cuando estén en materiales del cliente, conforme a sus instrucciones, en calidad de operador.</p>
+      </section>
+
+      <section id="es-finalidades">
+        <h2>Para qué usamos tus datos</h2>
+        <ul>
+          <li><b>Responder a tus mensajes</b> y resolver dudas sobre nuestros servicios;</li>
+          <li><b>Preparar la propuesta</b> por escrito, con alcance, plazo y valor, antes de empezar cualquier trabajo;</li>
+          <li><b>Ejecutar el proyecto contratado</b>, incluidas reuniones, rondas de ajustes, aprobaciones y entregas online;</li>
+          <li><b>Emitir la nota fiscal</b> y cumplir obligaciones legales, fiscales y contables;</li>
+          <li><b>Mantener el historial comercial</b> (conversaciones, propuestas y proyectos), para dar continuidad a la atención y, si es necesario, defendernos ante eventuales cuestionamientos;</li>
+          <li><b>Mostrar trabajos en el portafolio</b> del sitio, solo cuando el cliente lo autorice;</li>
+          <li><b>Mantener el sitio funcionando con seguridad</b>, prevenir abusos y cumplir lo que la ley determina sobre los registros de acceso, cuando corresponda.</li>
+        </ul>
+        <p>No usamos tus datos para otras finalidades sin avisarte antes y, cuando la ley lo exija, sin pedir tu autorización. No enviamos mensajes publicitarios sin tu consentimiento.</p>
+      </section>
+
+      <section id="es-bases-legais">
+        <h2>Bases legales</h2>
+        <p>La LGPD solo permite tratar datos personales cuando existe una base legal para ello. Usamos las siguientes, previstas en el art. 7º de la LGPD:</p>
+        <ul>
+          <li><b>Procedimientos preliminares y ejecución de contrato</b> (art. 7º, V): para responder a tu solicitud de presupuesto, preparar la propuesta y ejecutar el proyecto contratado.</li>
+          <li><b>Interés legítimo</b> (art. 7º, IX): para atender a quienes se comunican con nosotros en nombre de una empresa, mantener el historial comercial, mostrar en el portafolio trabajos que el cliente autorizó divulgar y mantener el sitio seguro, siempre respetando tus derechos y lo que razonablemente puedes esperar de nosotros.</li>
+          <li><b>Cumplimiento de obligación legal o regulatoria</b> (art. 7º, II): para emitir la nota fiscal, cumplir obligaciones fiscales y contables y conservar los registros de acceso al sitio durante el plazo previsto en el art. 15 del Marco Civil da Internet, cuando esa conservación sea exigida.</li>
+          <li><b>Ejercicio regular de derechos</b> (art. 7º, VI): para defendernos, si es necesario, en procesos judiciales, administrativos o arbitrales.</li>
+          <li><b>Consentimiento</b> (art. 7º, I): solo cuando te pidamos autorización para algo específico. En ese caso, puedes retirar el consentimiento en cualquier momento.</li>
+        </ul>
+        <p>Los datos sensibles solo se tratan en los supuestos del art. 11 de la LGPD. Cuando Kronografx actúa como operador de un cliente, la base legal del tratamiento la define el cliente, que es el controlador.</p>
+      </section>
+
+      <section id="es-compartilhamento">
+        <h2>Con quién compartimos</h2>
+        <p>No vendemos, no alquilamos ni cedemos tus datos personales. Solo se comparten cuando es necesario para las finalidades de esta política, con:</p>
+        <ul>
+          <li><b>el proveedor de hosting del sitio</b> (y los servicios de infraestructura que este use para entregar el sitio), que mantiene el sitio en línea y puede registrar los datos técnicos de acceso;</li>
+          <li><b>servicios de correo electrónico, mensajería y redes sociales</b> usados para conversar contigo (como WhatsApp e Instagram) y <b>herramientas online</b> de reuniones, almacenamiento y envío de archivos usadas en el proyecto;</li>
+          <li><b>el estudio contable (cuando lo haya) y el sistema de emisión de notas fiscales</b>, para cumplir obligaciones fiscales y contables;</li>
+          <li><b>autoridades públicas y el Poder Judicial</b>, cuando haya obligación legal, requerimiento de autoridad competente u orden judicial.</li>
+        </ul>
+        <p>Compartimos solo los datos necesarios en cada caso y procuramos trabajar con proveedores que adopten buenas prácticas de seguridad y protección de datos.</p>
+      </section>
+
+      <section id="es-transferencia-internacional">
+        <h2>Transferencia internacional de datos</h2>
+        <p>Algunos servicios que usamos para hablar contigo y trabajar en el proyecto, como WhatsApp e Instagram (de Meta), servicios de correo electrónico y herramientas online de almacenamiento de archivos, pueden procesar y guardar datos en servidores fuera de Brasil. Lo mismo puede ocurrir con el proveedor de hosting del sitio.</p>
+        <p>Estas transferencias ocurren solo en los supuestos del art. 33 de la LGPD, principalmente cuando son necesarias para ejecutar el contrato o los procedimientos preliminares que solicitaste, para cumplir una obligación legal o para el ejercicio regular de derechos (art. 33, IX). Cuando esos supuestos no se apliquen, la transferencia debe basarse en los mecanismos reconocidos por la LGPD y regulados por la ANPD (Autoridade Nacional de Proteção de Dados, la autoridad brasileña de protección de datos; Resolução CD/ANPD nº 19/2024), como las cláusulas contractuales estándar. Al usar esos servicios, también se aplican las políticas de privacidad de cada uno de ellos.</p>
+      </section>
+
+      <section id="es-armazenamento">
+        <h2>Por cuánto tiempo guardamos tus datos</h2>
+        <p>Guardamos los datos solo durante el tiempo necesario para cumplir las finalidades de esta política, según estos criterios:</p>
+        <ul>
+          <li><b>Registros de acceso al sitio:</b> cuando existan, quedan en poder del proveedor de hosting, durante el plazo que este adopte. Cuando su conservación sea exigida, se hace bajo confidencialidad, en un entorno controlado y seguro, durante el plazo de 6 meses previsto en el art. 15 del Marco Civil da Internet (Lei nº 12.965/2014), o por más tiempo si hay requerimiento de autoridad competente u orden judicial.</li>
+          <li><b>Contactos que no se convirtieron en proyecto:</b> durante el tiempo necesario para responder y dar seguimiento a la conversación y, después, por hasta 24 meses tras el último contacto, para facilitar una nueva atención. Puedes pedir la eliminación antes de eso, en cualquier momento.</li>
+          <li><b>Proyectos contratados:</b> durante la ejecución del proyecto y, después, durante el tiempo exigido por la legislación fiscal y contable y por los plazos legales en los que aún pueden surgir cuestionamientos sobre el contrato.</li>
+          <li><b>Archivos y materiales del proyecto:</b> durante el tiempo acordado con el cliente o el necesario para ajustes y nuevas versiones. El cliente puede pedir su eliminación, respetando las obligaciones legales.</li>
+        </ul>
+        <p>Al terminar el plazo, los datos se eliminan o se anonimizan, salvo cuando la ley permita o exija que se conserven.</p>
+      </section>
+
+      <section id="es-seguranca">
+        <h2>Seguridad</h2>
+        <p>Adoptamos medidas técnicas y administrativas razonables, compatibles con el tamaño de Kronografx y con el tipo de dato tratado, para proteger tus datos contra accesos no autorizados, pérdida o uso indebido. La propia forma en que se hizo el sitio también ayuda: como no tiene formularios, registros ni rastreadores, casi ningún dato personal pasa por él.</p>
+        <p>Ningún sistema es totalmente seguro. Si ocurre un incidente de seguridad que pueda generar un riesgo o daño relevante para ti, te avisaremos a ti y a la Autoridade Nacional de Proteção de Dados (ANPD), como lo determina la LGPD.</p>
+      </section>
+
+      <section id="es-seus-direitos">
+        <h2>Tus derechos y cómo ejercerlos</h2>
+        <p>La LGPD (art. 18) te garantiza, como titular de los datos, el derecho a:</p>
+        <ul>
+          <li>confirmar si tratamos datos tuyos;</li>
+          <li>acceder a los datos que tenemos sobre ti;</li>
+          <li>corregir datos incompletos, inexactos o desactualizados;</li>
+          <li>pedir la anonimización, el bloqueo o la eliminación de datos innecesarios, excesivos o tratados en desacuerdo con la LGPD;</li>
+          <li>pedir la portabilidad de tus datos a otro proveedor, conforme a la reglamentación de la ANPD;</li>
+          <li>pedir la eliminación de los datos tratados con base en tu consentimiento, salvo cuando la ley permita conservarlos;</li>
+          <li>saber con qué entidades públicas y privadas compartimos tus datos;</li>
+          <li>ser informado sobre la posibilidad de no dar tu consentimiento y sobre las consecuencias de ello;</li>
+          <li>revocar el consentimiento en cualquier momento;</li>
+          <li>oponerte a un tratamiento realizado con base en otro supuesto legal, en caso de que esté en desacuerdo con la LGPD.</li>
+        </ul>
+        <p><b>Cómo ejercerlos:</b> envía un correo electrónico a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> indicando lo que deseas. Para proteger tus datos, podemos pedirte información que confirme tu identidad antes de atender la solicitud. Las solicitudes de confirmación y de acceso a los datos se responden de inmediato, en formato simplificado, o en un plazo de hasta 15 días, mediante una declaración completa (art. 19 de la LGPD). Las demás solicitudes se atienden en los plazos de la LGPD y de la reglamentación de la ANPD. Si no podemos atender alguna solicitud (por ejemplo, porque la ley nos obliga a conservar determinado dato), te explicaremos el motivo. La atención es gratuita.</p>
+        <p>No tomamos decisiones sobre ti de forma exclusivamente automatizada.</p>
+        <p><b>Reclamación ante las autoridades:</b> si consideras que no se respetaron tus derechos, puedes presentar una reclamación ante la Autoridade Nacional de Proteção de Dados (ANPD), en el sitio <a target="_blank" rel="noopener" href="https://www.gov.br/anpd">gov.br/anpd</a>. Por regla general, la ANPD pide que demuestres que nos contactaste antes y que la solicitud no se resolvió (art. 55-J, V, de la LGPD); por eso, habla con nosotros primero: queremos tener la oportunidad de resolverlo. También puedes acudir a los organismos de defensa del consumidor, como el Procon, el órgano brasileño de protección y defensa del consumidor (art. 18, §8º, de la LGPD).</p>
+      </section>
+
+      <section id="es-cookies">
+        <h2>Cookies</h2>
+        <p>El código del sitio de Kronografx <b>no guarda cookies ni datos en tu navegador</b> (como el almacenamiento local) y no usa tecnologías similares, como píxeles de rastreo o herramientas de análisis de audiencia y de publicidad.</p>
+        <p>Tampoco cargamos fuentes, videos, mapas u otros contenidos de terceros: todo viene del propio servidor del sitio. Por eso, no hay aviso de cookies que debas aceptar.</p>
+        <p>Si algún día empezamos a usar cookies o herramientas de este tipo, actualizaremos esta política y, cuando la ley lo exija, te pediremos tu consentimiento antes.</p>
+      </section>
+
+      <section id="es-criancas">
+        <h2>Niños y adolescentes</h2>
+        <p>El sitio y los servicios de Kronografx no están dirigidos a niños ni adolescentes. Fuera de los materiales de proyecto enviados por clientes, no recopilamos por cuenta propia, de forma intencional, datos de personas menores de 18 años. Si sabemos que recibimos, por contacto directo, datos de un niño o adolescente sin la autorización de sus padres o responsables, los eliminaremos.</p>
+        <p>Cuando un proyecto use la imagen o la voz de niños o adolescentes, el tratamiento debe atender a su interés superior (art. 14 de la LGPD), y corresponde al cliente obtener las autorizaciones exigidas por la ley, como el consentimiento de uno de los padres o del responsable legal en el caso de los niños. Kronografx trata ese material solo como se describe en “Datos de otras personas en los materiales del proyecto”.</p>
+      </section>
+
+      <section id="es-links-terceiros">
+        <h2>Enlaces y servicios de terceros</h2>
+        <p>El sitio tiene enlaces que abren servicios de otras empresas: WhatsApp, Instagram y tu aplicación de correo electrónico. Al hacer clic, sales del sitio de Kronografx y pasas a usar esos servicios, que tienen términos y políticas de privacidad propios y tratan tus datos por su cuenta. Te recomendamos leer sus políticas; Kronografx no controla la forma en que esos servicios tratan tus datos.</p>
+        <p>El mensaje predefinido de WhatsApp solo se envía si decides enviarlo, y puedes editarlo antes. En cambio, los datos que nos envías por cualquiera de estos canales son tratados por Kronografx conforme a esta política.</p>
+      </section>
+
+      <section id="es-alteracoes">
+        <h2>Cambios en esta política</h2>
+        <p>Podemos actualizar esta política para reflejar cambios en el sitio, en nuestros servicios o en la legislación. La fecha de la última actualización siempre aparece en la parte superior de esta página. Si el cambio es relevante, lo avisaremos de forma destacada en el sitio y, cuando la ley lo exija, pediremos tu consentimiento.</p>
+      </section>
+
+      <section id="es-contato">
+        <h2>Contacto</h2>
+        <p>Dudas, solicitudes o reclamaciones sobre privacidad y protección de datos:</p>
+        <ul>
+          <li>Correo electrónico (canal preferente): <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>Consulta también los <a href="termos.html">Términos de Uso</a>. Esta política se rige por las leyes brasileñas.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== FR ===== -->
+  <div class="wrap legal" data-l="fr" lang="fr">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#fr-resumo">Résumé rapide</a></li>
+        <li><a href="#fr-quem-somos">Qui est responsable de vos données</a></li>
+        <li><a href="#fr-dados-que-tratamos">Quelles données nous traitons</a></li>
+        <li><a href="#fr-finalidades">À quoi servent vos données</a></li>
+        <li><a href="#fr-bases-legais">Bases légales</a></li>
+        <li><a href="#fr-compartilhamento">Avec qui nous partageons vos données</a></li>
+        <li><a href="#fr-transferencia-internacional">Transfert international de données</a></li>
+        <li><a href="#fr-armazenamento">Combien de temps nous conservons vos données</a></li>
+        <li><a href="#fr-seguranca">Sécurité</a></li>
+        <li><a href="#fr-seus-direitos">Vos droits et comment les exercer</a></li>
+        <li><a href="#fr-cookies">Cookies</a></li>
+        <li><a href="#fr-criancas">Enfants et adolescents</a></li>
+        <li><a href="#fr-links-terceiros">Liens et services de tiers</a></li>
+        <li><a href="#fr-alteracoes">Modifications de cette politique</a></li>
+        <li><a href="#fr-contato">Contact</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>Ce texte est une traduction proposée pour votre commodité. En cas de divergence, c’est la version originale en portugais qui prévaut (vous pouvez la consulter en choisissant « Português » dans le sélecteur de langue du site).</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>Cette Politique de confidentialité explique, de manière directe, comment Kronografx traite les données personnelles des personnes qui visitent le site kronografx.com et de celles qui nous contactent par nos canaux. Elle respecte la Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 – LGPD, loi générale brésilienne sur la protection des données personnelles) et le Marco Civil da Internet (Lei nº 12.965/2014, cadre juridique brésilien de l’internet).</p>
+        <p>Les règles d’utilisation du site et de nos services figurent dans les <a href="termos.html">Conditions d’utilisation</a>.</p>
+      </div>
+
+      <section id="fr-resumo">
+        <h2>Résumé rapide</h2>
+        <ul>
+          <li><b>Le site ne demande ni ne conserve rien de ce que vous saisissez.</b> Il n’y a ni formulaire, ni inscription, ni connexion, ni espace client, ni newsletter, ni boutique, ni paiement.</li>
+          <li><b>Le code du site n’enregistre pas de cookies</b> et n’utilise ni outils de mesure d’audience, ni pixels publicitaires, ni autres traceurs. Les polices et les vidéos sont hébergées sur le serveur même du site : votre visite n’envoie donc pas de données à d’autres entreprises que l’hébergeur (et les services d’infrastructure qu’il utilise pour diffuser le site).</li>
+          <li><b>Des données techniques de connexion</b> (comme l’adresse IP, la date et l’heure et la page consultée) peuvent être enregistrées par l’hébergeur, comme sur n’importe quel site.</li>
+          <li><b>C’est vous qui décidez de nous contacter ou non.</b> Le contact se fait par WhatsApp, par e-mail ou par Instagram. Nous recevons ce que vous choisissez de nous envoyer, ainsi que les informations de votre profil que ces services nous affichent (comme le nom et la photo).</li>
+          <li><b>Nous utilisons vos données pour</b> vous répondre, préparer la proposition, réaliser le projet commandé, conserver l’historique de nos échanges et respecter nos obligations légales, comme l’émission de la nota fiscal (facture électronique officielle brésilienne). <b>Nous ne vendons pas vos données.</b></li>
+          <li><b>Vous avez des droits</b> sur vos données et pouvez les exercer à tout moment, gratuitement, par e-mail à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</li>
+        </ul>
+        <p>Ce résumé facilite la lecture, mais ne remplace pas le texte complet ci-dessous.</p>
+      </section>
+
+      <section id="fr-quem-somos">
+        <h2>Qui est responsable de vos données</h2>
+        <p>Le responsable du traitement de vos données personnelles (le « controlador », au sens de la LGPD) est <b>Kronografx</b>, immatriculée au CNPJ (registre national brésilien des personnes morales) sous le nº <b>69.317.795/0001-62</b>, studio de motion design, VFX (effets visuels) et postproduction, qui travaille 100 % en ligne pour des clients de tout le Brésil.</p>
+        <p>Pour toute question relative à la vie privée et à la protection des données, écrivez à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>. C’est notre canal de communication avec les personnes concernées et le canal à privilégier pour les demandes liées à cette politique, car il conserve une trace de votre demande et de notre réponse. Les autres canaux figurent dans la section « Contact », en bas de cette page.</p>
+      </section>
+
+      <section id="fr-dados-que-tratamos">
+        <h2>Quelles données nous traitons</h2>
+        <p><b>1. Lorsque vous naviguez simplement sur le site</b></p>
+        <p>Le site de Kronografx est une page statique : il ne demande ni ne conserve rien de ce que vous saisissez, puisqu’il n’y a nulle part où saisir quoi que ce soit. Cependant, comme sur n’importe quel site, l’hébergeur peut enregistrer automatiquement des données techniques de connexion, telles que :</p>
+        <ul>
+          <li>l’adresse IP ;</li>
+          <li>la date et l’heure de la connexion ;</li>
+          <li>la page ou le fichier consulté ;</li>
+          <li>le type de navigateur et d’appareil.</li>
+        </ul>
+        <p>Ces données servent uniquement à assurer le fonctionnement sécurisé du site et à respecter la loi. Nous ne les utilisons ni pour établir des profils ni pour faire de la publicité.</p>
+        <p><b>2. Lorsque vous nous contactez</b></p>
+        <p>Les boutons et les liens du site ouvrent des services externes : WhatsApp (avec le message prérédigé « Olá, Kronografx! Vi o site e quero conversar sobre um projeto. » [« Bonjour, Kronografx ! J’ai vu le site et je souhaite discuter d’un projet. »]), votre application de messagerie ou Instagram. À partir de là, nous recevons ce que vous choisissez de partager, par exemple :</p>
+        <ul>
+          <li>nom, téléphone et e-mail (et, sur WhatsApp et Instagram, les informations de votre profil qui nous sont visibles, comme le nom et la photo) ;</li>
+          <li>l’entreprise pour laquelle vous travaillez ou que vous représentez ;</li>
+          <li>les détails du projet, le brief, les références et les fichiers ;</li>
+          <li>l’historique des conversations, des propositions, des validations et des livraisons.</li>
+        </ul>
+        <p>Si vous commandez un projet, nous traitons également les données exigées pour l’émission de la nota fiscal (par exemple, le nom ou la raison sociale et le CPF – numéro d’identification fiscale des personnes physiques au Brésil – ou le CNPJ).</p>
+        <p><b>3. Données d’autres personnes dans les éléments du projet</b></p>
+        <p>Les vidéos, photos, fichiers audio, briefs et autres fichiers envoyés pour un projet peuvent contenir des données de tiers, comme l’image et la voix de personnes qui apparaissent dans les enregistrements. Dans ces cas, c’est le client qui décide de l’utilisation de ces éléments, et Kronografx agit en tant que sous-traitant (« operadora », au sens de la LGPD) : elle traite ces données pour le compte du client, uniquement pour réaliser le projet, en suivant les instructions reçues et en protégeant les éléments. Kronografx répond de ce qu’elle ferait en violation de la LGPD ou de ces instructions. Il appartient au client de s’assurer qu’il dispose des autorisations nécessaires pour utiliser ces éléments.</p>
+        <p>Si vous apparaissez dans un élément de ce type et souhaitez exercer vos droits, vous pouvez nous contacter : nous transmettrons la demande au client responsable et vous aiderons dans la mesure de ce qui nous incombe.</p>
+        <p>Présenter le travail finalisé dans le portfolio du site est un usage distinct, qui n’a lieu qu’avec l’autorisation du client.</p>
+        <p><b>4. Données sensibles</b></p>
+        <p>Nous ne demandons pas de données sensibles, comme des informations sur la santé, la religion, les opinions politiques, l’origine raciale ou la biométrie. Nous vous demandons de ne pas envoyer ce type d’informations, sauf si elles sont indispensables au projet. Dans ce cas, les données sensibles ne seront traitées que dans les cas prévus à l’art. 11 de la LGPD ou, lorsqu’elles figurent dans des éléments du client, conformément à ses instructions, en qualité de sous-traitant.</p>
+      </section>
+
+      <section id="fr-finalidades">
+        <h2>À quoi servent vos données</h2>
+        <ul>
+          <li><b>Répondre à vos messages</b> et à vos questions sur nos services ;</li>
+          <li><b>Préparer la proposition</b> écrite, avec le périmètre, le délai et le prix, avant de commencer tout travail ;</li>
+          <li><b>Réaliser le projet commandé</b>, y compris les réunions, les séries de retouches, les validations et les livraisons en ligne ;</li>
+          <li><b>Émettre la nota fiscal</b> et respecter nos obligations légales, fiscales et comptables ;</li>
+          <li><b>Conserver l’historique commercial</b> (conversations, propositions et projets), pour assurer la continuité de nos échanges et, si nécessaire, nous défendre en cas d’éventuelles contestations ;</li>
+          <li><b>Présenter des travaux dans le portfolio</b> du site, uniquement lorsque le client l’autorise ;</li>
+          <li><b>Assurer le fonctionnement sécurisé du site</b>, prévenir les abus et respecter ce que la loi impose au sujet des journaux de connexion, le cas échéant.</li>
+        </ul>
+        <p>Nous n’utilisons pas vos données à d’autres fins sans vous en informer au préalable et, lorsque la loi l’exige, sans vous demander votre autorisation. Nous n’envoyons pas de messages publicitaires sans votre consentement.</p>
+      </section>
+
+      <section id="fr-bases-legais">
+        <h2>Bases légales</h2>
+        <p>La LGPD n’autorise le traitement de données personnelles que s’il existe une base légale pour cela. Nous utilisons les suivantes, prévues à l’art. 7º de la LGPD :</p>
+        <ul>
+          <li><b>Procédures préliminaires et exécution d’un contrat</b> (art. 7º, V) : pour répondre à votre demande de devis, préparer la proposition et réaliser le projet commandé.</li>
+          <li><b>Intérêt légitime</b> (art. 7º, IX) : pour répondre aux personnes qui nous contactent au nom d’une entreprise, conserver l’historique commercial, présenter dans le portfolio les travaux que le client a autorisé à diffuser et assurer la sécurité du site, toujours dans le respect de vos droits et de ce que vous pouvez raisonnablement attendre de nous.</li>
+          <li><b>Respect d’une obligation légale ou réglementaire</b> (art. 7º, II) : pour émettre la nota fiscal, respecter nos obligations fiscales et comptables et conserver les journaux de connexion au site pendant la durée prévue à l’art. 15 du Marco Civil da Internet, lorsque cette conservation est exigée.</li>
+          <li><b>Exercice régulier de droits</b> (art. 7º, VI) : pour nous défendre, si nécessaire, dans le cadre de procédures judiciaires, administratives ou arbitrales.</li>
+          <li><b>Consentement</b> (art. 7º, I) : uniquement lorsque nous vous demandons votre autorisation pour quelque chose de précis. Dans ce cas, vous pouvez retirer votre consentement à tout moment.</li>
+        </ul>
+        <p>Les données sensibles ne sont traitées que dans les cas prévus à l’art. 11 de la LGPD. Lorsque Kronografx agit en tant que sous-traitant d’un client, la base légale du traitement est définie par le client, qui est le responsable du traitement.</p>
+      </section>
+
+      <section id="fr-compartilhamento">
+        <h2>Avec qui nous partageons vos données</h2>
+        <p>Nous ne vendons, ne louons et ne cédons pas vos données personnelles. Elles ne sont partagées que lorsque c’est nécessaire aux finalités de cette politique, avec :</p>
+        <ul>
+          <li><b>l’hébergeur du site</b> (et les services d’infrastructure qu’il utilise pour diffuser le site), qui maintient le site en ligne et peut enregistrer les données techniques de connexion ;</li>
+          <li><b>les services de messagerie électronique, de messagerie instantanée et de réseaux sociaux</b> utilisés pour échanger avec vous (comme WhatsApp et Instagram) et <b>les outils en ligne</b> de réunion, de stockage et d’envoi de fichiers utilisés pour le projet ;</li>
+          <li><b>le cabinet comptable (le cas échéant) et le système d’émission de la nota fiscal</b>, pour respecter nos obligations fiscales et comptables ;</li>
+          <li><b>les autorités publiques et le pouvoir judiciaire</b>, en cas d’obligation légale, de réquisition d’une autorité compétente ou de décision de justice.</li>
+        </ul>
+        <p>Nous ne partageons que les données nécessaires dans chaque cas et cherchons à travailler avec des prestataires qui appliquent de bonnes pratiques de sécurité et de protection des données.</p>
+      </section>
+
+      <section id="fr-transferencia-internacional">
+        <h2>Transfert international de données</h2>
+        <p>Certains services que nous utilisons pour échanger avec vous et travailler sur le projet, comme WhatsApp et Instagram (de Meta), les services de messagerie électronique et les outils en ligne de stockage de fichiers, peuvent traiter et conserver des données sur des serveurs situés hors du Brésil. Il peut en être de même pour l’hébergeur du site.</p>
+        <p>Ces transferts n’ont lieu que dans les cas prévus à l’art. 33 de la LGPD, principalement lorsqu’ils sont nécessaires à l’exécution du contrat ou des procédures préliminaires que vous avez demandés, au respect d’une obligation légale ou à l’exercice régulier de droits (art. 33, IX). Lorsque ces cas ne s’appliquent pas, le transfert doit reposer sur les mécanismes reconnus par la LGPD et réglementés par l’ANPD (Autoridade Nacional de Proteção de Dados, l’autorité nationale brésilienne de protection des données) dans la Resolução CD/ANPD nº 19/2024 (résolution du Conseil directeur de l’ANPD), comme les clauses contractuelles types. Lorsque vous utilisez ces services, les politiques de confidentialité de chacun d’eux s’appliquent également.</p>
+      </section>
+
+      <section id="fr-armazenamento">
+        <h2>Combien de temps nous conservons vos données</h2>
+        <p>Nous ne conservons les données que pendant le temps nécessaire pour atteindre les finalités de cette politique, selon les critères suivants :</p>
+        <ul>
+          <li><b>Journaux de connexion au site :</b> lorsqu’ils existent, ils sont conservés par l’hébergeur, pendant la durée qu’il applique. Lorsque leur conservation est exigée, elle est assurée de manière confidentielle, dans un environnement contrôlé et sécurisé, pendant les 6 mois prévus à l’art. 15 du Marco Civil da Internet (Lei nº 12.965/2014), ou plus longtemps en cas de réquisition d’une autorité compétente ou de décision de justice.</li>
+          <li><b>Contacts qui n’ont pas abouti à un projet :</b> pendant le temps nécessaire pour répondre et suivre la conversation, puis jusqu’à 24 mois après le dernier contact, pour faciliter une nouvelle prise en charge. Vous pouvez en demander la suppression avant ce délai, à tout moment.</li>
+          <li><b>Projets commandés :</b> pendant la réalisation du projet, puis pendant la durée exigée par la législation fiscale et comptable et pendant les délais légaux au cours desquels des contestations relatives au contrat peuvent encore survenir.</li>
+          <li><b>Fichiers et éléments du projet :</b> pendant la durée convenue avec le client ou nécessaire aux ajustements et aux nouvelles versions. Le client peut en demander la suppression, sous réserve des obligations légales.</li>
+        </ul>
+        <p>À l’expiration de ces délais, les données sont supprimées ou anonymisées, sauf lorsque la loi permet ou impose leur conservation.</p>
+      </section>
+
+      <section id="fr-seguranca">
+        <h2>Sécurité</h2>
+        <p>Nous adoptons des mesures techniques et administratives raisonnables, adaptées à la taille de Kronografx et au type de données traitées, pour protéger vos données contre les accès non autorisés, la perte ou l’utilisation abusive. La conception même du site y contribue aussi : comme il n’a ni formulaires, ni inscriptions, ni traceurs, presque aucune donnée personnelle n’y transite.</p>
+        <p>Aucun système n’est totalement sûr. En cas d’incident de sécurité susceptible de vous causer un risque ou un dommage important, nous vous en informerons, ainsi que l’Autoridade Nacional de Proteção de Dados (ANPD), comme le prévoit la LGPD.</p>
+      </section>
+
+      <section id="fr-seus-direitos">
+        <h2>Vos droits et comment les exercer</h2>
+        <p>La LGPD (art. 18) vous garantit, en tant que personne concernée (« titular » des données), le droit de :</p>
+        <ul>
+          <li>obtenir la confirmation que nous traitons ou non des données vous concernant ;</li>
+          <li>accéder aux données que nous détenons sur vous ;</li>
+          <li>faire corriger des données incomplètes, inexactes ou obsolètes ;</li>
+          <li>demander l’anonymisation, le blocage ou la suppression de données inutiles, excessives ou traitées en violation de la LGPD ;</li>
+          <li>demander la portabilité de vos données vers un autre prestataire, conformément à la réglementation de l’ANPD ;</li>
+          <li>demander la suppression des données traitées sur la base de votre consentement, sauf lorsque la loi permet de les conserver ;</li>
+          <li>savoir avec quelles entités publiques et privées nous partageons vos données ;</li>
+          <li>être informé(e) de la possibilité de ne pas donner votre consentement et des conséquences de ce refus ;</li>
+          <li>révoquer votre consentement à tout moment ;</li>
+          <li>vous opposer à un traitement fondé sur une autre base légale, s’il n’est pas conforme à la LGPD.</li>
+        </ul>
+        <p><b>Comment les exercer :</b> envoyez un e-mail à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> en indiquant ce que vous souhaitez. Pour protéger vos données, nous pouvons vous demander des informations confirmant votre identité avant de traiter la demande. Les demandes de confirmation et d’accès aux données reçoivent une réponse immédiate, sous forme simplifiée, ou dans un délai maximal de 15 jours, sous forme de déclaration complète (art. 19 de la LGPD). Les autres demandes sont traitées dans les délais prévus par la LGPD et par la réglementation de l’ANPD. Si nous ne pouvons pas donner suite à une demande (par exemple, parce que la loi nous oblige à conserver certaines données), nous vous en expliquerons la raison. Ce traitement de votre demande est gratuit.</p>
+        <p>Nous ne prenons aucune décision vous concernant de manière exclusivement automatisée.</p>
+        <p><b>Réclamation auprès des autorités :</b> si vous estimez que vos droits n’ont pas été respectés, vous pouvez déposer une réclamation auprès de l’Autoridade Nacional de Proteção de Dados (ANPD), sur le site <a target="_blank" rel="noopener" href="https://www.gov.br/anpd">gov.br/anpd</a>. En règle générale, l’ANPD vous demande de démontrer que vous nous avez contactés au préalable et que la demande n’a pas été résolue (art. 55-J, V, de la LGPD) ; contactez-nous donc d’abord : nous voulons avoir la possibilité de régler la situation. Vous pouvez également vous adresser aux organismes de protection des consommateurs, comme le Procon, organisme public brésilien de défense des consommateurs (art. 18, §8º, de la LGPD).</p>
+      </section>
+
+      <section id="fr-cookies">
+        <h2>Cookies</h2>
+        <p>Le code du site de Kronografx <b>n’enregistre ni cookies ni données dans votre navigateur</b> (comme le stockage local) et n’utilise pas de technologies similaires, comme les pixels de suivi ou les outils de mesure d’audience et de publicité.</p>
+        <p>Nous ne chargeons pas non plus de polices, de vidéos, de cartes ou d’autres contenus de tiers : tout provient du serveur même du site. C’est pourquoi il n’y a pas de bandeau de cookies à accepter.</p>
+        <p>Si un jour nous commençons à utiliser des cookies ou des outils de ce type, nous mettrons à jour cette politique et, lorsque la loi l’exige, nous vous demanderons votre consentement au préalable.</p>
+      </section>
+
+      <section id="fr-criancas">
+        <h2>Enfants et adolescents</h2>
+        <p>Le site et les services de Kronografx ne s’adressent pas aux enfants ni aux adolescents. En dehors des éléments de projet envoyés par les clients, nous ne collectons pas de notre propre initiative, de manière intentionnelle, de données de personnes âgées de moins de 18 ans. Si nous apprenons que nous avons reçu, par contact direct, des données d’un enfant ou d’un adolescent sans l’autorisation de ses parents ou responsables légaux, nous les supprimerons.</p>
+        <p>Lorsqu’un projet utilise l’image ou la voix d’enfants ou d’adolescents, le traitement doit respecter leur intérêt supérieur (art. 14 de la LGPD), et il appartient au client d’obtenir les autorisations exigées par la loi, comme le consentement de l’un des parents ou du représentant légal dans le cas des enfants. Kronografx traite ces éléments uniquement de la manière décrite dans « Données d’autres personnes dans les éléments du projet ».</p>
+      </section>
+
+      <section id="fr-links-terceiros">
+        <h2>Liens et services de tiers</h2>
+        <p>Le site contient des liens qui ouvrent des services d’autres entreprises : WhatsApp, Instagram et votre application de messagerie. En cliquant, vous quittez le site de Kronografx et utilisez ces services, qui ont leurs propres conditions et politiques de confidentialité et traitent vos données pour leur propre compte. Nous vous recommandons de lire leurs politiques ; Kronografx ne contrôle pas la manière dont ces services traitent vos données.</p>
+        <p>Le message prérédigé de WhatsApp n’est envoyé que si vous décidez de l’envoyer, et vous pouvez le modifier avant. En revanche, les données que vous nous envoyez par l’un de ces canaux sont traitées par Kronografx conformément à cette politique.</p>
+      </section>
+
+      <section id="fr-alteracoes">
+        <h2>Modifications de cette politique</h2>
+        <p>Nous pouvons mettre à jour cette politique pour tenir compte de changements du site, de nos services ou de la législation. La date de la dernière mise à jour figure toujours en haut de cette page. Si le changement est important, nous vous en informerons de manière bien visible sur le site et, lorsque la loi l’exige, nous vous demanderons votre consentement.</p>
+      </section>
+
+      <section id="fr-contato">
+        <h2>Contact</h2>
+        <p>Questions, demandes ou réclamations concernant la vie privée et la protection des données :</p>
+        <ul>
+          <li>E-mail (canal à privilégier) : <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp : <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram : <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>Consultez également les <a href="termos.html">Conditions d’utilisation</a>. Cette politique est régie par les lois brésiliennes.</p>
       </section>
     </article>
   </div>

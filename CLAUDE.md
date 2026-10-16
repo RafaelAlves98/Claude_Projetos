@@ -24,30 +24,38 @@
 
 ## Onde está o código
 
-O site completo está em `kronografx/` (veio do `Site_Oficial.rar` enviado em 2026-10-16, versão "v5",
-com as correções de 2026-10-16 aplicadas — ver Histórico).
-É um site **estático, sem build, sem frameworks**: HTML + CSS + JS puro (ES5, IIFE).
+O site completo está em `kronografx/`. Base: o site publicado em kronografx.com (`site-v5.zip`, enviado em 2026-10-16,
+que já tinha idiomas pt/en/es e tema claro/escuro), mesclado com as correções, CNPJ e páginas legais feitas aqui
+e com o francês (ver Histórico). É um site **estático, sem build, sem frameworks**: HTML + CSS + JS puro (ES5, IIFE).
 Basta abrir `kronografx/index.html` ou subir a pasta inteira para qualquer hospedagem.
+
+> **Daqui deste ambiente não dá para abrir kronografx.com** (a rede bloqueia sites externos). Para ver a versão
+> publicada, peça ao Rafael os arquivos (.zip). Se ele mandar uma versão nova, compare com a do repositório
+> (mescla de três vias: `git merge-file`, usando como base a última versão recebida dele) para não perder nada dos dois lados.
 
 ```
 kronografx/
-├── index.html            # todas as páginas (SPA com rotas por hash) + JSON-LD da organização
-├── termos.html           # Termos de Uso (página HTML própria, fora da SPA)
-├── privacidade.html      # Política de Privacidade (LGPD) (página HTML própria, fora da SPA)
+├── index.html            # todas as páginas (SPA com rotas por hash) + JSON-LD da organização   [CRLF]
+├── termos.html           # Termos de Uso, nos 4 idiomas (GERADO — ver "Páginas legais")
+├── privacidade.html      # Política de Privacidade (LGPD), nos 4 idiomas (GERADO)
 ├── robots.txt            # libera tudo e aponta o sitemap
 ├── sitemap.xml           # home + termos.html + privacidade.html
 └── assets/
-    ├── css/style.css     # todo o visual (inclui o bloco "páginas legais")
-    ├── js/dados.js       # ← CONTEÚDO EDITÁVEL: projetos, carrossel, FAQ, contatos (arquivo com quebras CRLF — manter)
-    ├── js/app.js         # lógica da SPA: rotas, carrossel, páginas de projeto, animações
-    ├── js/legal.js       # só nas páginas legais: WhatsApp, ano, menu do celular e sumário
+    ├── css/style.css     # todo o visual: variáveis de tema, modo escuro, seletor de idioma, páginas legais   [CRLF]
+    ├── js/i18n.js        # ← TEXTOS FIXOS DO SITE por idioma (pt, en, es, fr) — 147 chaves por idioma
+    ├── js/dados.js       # ← CONTEÚDO EDITÁVEL: projetos, carrossel, FAQ, contatos + "traducoes" (en/es/fr)   [CRLF]
+    ├── js/app.js         # lógica da SPA: rotas, idioma, tema, carrossel, páginas de projeto, animações
+    ├── js/legal.js       # só nas páginas legais: idioma, tema, WhatsApp, ano, menu do celular, sumário
     ├── fonts/            # calsans.woff2, calsans-ext.woff2 (títulos), inter.woff2 (texto)
     ├── img/              # capas, stills, frames/ (carrossel), marca, favicon, og-image
     └── video/            # vídeos completos + e2-loop.mp4 + reel.mp4
 ```
 
-Referências visuais da análise (capturas e pranchas de quadros) ficam em `docs/kronografx/` — **fora** da pasta
-do site, não sobem para a hospedagem. As capturas são de **antes** das correções de 2026-10-16.
+`[CRLF]` = arquivo com quebras de linha do Windows, como o Rafael edita — manter assim (os outros usam LF).
+
+`docs/kronografx/` fica **fora** da pasta do site (não sobe para a hospedagem): capturas e pranchas da análise
+(de **antes** das correções de 2026-10-16), `textos-legais/` (fonte dos Termos/Privacidade nos 4 idiomas + histórico
+das revisões) e `ferramentas/gerar_legal.py`.
 
 ## Arquitetura
 
@@ -58,6 +66,32 @@ do site, não sobem para a hospedagem. As capturas são de **antes** das correç
 - **Links de WhatsApp:** qualquer elemento com atributo `data-wa` recebe o link `wa.me` automaticamente.
 - **Ano do rodapé:** `#year` é preenchido via JS.
 - `esc()` escapa todo texto vindo de `dados.js` antes de ir para o HTML.
+
+### Idiomas (pt, en, es, fr)
+- **Seletor** na nav (`#lang` / `#langBtn` / `#langMenu`, com bandeiras em SVG) — mesmo em todas as páginas.
+- **Escolha salva** em `localStorage["kg-lang"]`. Sem escolha salva: usa o idioma do navegador se for pt/en/es/fr, senão pt.
+  Um `<script>` no `<head>` (igual nas 3 páginas) aplica `data-lang`/`lang` no `<html>` antes de pintar.
+- **Textos fixos**: no HTML, o texto em português fica dentro do elemento e a chave em `data-i18n` (texto),
+  `data-i18n-html` (texto com `<b>`, `<br>`, `<span>`, `<a>`), `data-i18n-aria` (aria-label) ou `data-i18n-alt`.
+  As traduções ficam em `assets/js/i18n.js` (`window.KRONO_I18N.pt/en/es/fr`) — **a mesma chave nos 4 idiomas**;
+  se faltar numa língua, cai no português. Chave nova = acrescentar nos 4 blocos.
+- **Conteúdo** (projetos, FAQ, mensagem do WhatsApp): o português fica nos campos normais de `dados.js`;
+  en/es/fr ficam em `traducoes.projetos[id][lang]`, `traducoes.faq[lang]` e `traducoes.whatsappTexto[lang]`.
+  Campos não traduzidos (cliente, ano, duração, cores, vídeos, imagens) são os mesmos em todos.
+- `app.js`: `t(chave)` para textos fixos e `tp(projeto, campo)` para campos de projeto. `setLang()` refaz tudo
+  (textos, cards, FAQ, carrossel, página de projeto aberta, título da aba, meta description/og, link do WhatsApp).
+- O francês usa "vous" e tipografia francesa (espaço inseparável U+00A0 antes de `: ; ! ?` e dentro de `« »`).
+- Os textos jurídicos citam as leis pelo nome oficial em português com explicação entre parênteses; as traduções
+  dos Termos/Privacidade avisam que **em caso de divergência prevalece a versão em português**.
+
+### Tema claro / escuro
+- Botão `#themeBtn` (lua/sol) na nav. Escolha salva em `localStorage["kg-theme"]`; sem escolha, segue o sistema
+  (`prefers-color-scheme`) e acompanha se o sistema mudar. Aplicado como `data-theme="dark"` no `<html>` pelo script do `<head>`.
+- **O modo escuro só troca variáveis** (`:root[data-theme="dark"]` em style.css): `--ink`, `--ink-2/3`, `--bg`, `--gray`,
+  `--line`, `--surface` (cartões), `--fill`/`--on-fill` (botão escuro), `--grid`, `--nav-bg`, `--menu-bg`, `--wa-tint`, `--shadow`.
+  **Regra: em CSS novo, usar essas variáveis — nunca `#fff`/`#0a0a0b` fixos** (exceto em elementos que são sempre
+  escuros/claros de propósito, como a seção Arsenal, a specbar e os chips brancos sobre imagem).
+- Seções que já são escuras (Arsenal, Confiança) ficam iguais nos dois temas.
 
 ### Seções da home (em ordem)
 1. **Nav em pílula** fixa (`.pill-nav`), fica escura (`.on-dark`) sobre `#arsenal`, `#confianca` e o hero de projeto. No celular (≤860px) vira menu hambúrguer.
@@ -86,16 +120,23 @@ do site, não sobem para a hospedagem. As capturas são de **antes** das correç
 ### Páginas legais (`termos.html` e `privacidade.html`)
 - HTML estático próprio (indexável, com `canonical`, `og:` e `<title>` próprios) — **não** são rotas `#` da SPA,
   para que Google/redes/Meta leiam o conteúdo e o link funcione como URL própria.
-- Mesma nav em pílula e mesmo rodapé da home, mas com links `index.html#/...`. Carregam `dados.js` + `legal.js`
-  (o `app.js` NÃO, porque ele depende de elementos que só existem na home).
-- Estrutura: cabeçalho "LEGAL" + título + "Última atualização: …" → grade `.legal` com sumário `<details id="legalToc">`
-  (fixo à esquerda no computador; fechado por padrão no celular e fecha ao tocar num item) + `<article class="legal__doc">`
-  com `<section id="…"><h2>` por tópico → card "Ficou alguma dúvida?" (`.legal__more`) com link cruzado para o outro documento.
-- **O texto vive no próprio HTML** — para mudar, editar o HTML direto (e atualizar a data no cabeçalho de "Última atualização").
-  `docs/kronografx/textos-legais.json` guarda a versão aprovada em 2026-10-16 com o histórico da revisão
-  (`alteracoes`) e as notas para o Rafael (`notas_para_rafael`) — é registro, não fonte.
-- **O rodapé existe em 3 arquivos** (`index.html`, `termos.html`, `privacidade.html`): qualquer mudança nele tem que ser feita nos três.
-- Os Termos listam os projetos conceituais pelo nome (seção `#marcas-de-terceiros`) — atualizar quando o portfólio mudar.
+- Mesma nav em pílula (com idioma e tema) e mesmo rodapé da home, mas com links `index.html#/...`. Carregam
+  `i18n.js` + `dados.js` + `legal.js` (o `app.js` NÃO, porque ele depende de elementos que só existem na home).
+- **O texto existe nos 4 idiomas na mesma página**: um bloco `<div class="wrap legal" data-l="pt|en|es|fr" lang="…">`
+  por idioma; o CSS mostra só o do `data-lang` atual (sem JavaScript, aparece o português). Os ids das seções são os
+  originais em pt e com prefixo nos outros (`#cookies`, `#en-cookies`, `#es-cookies`, `#fr-cookies`); um link
+  `privacidade.html#cookies` abre a seção certa no idioma escolhido. Traduções começam com o aviso `.legal__transl`.
+- Estrutura de cada bloco: sumário `<details class="legal__toc">` (fixo à esquerda no computador; fechado no celular e
+  fecha ao tocar num item) + `<article class="legal__doc">` com `<section id="…"><h2>` por tópico. Depois dos blocos,
+  o card "Ficou alguma dúvida?" (`.legal__more`) com link cruzado para o outro documento. Cabeçalho, título,
+  "Última atualização" e card usam chaves `legal.*` do `i18n.js`.
+- **As duas páginas são GERADAS** — fonte: `docs/kronografx/textos-legais/{pt,en,es,fr}.json`; gerador:
+  `docs/kronografx/ferramentas/gerar_legal.py` (comando no topo do arquivo). O gerador valida o HTML (só `<p> <ul> <li> <b> <a>`
+  e links da lista), exige os mesmos ids/ordem de seções nos 4 idiomas e **copia a nav, o rodapé e o script do `<head>`
+  do `index.html`** — então, ao mudar nav/rodapé no index, basta rodar o gerador de novo. Para mudar um texto legal:
+  editar o JSON do português **e** dos 3 idiomas (mesmo sentido), atualizar `legal.updated` no `i18n.js` e rodar o gerador.
+  `textos-legais/pt-revisao-2026-10-16.json` tem o histórico da revisão jurídica (`alteracoes`) e as notas para o Rafael.
+- Os Termos listam os projetos conceituais pelo nome (seção `marcas-de-terceiros`) — atualizar nos 4 idiomas quando o portfólio mudar.
 
 ### Comportamentos
 - Elementos `.rv` aparecem com fade ao entrar na tela (IntersectionObserver).
@@ -144,8 +185,10 @@ Todos de 2026, disciplina "Motion Design".
 5. Projeto conceitual (marca sem vínculo) → `conceitual: true`, preencher `nota` com o aviso "Projeto conceitual de portfólio,
    sem vínculo com ..." **e** incluir o projeto na lista da seção "Marcas de terceiros e projetos conceituais" do `termos.html`
    (atualizando a data de "Última atualização"). Projeto de cliente real → confirmar que há autorização para o portfólio.
-6. Cuidado com vírgulas e aspas no `dados.js` — um erro quebra o site inteiro.
-7. Atualizar o `lastmod` do `sitemap.xml`.
+6. **Traduções**: acrescentar o projeto em `traducoes.projetos` com `en`, `es` e `fr` (titulo, subtitulo, categoria,
+   formato, specs, historia, nota); se o anúncio "NOVO" mudou, atualizar `hero.announce` nos 4 blocos do `i18n.js`.
+7. Cuidado com vírgulas e aspas no `dados.js` e no `i18n.js` — um erro quebra o site inteiro (`node --check arquivo.js` ajuda).
+8. Atualizar o `lastmod` do `sitemap.xml`.
 
 Dica: para escolher quadros, gerar uma prancha com `ffmpeg -i video.mp4 -vf "fps=2,scale=160:-1,drawtext=text='%{pts\:hms}':...,tile=12x6"`
 e extrair o escolhido com `ffmpeg -ss <t> -i video.mp4 -frames:v 1 -q:v 2 saida.jpg`.
@@ -214,7 +257,8 @@ Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844,
 
 ## Pendências / decisões em aberto
 
-**Textos legais — o Rafael precisa confirmar/fornecer (detalhes em `docs/kronografx/textos-legais.json`, campo `notas_para_rafael`):**
+**Textos legais — o Rafael precisa confirmar/fornecer (detalhes em `docs/kronografx/textos-legais/pt-revisao-2026-10-16.json`, campo `notas_para_rafael`).
+Qualquer mudança nos textos legais vale para os 4 idiomas:**
 - Razão social (nome empresarial do cartão do CNPJ) e endereço (ou cidade/UF) — LGPD art. 9º e Decreto nº 7.962/2013 art. 2º.
   **Não buscar o CNPJ em bases públicas por conta própria**: a razão social de MEI costuma trazer nome completo/CPF — publicar só o que ele mandar.
 - Porte da empresa (ME/EPP/MEI): se for agente de pequeno porte, incluir a frase de dispensa de encarregado (Res. CD/ANPD nº 2/2022, art. 11).

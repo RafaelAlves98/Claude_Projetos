@@ -1,8 +1,8 @@
 /*
   KRONOGRAFX · TEXTOS DO SITE POR IDIOMA
   ======================================
-  pt = português (idioma nativo), en = inglês, es = espanhol.
-  A chave é a mesma nos três idiomas. Campos com HTML (<b>, <br>, <span>)
+  pt = português (idioma nativo), en = inglês, es = espanhol, fr = francês.
+  A chave é a mesma nos quatro idiomas. Campos com HTML (<b>, <br>, <span>)
   são os que no index.html usam data-i18n-html.
   Textos dos projetos e do FAQ ficam em dados.js (campo "traducoes").
 */
@@ -119,7 +119,19 @@ window.KRONO_I18N = {
     "title.faq": "Perguntas frequentes · Kronografx",
     "title.contact": "Contato · Kronografx",
     "meta.desc": "Kronografx é um estúdio de motion design, VFX e pós-produção. Roteiro, animação e finalização em um só lugar.",
-    "meta.og": "Cada frame pensado pra prender o olhar."
+    "meta.og": "Cada frame pensado pra prender o olhar.",
+
+    /* textos novos: rodapé LEGAL, contato, projetos conceituais e páginas legais */
+    "proj.brand": "Marca", "proj.playVideo": "Assistir ao vídeo",
+    "ct.note": "Ao falar com a gente, seus dados são tratados conforme a nossa <a href=\"privacidade.html\">Política de Privacidade</a>.",
+    "ft.legal": "LEGAL", "ft.terms": "Termos de uso", "ft.privacy": "Privacidade",
+    "legal.label": "LEGAL", "legal.updated": "Última atualização: 16 de outubro de 2026",
+    "legal.toc": "NESTA PÁGINA", "legal.more": "Ficou alguma dúvida?", "legal.see": "Veja também:",
+    "legal.wa": "Chamar no WhatsApp", "legal.mail": "Enviar e-mail",
+    "legal.terms": "Termos de Uso", "legal.privacy": "Política de Privacidade",
+    "title.terms": "Termos de Uso · Kronografx", "title.privacy": "Política de Privacidade · Kronografx",
+    "meta.terms": "Regras de uso do site da Kronografx, estúdio de motion design, VFX e pós-produção.",
+    "meta.privacy": "Como a Kronografx trata dados pessoais, em conformidade com a LGPD."
   },
 
   en: {
@@ -234,7 +246,19 @@ window.KRONO_I18N = {
     "title.faq": "FAQ · Kronografx",
     "title.contact": "Contact · Kronografx",
     "meta.desc": "Kronografx is a motion design, VFX and post-production studio. Script, animation and finishing in one place.",
-    "meta.og": "Every frame made to hold your gaze."
+    "meta.og": "Every frame made to hold your gaze.",
+
+    /* textos novos: rodapé LEGAL, contato, projetos conceituais e páginas legais */
+    "proj.brand": "Brand", "proj.playVideo": "Watch the video",
+    "ct.note": "When you contact us, your data is handled in accordance with our <a href=\"privacidade.html\">Privacy Policy</a>.",
+    "ft.legal": "LEGAL", "ft.terms": "Terms of use", "ft.privacy": "Privacy",
+    "legal.label": "LEGAL", "legal.updated": "Last updated: October 16, 2026",
+    "legal.toc": "ON THIS PAGE", "legal.more": "Still have a question?", "legal.see": "See also:",
+    "legal.wa": "Message on WhatsApp", "legal.mail": "Send an email",
+    "legal.terms": "Terms of Use", "legal.privacy": "Privacy Policy",
+    "title.terms": "Terms of Use · Kronografx", "title.privacy": "Privacy Policy · Kronografx",
+    "meta.terms": "Rules for using the website of Kronografx, a motion design, VFX and post-production studio.",
+    "meta.privacy": "How Kronografx handles personal data, in compliance with the LGPD, Brazil's data protection law."
   },
 
   es: {
@@ -349,6 +373,144 @@ window.KRONO_I18N = {
     "title.faq": "Preguntas frecuentes · Kronografx",
     "title.contact": "Contacto · Kronografx",
     "meta.desc": "Kronografx es un estudio de motion design, VFX y posproducción. Guion, animación y finalización en un solo lugar.",
-    "meta.og": "Cada fotograma pensado para atrapar la mirada."
+    "meta.og": "Cada fotograma pensado para atrapar la mirada.",
+
+    /* textos novos: rodapé LEGAL, contato, projetos conceituais e páginas legais */
+    "proj.brand": "Marca", "proj.playVideo": "Ver el video",
+    "ct.note": "Al escribirnos, tus datos se tratan conforme a nuestra <a href=\"privacidade.html\">Política de Privacidad</a>.",
+    "ft.legal": "LEGAL", "ft.terms": "Términos de uso", "ft.privacy": "Privacidad",
+    "legal.label": "LEGAL", "legal.updated": "Última actualización: 16 de octubre de 2026",
+    "legal.toc": "EN ESTA PÁGINA", "legal.more": "¿Te quedó alguna duda?", "legal.see": "Ver también:",
+    "legal.wa": "Escribir por WhatsApp", "legal.mail": "Enviar un correo",
+    "legal.terms": "Términos de Uso", "legal.privacy": "Política de Privacidad",
+    "title.terms": "Términos de Uso · Kronografx", "title.privacy": "Política de Privacidad · Kronografx",
+    "meta.terms": "Reglas de uso del sitio de Kronografx, estudio de motion design, VFX y posproducción.",
+    "meta.privacy": "Cómo Kronografx trata los datos personales, de conformidad con la LGPD, la ley brasileña de protección de datos."
+  },
+  fr: {
+    "skip": "Aller au contenu",
+    "nav.home": "Accueil", "nav.projects": "Projets", "nav.faq": "FAQ", "nav.contact": "Contact",
+    "nav.brand": "Kronografx, accueil",
+    "nav.wa": "Écrire sur WhatsApp",
+    "nav.menuOpen": "Ouvrir le menu", "nav.menuClose": "Fermer le menu",
+    "nav.lang": "Langue",
+    "nav.themeToDark": "Activer le mode sombre", "nav.themeToLight": "Activer le mode clair",
+    "nav.main": "Principale",
+
+    "hero.new": "NOUVEAU",
+    "hero.announce": "3 Signes, pour E2 Finanças, est en ligne",
+    "hero.status": "Nous acceptons de nouveaux projets",
+    "hero.title": "Chaque image pensée pour <span class=\"grad\">retenir le regard.</span>",
+    "hero.sub": "Studio de <b>motion design</b>, <b>VFX</b> et <b>post-production</b>. Scénario, animation et finition avec un rendu digne du cinéma, le tout sous un même toit.",
+    "hero.cta1": "Voir les projets <span aria-hidden=\"true\">→</span>",
+    "hero.cta2": "Nous contacter",
+    "hero.note": "Accompagnement 100 % en ligne, partout au Brésil.",
+    "reel.cap": "Images réelles des projets · touchez-en une pour l’ouvrir",
+
+    "sobre.label": "QUI SE CACHE DERRIÈRE",
+    "sobre.title": "Kronografx,<br>le studio de Rafael.",
+    "sobre.p1": "Kronografx est né pour prendre en charge tout ce qui arrive à l’image après l’idée : <b>motion design, effets visuels et post-production</b>.",
+    "sobre.p2": "Le nom vient de <b>khrónos</b>, « temps » en grec. Le temps, c’est notre matière première : chaque coupe fixe le rythme, chaque image décide de ce que ressent le public.",
+    "sobre.p3": "Rien n’est improvisé. <b>Chaque projet passe par le scénario, la direction artistique, l’animation et la finition</b> avant d’arriver sur votre écran.",
+    "sobre.chip": "Motion · VFX · Post",
+    "sobre.alt": "Logo de Kronografx",
+
+    "ars.label": "NOTRE ARSENAL",
+    "ars.1n": "01 · MOTION & VFX",
+    "ars.1p": "C’est ici que naît le <b>mouvement</b> : typographie cinétique, interfaces animées, compositing et effets. Chaque courbe d’animation est ajustée à la main, image par image.",
+    "ars.2n": "02 · STATION DE TRAVAIL",
+    "ars.2t": "Machine dédiée",
+    "ars.2p": "Une station montée <b>uniquement pour l’animation et le rendu</b>. Plus de puissance pour les prévisualisations en temps réel et les fichiers finaux lourds.",
+    "ars.3n": "03 · LIVRAISON",
+    "ars.3t": "Tous les écrans",
+    "ars.3p": "Le cadrage est pensé dès le départ pour que la vidéo fonctionne <b>dans le feed, sur YouTube et à la TV</b>, sans recadrages improvisés.",
+    "ae.l1": "Titre", "ae.l2": "Card 01", "ae.l3": "Graphique", "ae.l4": "Caméra", "ae.l5": "Nul 1", "ae.l6": "Fond",
+    "rig.cpu": "Processeur", "rig.cpuD": "8 cœurs · 16 threads",
+    "rig.gpu": "Carte graphique", "rig.gpuD": "accélération du rendu",
+    "rig.ram": "Mémoire",
+    "rig.cool": "Refroidissement", "rig.coolV": "Watercooling", "rig.coolD": "longs rendus sans goulot d’étranglement",
+    "rig.render": "Rendu en cours · kronografx_final.mp4",
+    "fmt.1": "16:9 · YouTube et TV", "fmt.2": "1:1 · Feed", "fmt.3": "9:16 · Reels",
+
+    "proc.label": "COMMENT NOUS TRAVAILLONS",
+    "proc.title": "Du brief au<br>fichier final.",
+    "proc.lede": "Un seul flux, sans sous-traiter aucune étape. Vous suivez chaque phase et validez avant de passer à la suivante.",
+    "proc.1t": "Scénario", "proc.1p": "Nous cernons l’objectif et le public, puis écrivons un scénario avec une accroche rapide, pensé pour retenir l’attention jusqu’à la dernière seconde.",
+    "proc.2t": "Direction artistique", "proc.2p": "Les styleframes définissent couleurs, typographie et langage visuel. Vous validez l’esthétique avant toute animation.",
+    "proc.3t": "Animation et VFX", "proc.3p": "Motion, compositing et effets dans After Effects, avec des tours de corrections convenus dès le départ.",
+    "proc.4t": "Finition", "proc.4p": "Étalonnage, son et export au bon format pour chaque écran. Prêt à publier.",
+
+    "why.label": "POURQUOI KRONOGRAFX",
+    "why.title": "Un vrai studio.<br>Un processus clair du début à la fin.",
+    "why.1t": "Proposition écrite", "why.1p": "Périmètre, délai et prix documentés avant de commencer. Aucune surprise en cours de route.",
+    "why.2t": "Station dédiée", "why.2p": "Une machine montée pour l’animation et le rendu, avec de la puissance pour les projets lourds.",
+    "why.3t": "Parlez directement au créateur", "why.3p": "Sans intermédiaire : celui qui vous répond est celui qui anime. Réponse rapide sur WhatsApp.",
+    "why.4t": "Le bon format", "why.4p": "Des versions en 9:16, 16:9, 1:1 ou 4:5, prêtes pour chaque plateforme.",
+
+    "show.label": "PORTFOLIO",
+    "show.title": "Projets<br>à la une.",
+    "show.all": "Voir tous les projets →",
+
+    "cta.title": "Et si on donnait vie à votre idée ?",
+    "cta.p": "Écrivez-nous sur WhatsApp. Dites-nous ce dont vous avez besoin et vous repartirez avec les prochaines étapes.",
+    "cta.btn": "Écrire sur WhatsApp <span aria-hidden=\"true\">→</span>",
+
+    "projs.label": "PORTFOLIO",
+    "projs.title": "Nos projets",
+    "projs.lede": "Chaque vidéo est née d’un scénario original, d’un design sur mesure et d’une animation image par image. Touchez-en une pour découvrir comment elle a été réalisée.",
+    "projs.filter": "Filtrer les projets",
+    "projs.all": "Tous",
+
+    "proj.back": "← Tous les projets",
+    "proj.story": "Comment ce projet est né",
+    "proj.play": "Regarder avec le son",
+    "proj.hint": "🎧 Regardez avec le son pour profiter de l’expérience complète",
+    "proj.framesT": "Images du projet",
+    "proj.framesP": "Images extraites de la vidéo finale. Faites glisser sur le côté.",
+    "proj.ctaT": "Envie d’une vidéo comme celle-ci<br>pour votre marque ?",
+    "proj.ctaP": "Racontez-nous votre idée. Vous recevrez une proposition avec le périmètre, le délai et le prix.",
+    "proj.ctaB": "Écrire sur WhatsApp →",
+    "proj.client": "Client", "proj.year": "Année", "proj.format": "Format", "proj.duration": "Durée",
+    "proj.next": "PROJET SUIVANT",
+    "proj.frame": "Image",
+
+    "faq.label": "QUESTIONS FRÉQUENTES",
+    "faq.title": "Questions et réponses",
+    "faq.lede": "Les questions qu’on nous pose souvent avant de lancer un projet, avec des réponses sans détour.",
+    "faq.more": "Encore une question ?",
+    "faq.btn": "Posez-la sur WhatsApp →",
+
+    "ct.label": "CONTACT",
+    "ct.title": "On en parle ?",
+    "ct.lede": "Vous avez vu les projets. Il ne reste plus qu’à nous écrire : la réponse est rapide.",
+    "ct.waP": "Le moyen le plus rapide. Expliquez-nous votre besoin et nous vous répondrons avec les prochaines étapes.",
+    "ct.waB": "Écrire maintenant",
+    "ct.mailT": "E-mail et réseaux",
+    "ct.mailP": "Vous préférez l’e-mail ? C’est par ici. Les coulisses sont sur Instagram.",
+
+    "ft.about": "Studio de motion design, VFX et post-production. Scénario, animation et finition pour les marques et les sociétés de production de tout le Brésil.",
+    "ft.nav": "NAVIGUER",
+    "ft.support": "AIDE", "ft.faq": "Questions fréquentes",
+    "ft.social": "RÉSEAUX", "ft.mail": "E-mail",
+    "ft.tag": "Motion design · VFX · Post-production",
+
+    "title.home": "Kronografx · Motion Design, VFX et Post-production",
+    "title.projects": "Projets · Kronografx",
+    "title.faq": "Questions fréquentes · Kronografx",
+    "title.contact": "Contact · Kronografx",
+    "meta.desc": "Kronografx est un studio de motion design, VFX et post-production. Scénario, animation et finition sous un même toit.",
+    "meta.og": "Chaque image pensée pour retenir le regard.",
+
+    /* textos novos: rodapé LEGAL, contato, projetos conceituais e páginas legais */
+    "proj.brand": "Marque", "proj.playVideo": "Regarder la vidéo",
+    "ct.note": "Lorsque vous nous contactez, vos données sont traitées conformément à notre <a href=\"privacidade.html\">Politique de confidentialité</a>.",
+    "ft.legal": "JURIDIQUE", "ft.terms": "Conditions d’utilisation", "ft.privacy": "Confidentialité",
+    "legal.label": "INFORMATIONS LÉGALES", "legal.updated": "Dernière mise à jour : 16 octobre 2026",
+    "legal.toc": "SUR CETTE PAGE", "legal.more": "Encore une question ?", "legal.see": "Voir aussi :",
+    "legal.wa": "Écrire sur WhatsApp", "legal.mail": "Envoyer un e-mail",
+    "legal.terms": "Conditions générales d’utilisation", "legal.privacy": "Politique de confidentialité",
+    "title.terms": "Conditions générales d’utilisation · Kronografx", "title.privacy": "Politique de confidentialité · Kronografx",
+    "meta.terms": "Règles d’utilisation du site de Kronografx, studio de motion design, VFX et post-production.",
+    "meta.privacy": "Comment Kronografx traite les données personnelles, conformément à la LGPD, la loi brésilienne sur la protection des données."
   }
 };

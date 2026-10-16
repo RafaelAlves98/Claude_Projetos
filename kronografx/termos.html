@@ -20,7 +20,7 @@
 <link rel="preload" href="assets/fonts/calsans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-(function(){try{var d=document.documentElement,s=localStorage;var th=s.getItem("kg-theme");if(th!=="light"&&th!=="dark")th=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);var L=["pt","en","es","fr"],l=s.getItem("kg-lang");if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l}catch(e){}})();
+(function(){var d=document.documentElement,th=null,l=null,L=["pt","en","es","fr"];try{th=localStorage.getItem("kg-theme");l=localStorage.getItem("kg-lang")}catch(e){}if(th!=="light"&&th!=="dark")th=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",th);if(L.indexOf(l)<0){var n=(navigator.language||"pt").slice(0,2).toLowerCase();l=L.indexOf(n)>=0?n:"pt"}d.setAttribute("data-lang",l);d.lang=l==="pt"?"pt-BR":l})();
 </script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -255,6 +255,585 @@
           <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
         </ul>
         <p>Veja também a nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== EN ===== -->
+  <div class="wrap legal" data-l="en" lang="en">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#en-aceitacao">Acceptance of these Terms</a></li>
+        <li><a href="#en-quem-somos">Who we are and what this site is</a></li>
+        <li><a href="#en-uso-do-site">How to use the site</a></li>
+        <li><a href="#en-propriedade-intelectual">Intellectual property</a></li>
+        <li><a href="#en-marcas-de-terceiros">Third-party trademarks and conceptual projects</a></li>
+        <li><a href="#en-orcamentos-e-contratacao">Quotes and hiring</a></li>
+        <li><a href="#en-materiais-enviados">Materials you send us</a></li>
+        <li><a href="#en-servicos-de-terceiros">Third-party links and services</a></li>
+        <li><a href="#en-disponibilidade">Site availability</a></li>
+        <li><a href="#en-responsabilidade">Limitation of liability</a></li>
+        <li><a href="#en-privacidade">Privacy and personal data</a></li>
+        <li><a href="#en-alteracoes">Changes to these Terms</a></li>
+        <li><a href="#en-lei-e-foro">Governing law and venue</a></li>
+        <li><a href="#en-contato">Contact</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>This English text is a translation provided for your convenience. In case of any discrepancy, the original Portuguese version prevails. You can read it by choosing “Português” in the site's language selector.</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>These Terms of Use set out the rules for using the Kronografx website (kronografx.com). They explain what you can do here, how we look after our content and third-party content, how quotes work, and what the rights and responsibilities of each party are. We wrote them in plain language on purpose. If you have any questions, just <a href="mailto:contato@kronografx.com">get in touch</a>.</p>
+        <p>How we process personal data is explained in our <a href="privacidade.html">Privacy Policy</a>, which complements these Terms. It is an informational document: the processing of your data does not depend on you “accepting” the Policy, but on the legal bases set out in the Lei Geral de Proteção de Dados Pessoais – LGPD (Brazil's General Data Protection Law), which the Policy describes.</p>
+      </div>
+
+      <section id="en-aceitacao">
+        <h2>Acceptance of these Terms</h2>
+        <p>These Terms are available at any time via the link in the site's footer. By using the site, you agree to follow the rules set out here. If you disagree with any point, we ask that you not use the site and, if you wish, tell us why through our contact channels.</p>
+        <p>The site is free of charge. These Terms cover the use of the site. Hiring us for a project is governed by the proposal or contract agreed in writing with you (see the “Quotes and hiring” section).</p>
+      </section>
+
+      <section id="en-quem-somos">
+        <h2>Who we are and what this site is</h2>
+        <p><b>Kronografx</b> (CNPJ, Brazil's National Registry of Legal Entities, no. 69.317.795/0001-62) is a motion design, VFX (visual effects) and post-production studio. We serve clients all over Brazil 100% online: meetings, approvals and deliveries all happen over the internet.</p>
+        <p>This site is our showcase. Here you'll find:</p>
+        <ul>
+          <li>information about the studio, our tools and the way we work;</li>
+          <li>the portfolio, with projects made for clients and conceptual projects, which are identified as conceptual on each project's page;</li>
+          <li>answers to frequently asked questions;</li>
+          <li>links to contact us via WhatsApp, email or Instagram.</li>
+        </ul>
+        <p>The site has no sign-up, password access, client area, store or payment. Nothing is sold or charged here: services are agreed directly with you, as explained below.</p>
+      </section>
+
+      <section id="en-uso-do-site">
+        <h2>How to use the site</h2>
+        <p><b>You may:</b></p>
+        <ul>
+          <li>browse the site and watch the videos to get to know our work;</li>
+          <li>share the page links with other people;</li>
+          <li>get in touch to ask questions or request a proposal.</li>
+        </ul>
+        <p><b>You may not:</b></p>
+        <ul>
+          <li>download for reuse, copy, edit, republish or commercially use the site's videos, images, texts, brand or visual identity without written authorization from Kronografx and, where applicable, from the client or other rights holder;</li>
+          <li>present work from our portfolio as if it were yours or someone else's;</li>
+          <li>use the Kronografx name or brand in a way that suggests a partnership or sponsorship, or that you speak on behalf of the studio;</li>
+          <li>attempt to break into, overload, alter or impair the operation of the site or the server where it is hosted, or insert any malicious code into it;</li>
+          <li>use our contact channels to send unsolicited bulk messages, scams, or illegal or offensive content, or to impersonate another person or company;</li>
+          <li>use the site for any purpose contrary to the law or to these Terms.</li>
+        </ul>
+        <p>These rules do not prevent uses that the law itself allows without authorization, such as quoting excerpts for study, criticism or debate, crediting the author and the source, within the limits of Lei nº 9.610/1998 (Lei de Direitos Autorais, Brazil's Copyright Law). If these Terms are breached, we may take appropriate measures to protect our rights and those of third parties.</p>
+      </section>
+
+      <section id="en-propriedade-intelectual">
+        <h2>Intellectual property</h2>
+        <p>The items below belong to Kronografx or are used with the authorization of their respective owners, and are protected by Brazilian law, in particular by Lei nº 9.610/1998 (Lei de Direitos Autorais) and, as regards the brand, by Lei nº 9.279/1996 (Lei de Propriedade Industrial, Brazil's Industrial Property Law):</p>
+        <ul>
+          <li>the site's videos, animations, images and texts;</li>
+          <li>the Kronografx name, logo and the studio's visual identity.</li>
+        </ul>
+        <p>Some items belong to other people or companies:</p>
+        <ul>
+          <li><b>Work made for clients</b>, such as the project “3 Sinais” (“3 Signs”) for E2 Finanças, may contain the client's trademarks, texts and materials, which remain the client's property. This work appears in the portfolio with the client's authorization.</li>
+          <li><b>Other companies' trademarks</b> that appear in the portfolio belong to their owners (see the next section).</li>
+          <li><b>Typefaces and other third-party resources</b> used on the site belong to their authors and are used under their respective licenses.</li>
+        </ul>
+        <p>Accessing the site does not transfer to you any rights over this content. For any use that goes beyond browsing, sharing links and the uses the law allows, such as displaying our work elsewhere, ask for authorization by emailing <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</p>
+      </section>
+
+      <section id="en-marcas-de-terceiros">
+        <h2>Third-party trademarks and conceptual projects</h2>
+        <p>Part of the portfolio consists of <b>conceptual projects</b>: pieces that Kronografx itself created to showcase technique and style, without a request from the brand owner. The current conceptual projects are:</p>
+        <ul>
+          <li><b>“Um único app”</b> (“One single app”), featuring the Itaú brand, with no affiliation with Itaú Unibanco;</li>
+          <li><b>“Seu nome no café”</b> (“Your name on your coffee”), featuring the Starbucks brand, with no affiliation with Starbucks.</li>
+        </ul>
+        <p>They are not official advertisements: Itaú Unibanco and Starbucks did not commission, approve or sponsor them, and each conceptual project's page carries this notice. The names, logos and other signs of these brands belong to their owners. They appear only to identify the brand used in the creative portfolio exercise. We don't sell these companies' products or services, and this use does not indicate any partnership, sponsorship, approval or any other connection with them.</p>
+        <p>If you own a trademark or another right and believe that any content on the site infringes that right, write to <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> stating which content and which right are involved. We will review the request and, if appropriate, adjust or remove the content.</p>
+      </section>
+
+      <section id="en-orcamentos-e-contratacao">
+        <h2>Quotes and hiring</h2>
+        <p>The site doesn't show prices and doesn't close contracts. Here's how it works:</p>
+        <ul>
+          <li><b>First contact:</b> you tell us your idea through one of our channels. Requesting a proposal does not oblige you to hire us.</li>
+          <li><b>Written proposal:</b> before starting any work, we send a proposal with scope, deadline and price, as well as the revision rounds and the other conditions of that project. The proposal states how long it is valid. If it doesn't, it is valid for 10 days from receipt, as provided in art. 40 of the Código de Defesa do Consumidor – CDC (Brazil's Consumer Protection Code).</li>
+          <li><b>Project start:</b> work only begins after you approve the proposal or sign the contract.</li>
+          <li><b>Changes:</b> if the scope, deadline or price needs to change, this will be agreed with you in writing beforehand.</li>
+        </ul>
+        <p>The commitments we publish on the site about the way we work apply to all projects: a written proposal before starting, agreed revision rounds and online service. The portfolio projects show work already completed; the style, length and deliverables of each new project are defined in the proposal.</p>
+        <p>If you hire us as a consumer, you will have all the rights guaranteed by Lei nº 8.078/1990 (the CDC). This includes the right of withdrawal (art. 49): since the hiring is done remotely, you can withdraw within 7 days from the approval of the proposal or the signing of the contract. To do so, just let us know by emailing <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> or via <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">WhatsApp</a>. Any amounts you have paid will be refunded immediately, with monetary adjustment (inflation correction).</p>
+        <p>To hire us, you must be 18 or older (or legally emancipated), or be represented or assisted by your legal guardian.</p>
+        <p>For each project, the proposal or contract prevails over these Terms in matters relating to the service, always respecting the rights the law guarantees you.</p>
+      </section>
+
+      <section id="en-materiais-enviados">
+        <h2>Materials you send us</h2>
+        <p>To quote or produce a project, you may send us a briefing, texts, logos, images, videos, music and other files. When you do so:</p>
+        <ul>
+          <li>you declare that you have the right to use these materials and to share them with us for this purpose, or that you have authorization from whoever holds that right, including the people whose image, voice or data appear in them;</li>
+          <li>we use these materials to talk to you, prepare the proposal and produce the contracted project. We keep what is necessary for the project history and to comply with legal obligations, as explained in the <a href="privacidade.html">Privacy Policy</a>;</li>
+          <li>we don't disclose your materials or the project made for you without your authorization, except when required by law or by an order from a competent authority. Showing work in our portfolio is always agreed with the client.</li>
+        </ul>
+        <p>We ask that you not send passwords, bank details or other people's personal data that are not necessary for the project. The personal data we receive is processed in accordance with the <a href="privacidade.html">Privacy Policy</a>.</p>
+      </section>
+
+      <section id="en-servicos-de-terceiros">
+        <h2>Third-party links and services</h2>
+        <p>The site's contact buttons lead to other companies' services:</p>
+        <ul>
+          <li><b>WhatsApp</b> (<a target="_blank" rel="noopener" href="https://wa.me/5516991220381">wa.me/5516991220381</a>): opens a conversation with Kronografx with the message “Olá, Kronografx! Vi o site e quero conversar sobre um projeto.” (“Hi, Kronografx! I saw the website and I'd like to talk about a project.”) already written. You can edit or delete the text, and nothing is sent without your confirmation.</li>
+          <li><b>Email</b> (<a href="mailto:contato@kronografx.com">contato@kronografx.com</a>): opens the email app on your own device.</li>
+          <li><b>Instagram</b> (<a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a>): opens our profile on the platform.</li>
+        </ul>
+        <p>These services have their own terms of use and privacy policies, which apply when you use them, and we recommend that you read them. Kronografx does not control these services. Therefore, it is not responsible for how they operate or for the data processing they carry out on their own account. What we do with the information you send us is explained in the <a href="privacidade.html">Privacy Policy</a>.</p>
+      </section>
+
+      <section id="en-disponibilidade">
+        <h2>Site availability</h2>
+        <p>We do our best to keep the site online, up to date and working well. Even so, it may occasionally go offline or become slow, due to maintenance, hosting or internet failures, or for reasons beyond our control. Depending on your connection, videos may also take longer to load.</p>
+        <p>We may update, change or remove pages, texts and portfolio projects at any time, for example to add new work. These changes do not affect approved proposals or contracts signed with you.</p>
+      </section>
+
+      <section id="en-responsabilidade">
+        <h2>Limitation of liability</h2>
+        <p>Nothing in these Terms excludes or reduces rights that the law guarantees you, in particular those provided for in the CDC. Kronografx is liable for any damage it causes, as provided by law.</p>
+        <p>Subject to this limit, Kronografx is not responsible for:</p>
+        <ul>
+          <li>third-party services, such as WhatsApp, Instagram and your email provider (see “Third-party links and services”);</li>
+          <li>problems caused by your device, browser, software or internet connection;</li>
+          <li>damage caused by the use of the site or its content in breach of these Terms or the law;</li>
+          <li>specific business results of a video, such as sales, views or followers, unless expressly guaranteed in the proposal or contract.</li>
+        </ul>
+        <p>Each party's responsibilities in a contracted project are defined in the proposal or contract, always within what the law allows.</p>
+      </section>
+
+      <section id="en-privacidade">
+        <h2>Privacy and personal data</h2>
+        <p>The processing of personal data follows Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, the LGPD). In short:</p>
+        <ul>
+          <li>the site has no forms or sign-up, and its code doesn't use cookies, audience analytics tools or advertising pixels;</li>
+          <li>fonts and videos are hosted on the site's own server, and the pages don't load scripts, fonts, videos or content from other sites;</li>
+          <li>as with any website, the hosting server may log technical access data, such as IP address, date and time, page accessed and type of browser or device. If the hosting uses any technical resource such as cookies, this will be disclosed in the Privacy Policy;</li>
+          <li>the data you send us when you get in touch is used to reply, prepare proposals, produce contracted projects, issue the nota fiscal (the official Brazilian tax invoice), comply with legal and tax obligations and keep the business history.</li>
+        </ul>
+        <p>This is just a summary. The details, including your rights as a data subject and how to exercise them, are in the <a href="privacidade.html">Privacy Policy</a>. If there is any difference between this summary and the Policy, the Policy prevails. The site is not aimed at children or adolescents.</p>
+      </section>
+
+      <section id="en-alteracoes">
+        <h2>Changes to these Terms</h2>
+        <p>We may update these Terms when the site, our services or the law change. The date of the last update is always shown at the top of this page, and important changes will be highlighted here on the site.</p>
+        <p>The version published at the time you use the site is the one that applies. Changes to these Terms do not alter the conditions of proposals already approved or contracts already signed.</p>
+      </section>
+
+      <section id="en-lei-e-foro">
+        <h2>Governing law and venue</h2>
+        <p>These Terms are governed by Brazilian law, including the CDC (Lei nº 8.078/1990), the Marco Civil da Internet (Lei nº 12.965/2014, Brazil's Internet Civil Rights Framework), the LGPD (Lei nº 13.709/2018), the Lei de Direitos Autorais (Lei nº 9.610/1998) and the Lei de Propriedade Industrial (Lei nº 9.279/1996).</p>
+        <p>If you have any problem, talk to Kronografx first: we want to resolve it in the best possible way. This is an invitation, not an obligation: at any time, you can turn to consumer protection agencies, such as Procon (Brazil's public consumer protection agency), or to the courts.</p>
+        <p>If you are a consumer, you may file any lawsuit in the courts of your place of residence, as guaranteed by the CDC. In project contracts, the venue, if any, will be the one stated in writing in the proposal or contract, always respecting this right.</p>
+        <p>If any part of these Terms is held invalid, the remaining parts continue in full force.</p>
+      </section>
+
+      <section id="en-contato">
+        <h2>Contact</h2>
+        <p>Have questions, suggestions or requests about these Terms? Contact Kronografx (CNPJ 69.317.795/0001-62):</p>
+        <ul>
+          <li>Email: <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>See also our <a href="privacidade.html">Privacy Policy</a>.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== ES ===== -->
+  <div class="wrap legal" data-l="es" lang="es">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#es-aceitacao">Aceptación de estos Términos</a></li>
+        <li><a href="#es-quem-somos">Quiénes somos y qué es el sitio</a></li>
+        <li><a href="#es-uso-do-site">Cómo usar el sitio</a></li>
+        <li><a href="#es-propriedade-intelectual">Propiedad intelectual</a></li>
+        <li><a href="#es-marcas-de-terceiros">Marcas de terceros y proyectos conceptuales</a></li>
+        <li><a href="#es-orcamentos-e-contratacao">Presupuestos y contratación</a></li>
+        <li><a href="#es-materiais-enviados">Materiales que nos envías</a></li>
+        <li><a href="#es-servicos-de-terceiros">Enlaces y servicios de terceros</a></li>
+        <li><a href="#es-disponibilidade">Disponibilidad del sitio</a></li>
+        <li><a href="#es-responsabilidade">Límites de responsabilidad</a></li>
+        <li><a href="#es-privacidade">Privacidad y datos personales</a></li>
+        <li><a href="#es-alteracoes">Cambios en estos Términos</a></li>
+        <li><a href="#es-lei-e-foro">Ley aplicable y jurisdicción</a></li>
+        <li><a href="#es-contato">Contacto</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>Este texto es una traducción ofrecida por conveniencia. En caso de divergencia, prevalece la versión original en portugués, disponible al elegir “Português” en el selector de idioma del sitio.</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>Estos Términos de Uso establecen las reglas para usar el sitio de Kronografx (kronografx.com). Explican lo que puedes hacer aquí, cómo cuidamos nuestro contenido y el contenido de terceros, cómo funcionan los presupuestos y cuáles son los derechos y las responsabilidades de cada parte. Los escribimos en lenguaje sencillo a propósito. Si te queda cualquier duda, solo tienes que <a href="mailto:contato@kronografx.com">hablar con nosotros</a>.</p>
+        <p>La forma en que tratamos los datos personales se explica en nuestra <a href="privacidade.html">Política de Privacidad</a>, que complementa estos Términos. Es un documento informativo: el tratamiento de tus datos no depende de que “aceptes” la Política, sino de los supuestos previstos en la Lei Geral de Proteção de Dados Pessoais (LGPD, la Ley General de Protección de Datos Personales de Brasil), que ella describe.</p>
+      </div>
+
+      <section id="es-aceitacao">
+        <h2>Aceptación de estos Términos</h2>
+        <p>Estos Términos están disponibles en todo momento en el enlace del pie de página del sitio. Al usar el sitio, te comprometes a seguir las reglas aquí establecidas. Si no estás de acuerdo con algún punto, te pedimos que no uses el sitio y, si quieres, que nos cuentes el motivo por nuestros canales de contacto.</p>
+        <p>El sitio es gratuito. Estos Términos tratan del uso del sitio. La contratación de un proyecto se rige por la propuesta o el contrato acordado por escrito contigo (consulta la sección “Presupuestos y contratación”).</p>
+      </section>
+
+      <section id="es-quem-somos">
+        <h2>Quiénes somos y qué es el sitio</h2>
+        <p><b>Kronografx</b> (CNPJ 69.317.795/0001-62; el CNPJ es el Cadastro Nacional da Pessoa Jurídica, el registro nacional de empresas de Brasil) es un estudio de motion design, VFX (efectos visuales) y posproducción. Atendemos a clientes de todo Brasil de forma 100% online: las reuniones, aprobaciones y entregas se hacen por internet.</p>
+        <p>Este sitio es nuestra vitrina. En él encontrarás:</p>
+        <ul>
+          <li>información sobre el estudio, nuestras herramientas y nuestra forma de trabajar;</li>
+          <li>el portafolio, con proyectos hechos para clientes y proyectos conceptuales, que se identifican como conceptuales en la página de cada proyecto;</li>
+          <li>respuestas a preguntas frecuentes;</li>
+          <li>enlaces para hablar con nosotros por WhatsApp, correo electrónico o Instagram.</li>
+        </ul>
+        <p>El sitio no tiene registro, acceso con contraseña, área de cliente, tienda ni pagos. Aquí no se vende ni se cobra nada: los servicios se acuerdan directamente contigo, como explicamos más abajo.</p>
+      </section>
+
+      <section id="es-uso-do-site">
+        <h2>Cómo usar el sitio</h2>
+        <p><b>Puedes:</b></p>
+        <ul>
+          <li>navegar por el sitio y ver los videos para conocer nuestro trabajo;</li>
+          <li>compartir los enlaces de las páginas con otras personas;</li>
+          <li>comunicarte con nosotros para resolver dudas o pedir una propuesta.</li>
+        </ul>
+        <p><b>No está permitido:</b></p>
+        <ul>
+          <li>descargar para reutilizar, copiar, editar, republicar o usar comercialmente videos, imágenes, textos, la marca o la identidad visual del sitio sin autorización por escrito de Kronografx y, cuando corresponda, del cliente o de otro titular de los derechos;</li>
+          <li>presentar trabajos de nuestro portafolio como si fueran tuyos o de otra persona;</li>
+          <li>usar el nombre o la marca Kronografx de una forma que sugiera una alianza o un patrocinio, o que hablas en nombre del estudio;</li>
+          <li>intentar invadir, sobrecargar, alterar o perjudicar el funcionamiento del sitio o del servidor donde está alojado, o insertar en él cualquier código malicioso;</li>
+          <li>usar nuestros canales de contacto para enviar mensajes masivos no solicitados, estafas o contenido ilegal u ofensivo, o para hacerte pasar por otra persona o empresa;</li>
+          <li>usar el sitio para cualquier finalidad contraria a la ley o a estos Términos.</li>
+        </ul>
+        <p>Estas reglas no impiden los usos que la propia ley permite sin autorización, como citar fragmentos para estudio, crítica o debate, indicando el autor y la fuente, dentro de los límites de la Lei nº 9.610/1998 (Lei de Direitos Autorais, la ley brasileña de derechos de autor). Si se incumplen estos Términos, podremos tomar las medidas pertinentes para proteger nuestros derechos y los de terceros.</p>
+      </section>
+
+      <section id="es-propriedade-intelectual">
+        <h2>Propiedad intelectual</h2>
+        <p>Los elementos que se indican a continuación pertenecen a Kronografx o se usan con autorización de sus respectivos titulares, y están protegidos por la legislación brasileña, en especial por la Lei nº 9.610/1998 (Lei de Direitos Autorais) y, en cuanto a la marca, por la Lei nº 9.279/1996 (Lei de Propriedade Industrial, la ley brasileña de propiedad industrial):</p>
+        <ul>
+          <li>los videos, animaciones, imágenes y textos del sitio;</li>
+          <li>el nombre Kronografx, el logotipo y la identidad visual del estudio.</li>
+        </ul>
+        <p>Algunos elementos pertenecen a otras personas o empresas:</p>
+        <ul>
+          <li><b>Los trabajos hechos para clientes</b>, como el proyecto “3 Sinais” (“3 Señales”), para E2 Finanças, pueden contener marcas, textos y materiales del cliente, que siguen siendo suyos. Estos trabajos aparecen en el portafolio con autorización del cliente.</li>
+          <li><b>Las marcas de otras empresas</b> que aparecen en el portafolio pertenecen a sus titulares (consulta la siguiente sección).</li>
+          <li><b>Las fuentes tipográficas y otros recursos de terceros</b> usados en el sitio pertenecen a sus autores y se usan conforme a sus respectivas licencias.</li>
+        </ul>
+        <p>Acceder al sitio no te transfiere ningún derecho sobre este contenido. Para cualquier uso que vaya más allá de navegar, compartir enlaces y hacer los usos que la ley permite, como exhibir un trabajo nuestro en otro lugar, pide autorización por correo electrónico a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</p>
+      </section>
+
+      <section id="es-marcas-de-terceiros">
+        <h2>Marcas de terceros y proyectos conceptuales</h2>
+        <p>Parte del portafolio está formada por <b>proyectos conceptuales</b>: piezas que la propia Kronografx creó para mostrar técnica y estilo, sin que el titular de la marca lo pidiera. Hoy los proyectos conceptuales son:</p>
+        <ul>
+          <li><b>“Um único app”</b> (“Una sola app”), con la marca Itaú, sin vínculo con Itaú Unibanco;</li>
+          <li><b>“Seu nome no café”</b> (“Tu nombre en el café”), con la marca Starbucks, sin vínculo con Starbucks.</li>
+        </ul>
+        <p>No son anuncios oficiales: Itaú Unibanco y Starbucks no los encargaron, aprobaron ni patrocinaron, y la página de cada proyecto conceptual incluye este aviso. Los nombres, logotipos y demás signos de estas marcas pertenecen a sus titulares. Aparecen solo para identificar la marca usada en el ejercicio creativo de portafolio. No vendemos productos ni servicios de estas empresas, y este uso no indica alianza, patrocinio, aprobación ni ningún vínculo con ellas.</p>
+        <p>Si eres titular de una marca o de otro derecho y crees que algún contenido del sitio viola ese derecho, escribe a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> indicando cuál es el contenido y cuál es el derecho involucrado. Analizaremos la solicitud y, si corresponde, ajustaremos o retiraremos el contenido.</p>
+      </section>
+
+      <section id="es-orcamentos-e-contratacao">
+        <h2>Presupuestos y contratación</h2>
+        <p>El sitio no muestra precios ni cierra contratos. Funciona así:</p>
+        <ul>
+          <li><b>Primer contacto:</b> nos cuentas tu idea por uno de nuestros canales. Pedir una propuesta no te obliga a contratar.</li>
+          <li><b>Propuesta por escrito:</b> antes de empezar cualquier trabajo, enviamos una propuesta con alcance, plazo y valor, además de las rondas de ajustes y las demás condiciones de ese proyecto. La propuesta indica durante cuánto tiempo es válida. Si no lo indica, es válida por 10 días contados desde su recepción, como prevé el art. 40 del Código de Defesa do Consumidor (CDC, el Código de Defensa del Consumidor de Brasil).</li>
+          <li><b>Inicio del proyecto:</b> el trabajo solo empieza después de que apruebes la propuesta o firmes el contrato.</li>
+          <li><b>Cambios:</b> si es necesario cambiar el alcance, el plazo o el valor, se acordará contigo por escrito antes.</li>
+        </ul>
+        <p>Los compromisos que divulgamos en el sitio sobre nuestra forma de trabajar valen para todos los proyectos: propuesta por escrito antes de empezar, rondas de ajustes acordadas y atención online. Los proyectos del portafolio muestran trabajos ya realizados; el estilo, la duración y los entregables de cada proyecto nuevo se definen en la propuesta.</p>
+        <p>Si contratas como consumidor, tendrás todos los derechos garantizados por la Lei nº 8.078/1990 (CDC). Esto incluye el derecho de arrepentimiento (art. 49): como la contratación se hace a distancia, puedes desistir en un plazo de hasta 7 días contados desde la aprobación de la propuesta o la firma del contrato. Para ello, basta con avisarnos por correo electrónico a <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> o por <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">WhatsApp</a>. Los valores que hayas pagado se devolverán de inmediato, con actualización monetaria.</p>
+        <p>Para contratar, es necesario tener 18 años o más (o estar emancipado), o estar representado o asistido por tu representante legal.</p>
+        <p>En cada proyecto, la propuesta o el contrato prevalece sobre estos Términos en lo que se refiere al servicio, siempre respetando los derechos que la ley te garantiza.</p>
+      </section>
+
+      <section id="es-materiais-enviados">
+        <h2>Materiales que nos envías</h2>
+        <p>Para presupuestar o producir un proyecto, puedes enviarnos briefing, textos, logotipos, imágenes, videos, música y otros archivos. Cuando lo haces:</p>
+        <ul>
+          <li>declaras que tienes derecho a usar esos materiales y a compartirlos con nosotros para esa finalidad, o que tienes autorización de quien tiene ese derecho, incluidas las personas cuya imagen, voz o datos aparecen en ellos;</li>
+          <li>usamos esos materiales para conversar contigo, preparar la propuesta y hacer el proyecto contratado. Guardamos lo necesario para el historial del proyecto y para cumplir obligaciones legales, como explica la <a href="privacidade.html">Política de Privacidad</a>;</li>
+          <li>no divulgamos tus materiales ni el proyecto hecho para ti sin tu autorización, salvo cuando la ley o una orden de autoridad competente lo exija. Mostrar un trabajo en nuestro portafolio siempre se acuerda con el cliente.</li>
+        </ul>
+        <p>Te pedimos que no envíes contraseñas, datos bancarios ni datos personales de otras personas que no sean necesarios para el proyecto. Los datos personales que recibimos se tratan conforme a la <a href="privacidade.html">Política de Privacidad</a>.</p>
+      </section>
+
+      <section id="es-servicos-de-terceiros">
+        <h2>Enlaces y servicios de terceros</h2>
+        <p>Los botones de contacto del sitio llevan a servicios de otras empresas:</p>
+        <ul>
+          <li><b>WhatsApp</b> (<a target="_blank" rel="noopener" href="https://wa.me/5516991220381">wa.me/5516991220381</a>): abre una conversación con Kronografx con el mensaje “Olá, Kronografx! Vi o site e quero conversar sobre um projeto.” (“¡Hola, Kronografx! Vi el sitio y quiero conversar sobre un proyecto.”) ya escrito. Puedes editar o borrar el texto, y no se envía nada sin tu confirmación.</li>
+          <li><b>Correo electrónico</b> (<a href="mailto:contato@kronografx.com">contato@kronografx.com</a>): abre la aplicación de correo electrónico de tu propio dispositivo.</li>
+          <li><b>Instagram</b> (<a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a>): abre nuestro perfil en la plataforma.</li>
+        </ul>
+        <p>Estos servicios tienen términos de uso y políticas de privacidad propios, que se aplican cuando los usas, y te recomendamos leerlos. Kronografx no controla estos servicios. Por eso, no responde por su funcionamiento ni por el tratamiento de datos que realizan por su cuenta. Lo que hacemos con la información que nos envías se explica en la <a href="privacidade.html">Política de Privacidad</a>.</p>
+      </section>
+
+      <section id="es-disponibilidade">
+        <h2>Disponibilidad del sitio</h2>
+        <p>Hacemos todo lo posible para mantener el sitio en línea, actualizado y funcionando bien. Aun así, puede quedar fuera de línea o volverse lento de vez en cuando, por mantenimiento, por fallas del hosting o de internet, o por motivos fuera de nuestro control. Dependiendo de tu conexión, los videos también pueden tardar más en cargar.</p>
+        <p>Podemos actualizar, cambiar o retirar páginas, textos y proyectos del portafolio en cualquier momento, por ejemplo para incluir trabajos nuevos. Estos cambios no afectan las propuestas aprobadas ni los contratos firmados contigo.</p>
+      </section>
+
+      <section id="es-responsabilidade">
+        <h2>Límites de responsabilidad</h2>
+        <p>Nada en estos Términos excluye ni reduce derechos que la ley te garantiza, en especial los previstos en el CDC. Kronografx responde por los daños que cause, en los términos de la ley.</p>
+        <p>Respetado ese límite, Kronografx no es responsable por:</p>
+        <ul>
+          <li>servicios de terceros, como WhatsApp, Instagram y tu proveedor de correo electrónico (consulta “Enlaces y servicios de terceros”);</li>
+          <li>problemas causados por tu dispositivo, navegador, programas o conexión a internet;</li>
+          <li>daños causados por el uso del sitio o de su contenido en desacuerdo con estos Términos o con la ley;</li>
+          <li>resultados comerciales específicos de un video, como ventas, visualizaciones o seguidores, a menos que estén garantizados de forma expresa en la propuesta o en el contrato.</li>
+        </ul>
+        <p>Las responsabilidades de cada parte en un proyecto contratado se definen en la propuesta o en el contrato, siempre dentro de lo que la ley permite.</p>
+      </section>
+
+      <section id="es-privacidade">
+        <h2>Privacidad y datos personales</h2>
+        <p>El tratamiento de datos personales sigue la Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, la LGPD). En resumen:</p>
+        <ul>
+          <li>el sitio no tiene formularios ni registro, y su código no usa cookies, herramientas de análisis de audiencia ni píxeles de publicidad;</li>
+          <li>las fuentes y los videos están en el propio servidor del sitio, y las páginas no cargan scripts, fuentes, videos ni contenidos de otros sitios;</li>
+          <li>como en cualquier sitio, el servidor de hosting puede registrar datos técnicos de acceso, como dirección IP, fecha y hora, página visitada y tipo de navegador o dispositivo. Si el hosting usa algún recurso técnico como cookies, esto se informará en la Política de Privacidad;</li>
+          <li>los datos que nos envías al comunicarte con nosotros se usan para responder, preparar propuestas, hacer los proyectos contratados, emitir la nota fiscal (la factura fiscal brasileña), cumplir obligaciones legales y fiscales y mantener el historial comercial.</li>
+        </ul>
+        <p>Esto es solo un resumen. Los detalles, incluidos tus derechos como titular de los datos y cómo ejercerlos, están en la <a href="privacidade.html">Política de Privacidad</a>. Si hay cualquier diferencia entre este resumen y la Política, prevalece lo que dice la Política. El sitio no está dirigido a niños ni a adolescentes.</p>
+      </section>
+
+      <section id="es-alteracoes">
+        <h2>Cambios en estos Términos</h2>
+        <p>Podemos actualizar estos Términos cuando cambien el sitio, nuestros servicios o la legislación. La fecha de la última actualización siempre aparece en la parte superior de esta página, y los cambios importantes se destacarán aquí en el sitio.</p>
+        <p>Se aplica la versión publicada en el momento en que usas el sitio. Los cambios en estos Términos no alteran las condiciones de propuestas ya aprobadas ni de contratos ya firmados.</p>
+      </section>
+
+      <section id="es-lei-e-foro">
+        <h2>Ley aplicable y jurisdicción</h2>
+        <p>Estos Términos se rigen por las leyes brasileñas, entre ellas el CDC (Lei nº 8.078/1990), el Marco Civil da Internet (Lei nº 12.965/2014, la ley brasileña que establece el marco legal de internet), la LGPD (Lei nº 13.709/2018), la Lei de Direitos Autorais (Lei nº 9.610/1998) y la Lei de Propriedade Industrial (Lei nº 9.279/1996).</p>
+        <p>Si tienes algún problema, habla primero con Kronografx: queremos resolverlo de la mejor manera. Esto es una invitación, no una obligación: en cualquier momento puedes acudir a los organismos de defensa del consumidor, como el Procon (el órgano brasileño de protección y defensa del consumidor), o a la Justicia.</p>
+        <p>Si eres consumidor, puedes presentar una eventual demanda ante los tribunales de tu domicilio, como lo garantiza el CDC. En los contratos de proyecto, la jurisdicción, cuando la haya, será la indicada por escrito en la propuesta o en el contrato, siempre respetando ese derecho.</p>
+        <p>Si alguna parte de estos Términos se considera inválida, las demás siguen vigentes normalmente.</p>
+      </section>
+
+      <section id="es-contato">
+        <h2>Contacto</h2>
+        <p>¿Tienes dudas, sugerencias o solicitudes sobre estos Términos? Habla con Kronografx (CNPJ 69.317.795/0001-62):</p>
+        <ul>
+          <li>Correo electrónico: <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram: <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>Consulta también nuestra <a href="privacidade.html">Política de Privacidad</a>.</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- ===== FR ===== -->
+  <div class="wrap legal" data-l="fr" lang="fr">
+    <details class="legal__toc" open>
+      <summary data-i18n="legal.toc">NESTA PÁGINA</summary>
+      <ol>
+        <li><a href="#fr-aceitacao">Acceptation de ces Conditions</a></li>
+        <li><a href="#fr-quem-somos">Qui nous sommes et ce qu’est le site</a></li>
+        <li><a href="#fr-uso-do-site">Comment utiliser le site</a></li>
+        <li><a href="#fr-propriedade-intelectual">Propriété intellectuelle</a></li>
+        <li><a href="#fr-marcas-de-terceiros">Marques de tiers et projets conceptuels</a></li>
+        <li><a href="#fr-orcamentos-e-contratacao">Devis et commande</a></li>
+        <li><a href="#fr-materiais-enviados">Éléments que vous nous envoyez</a></li>
+        <li><a href="#fr-servicos-de-terceiros">Liens et services de tiers</a></li>
+        <li><a href="#fr-disponibilidade">Disponibilité du site</a></li>
+        <li><a href="#fr-responsabilidade">Limites de responsabilité</a></li>
+        <li><a href="#fr-privacidade">Vie privée et données personnelles</a></li>
+        <li><a href="#fr-alteracoes">Modifications de ces Conditions</a></li>
+        <li><a href="#fr-lei-e-foro">Droit applicable et juridiction compétente</a></li>
+        <li><a href="#fr-contato">Contact</a></li>
+      </ol>
+    </details>
+
+    <article class="legal__doc">
+      <div class="legal__transl">
+        <p>Ce texte est une traduction proposée pour votre commodité. En cas de divergence, c’est la version originale en portugais qui prévaut (vous pouvez la consulter en choisissant « Português » dans le sélecteur de langue du site).</p>
+      </div>
+
+      <div class="legal__intro">
+        <p>Ces Conditions d’utilisation fixent les règles d’utilisation du site de Kronografx (kronografx.com). Elles expliquent ce que vous pouvez faire ici, comment nous gérons notre contenu et celui de tiers, comment fonctionnent les devis et quels sont les droits et les responsabilités de chaque partie. Nous les avons volontairement rédigées dans un langage simple. Si vous avez la moindre question, il vous suffit de <a href="mailto:contato@kronografx.com">nous contacter</a>.</p>
+        <p>La manière dont nous traitons les données personnelles est expliquée dans notre <a href="privacidade.html">Politique de confidentialité</a>, qui complète ces Conditions. Il s’agit d’un document d’information : le traitement de vos données ne dépend pas de votre « acceptation » de la Politique, mais des cas prévus par la Lei Geral de Proteção de Dados Pessoais (LGPD, loi générale brésilienne sur la protection des données personnelles), qu’elle décrit.</p>
+      </div>
+
+      <section id="fr-aceitacao">
+        <h2>Acceptation de ces Conditions</h2>
+        <p>Ces Conditions sont accessibles à tout moment par le lien situé en pied de page du site. En utilisant le site, vous vous engagez à respecter les règles qui y figurent. Si vous n’êtes pas d’accord avec l’un de ces points, nous vous demandons de ne pas utiliser le site et, si vous le souhaitez, de nous en indiquer la raison par nos canaux de contact.</p>
+        <p>Le site est gratuit. Ces Conditions portent sur l’utilisation du site. La commande d’un projet est régie par la proposition ou le contrat convenu par écrit avec vous (voir la section « Devis et commande »).</p>
+      </section>
+
+      <section id="fr-quem-somos">
+        <h2>Qui nous sommes et ce qu’est le site</h2>
+        <p><b>Kronografx</b> (CNPJ – registre national brésilien des personnes morales – 69.317.795/0001-62) est un studio de motion design, VFX (effets visuels) et postproduction. Nous travaillons avec des clients de tout le Brésil de manière 100 % en ligne : les réunions, les validations et les livraisons se font par internet.</p>
+        <p>Ce site est notre vitrine. Vous y trouverez :</p>
+        <ul>
+          <li>des informations sur le studio, nos outils et notre façon de travailler ;</li>
+          <li>le portfolio, avec des projets réalisés pour des clients et des projets conceptuels, identifiés comme conceptuels sur la page de chaque projet ;</li>
+          <li>des réponses aux questions fréquentes ;</li>
+          <li>des liens pour nous contacter par WhatsApp, par e-mail ou par Instagram.</li>
+        </ul>
+        <p>Le site ne comporte ni inscription, ni accès par mot de passe, ni espace client, ni boutique, ni paiement. Rien n’y est vendu ni facturé : les services sont convenus directement avec vous, comme nous l’expliquons plus bas.</p>
+      </section>
+
+      <section id="fr-uso-do-site">
+        <h2>Comment utiliser le site</h2>
+        <p><b>Vous pouvez :</b></p>
+        <ul>
+          <li>naviguer sur le site et regarder les vidéos pour découvrir notre travail ;</li>
+          <li>partager les liens des pages avec d’autres personnes ;</li>
+          <li>nous contacter pour poser vos questions ou demander une proposition.</li>
+        </ul>
+        <p><b>Il est interdit de :</b></p>
+        <ul>
+          <li>télécharger pour réutiliser, copier, modifier, republier ou exploiter commercialement les vidéos, les images, les textes, la marque ou l’identité visuelle du site sans l’autorisation écrite de Kronografx et, le cas échéant, du client ou d’un autre titulaire des droits ;</li>
+          <li>présenter des travaux de notre portfolio comme s’ils étaient les vôtres ou ceux d’une autre personne ;</li>
+          <li>utiliser le nom ou la marque Kronografx d’une manière qui laisse entendre un partenariat ou un parrainage, ou que vous parlez au nom du studio ;</li>
+          <li>tenter de pirater, de surcharger, de modifier ou de perturber le fonctionnement du site ou du serveur qui l’héberge, ou d’y introduire un quelconque code malveillant ;</li>
+          <li>utiliser nos canaux de contact pour envoyer des messages de masse non sollicités, des arnaques ou des contenus illégaux ou offensants, ou pour vous faire passer pour une autre personne ou entreprise ;</li>
+          <li>utiliser le site à toute fin contraire à la loi ou à ces Conditions.</li>
+        </ul>
+        <p>Ces règles n’empêchent pas les usages que la loi elle-même permet sans autorisation, comme citer des extraits à des fins d’étude, de critique ou de débat, en indiquant l’auteur et la source, dans les limites de la Lei nº 9.610/1998 (Lei de Direitos Autorais, loi brésilienne sur le droit d’auteur). En cas de non-respect de ces Conditions, nous pourrons prendre les mesures appropriées pour protéger nos droits et ceux de tiers.</p>
+      </section>
+
+      <section id="fr-propriedade-intelectual">
+        <h2>Propriété intellectuelle</h2>
+        <p>Les éléments ci-dessous appartiennent à Kronografx ou sont utilisés avec l’autorisation de leurs titulaires respectifs, et sont protégés par la législation brésilienne, en particulier par la Lei nº 9.610/1998 (Lei de Direitos Autorais) et, en ce qui concerne la marque, par la Lei nº 9.279/1996 (Lei de Propriedade Industrial, loi brésilienne sur la propriété industrielle) :</p>
+        <ul>
+          <li>les vidéos, animations, images et textes du site ;</li>
+          <li>le nom Kronografx, le logo et l’identité visuelle du studio.</li>
+        </ul>
+        <p>Certains éléments appartiennent à d’autres personnes ou entreprises :</p>
+        <ul>
+          <li><b>Les travaux réalisés pour des clients</b>, comme le projet « 3 Sinais » (« 3 signes ») pour E2 Finanças, peuvent contenir des marques, des textes et des éléments du client, qui restent sa propriété. Ces travaux figurent dans le portfolio avec l’autorisation du client.</li>
+          <li><b>Les marques d’autres entreprises</b> qui apparaissent dans le portfolio appartiennent à leurs titulaires (voir la section suivante).</li>
+          <li><b>Les polices de caractères et autres ressources de tiers</b> utilisées sur le site appartiennent à leurs auteurs et sont utilisées conformément à leurs licences respectives.</li>
+        </ul>
+        <p>L’accès au site ne vous transfère aucun droit sur ce contenu. Pour tout usage allant au-delà de la navigation, du partage de liens et des usages permis par la loi, comme diffuser l’un de nos travaux ailleurs, demandez une autorisation par e-mail à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a>.</p>
+      </section>
+
+      <section id="fr-marcas-de-terceiros">
+        <h2>Marques de tiers et projets conceptuels</h2>
+        <p>Une partie du portfolio est constituée de <b>projets conceptuels</b> : des créations que Kronografx a réalisées d’elle-même pour montrer sa technique et son style, sans demande du titulaire de la marque. Actuellement, les projets conceptuels sont :</p>
+        <ul>
+          <li><b>« Um único app »</b> (« Une seule app »), avec la marque Itaú, sans aucun lien avec Itaú Unibanco ;</li>
+          <li><b>« Seu nome no café »</b> (« Votre nom sur le café »), avec la marque Starbucks, sans aucun lien avec Starbucks.</li>
+        </ul>
+        <p>Ces projets ne sont pas des publicités officielles : Itaú Unibanco et Starbucks ne les ont ni commandés, ni approuvés, ni parrainés, et la page de chaque projet conceptuel comporte cet avertissement. Les noms, logos et autres signes distinctifs de ces marques appartiennent à leurs titulaires. Ils apparaissent uniquement pour identifier la marque utilisée dans cet exercice créatif de portfolio. Nous ne vendons pas de produits ou de services de ces entreprises, et cet usage n’implique aucun partenariat, parrainage, approbation ni lien de quelque nature que ce soit avec elles.</p>
+        <p>Si vous êtes titulaire d’une marque ou d’un autre droit et estimez qu’un contenu du site porte atteinte à ce droit, écrivez à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> en indiquant le contenu concerné et le droit en cause. Nous examinerons la demande et, le cas échéant, modifierons ou retirerons le contenu.</p>
+      </section>
+
+      <section id="fr-orcamentos-e-contratacao">
+        <h2>Devis et commande</h2>
+        <p>Le site n’affiche pas de prix et ne conclut pas de contrats. Voici comment cela fonctionne :</p>
+        <ul>
+          <li><b>Premier contact :</b> vous nous présentez votre idée par l’un de nos canaux. Demander une proposition ne vous oblige pas à passer commande.</li>
+          <li><b>Proposition écrite :</b> avant de commencer tout travail, nous vous envoyons une proposition indiquant le périmètre, le délai et le prix, ainsi que les séries de retouches et les autres conditions de ce projet. La proposition précise sa durée de validité. À défaut, elle est valable 10 jours à compter de sa réception, comme le prévoit l’art. 40 du Código de Defesa do Consumidor (CDC, code brésilien de défense du consommateur).</li>
+          <li><b>Début du projet :</b> le travail ne commence qu’après votre validation de la proposition ou la signature du contrat.</li>
+          <li><b>Modifications :</b> s’il faut modifier le périmètre, le délai ou le prix, cela sera convenu avec vous par écrit au préalable.</li>
+        </ul>
+        <p>Les engagements que nous affichons sur le site concernant notre façon de travailler s’appliquent à tous les projets : proposition écrite avant de commencer, séries de retouches convenues et accompagnement en ligne. Les projets du portfolio présentent des travaux déjà réalisés ; le style, la durée et les livrables de chaque nouveau projet sont définis dans la proposition.</p>
+        <p>Si vous passez commande en tant que consommateur, vous bénéficiez de tous les droits garantis par la Lei nº 8.078/1990 (CDC). Cela inclut le droit de rétractation (art. 49) : la commande étant conclue à distance, vous pouvez vous rétracter dans un délai de 7 jours à compter de la validation de la proposition ou de la signature du contrat. Pour cela, il vous suffit de nous prévenir par e-mail à <a href="mailto:contato@kronografx.com">contato@kronografx.com</a> ou par <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">WhatsApp</a>. Les sommes que vous aurez versées vous seront remboursées immédiatement, avec actualisation monétaire.</p>
+        <p>Pour passer commande, vous devez avoir 18 ans ou plus (ou être émancipé(e)), ou être représenté(e) ou assisté(e) par votre représentant légal.</p>
+        <p>Pour chaque projet, la proposition ou le contrat prévaut sur ces Conditions pour ce qui concerne le service, toujours dans le respect des droits que la loi vous garantit.</p>
+      </section>
+
+      <section id="fr-materiais-enviados">
+        <h2>Éléments que vous nous envoyez</h2>
+        <p>Pour établir un devis ou produire un projet, vous pouvez nous envoyer un brief, des textes, des logos, des images, des vidéos, des musiques et d’autres fichiers. Dans ce cas :</p>
+        <ul>
+          <li>vous déclarez que vous avez le droit d’utiliser ces éléments et de les partager avec nous à cette fin, ou que vous disposez de l’autorisation de la personne qui détient ce droit, y compris des personnes dont l’image, la voix ou les données y figurent ;</li>
+          <li>nous utilisons ces éléments pour échanger avec vous, préparer la proposition et réaliser le projet commandé. Nous conservons ce qui est nécessaire à l’historique du projet et au respect de nos obligations légales, comme l’explique la <a href="privacidade.html">Politique de confidentialité</a> ;</li>
+          <li>nous ne divulguons ni vos éléments ni le projet réalisé pour vous sans votre autorisation, sauf lorsque la loi ou une décision d’une autorité compétente l’exige. La présentation d’un travail dans notre portfolio est toujours convenue avec le client.</li>
+        </ul>
+        <p>Nous vous demandons de ne pas nous envoyer de mots de passe, de coordonnées bancaires ni de données personnelles d’autres personnes qui ne sont pas nécessaires au projet. Les données personnelles que nous recevons sont traitées conformément à la <a href="privacidade.html">Politique de confidentialité</a>.</p>
+      </section>
+
+      <section id="fr-servicos-de-terceiros">
+        <h2>Liens et services de tiers</h2>
+        <p>Les boutons de contact du site mènent à des services d’autres entreprises :</p>
+        <ul>
+          <li><b>WhatsApp</b> (<a target="_blank" rel="noopener" href="https://wa.me/5516991220381">wa.me/5516991220381</a>) : ouvre une conversation avec Kronografx dans laquelle le message suivant est déjà rédigé : « Olá, Kronografx! Vi o site e quero conversar sobre um projeto. » (« Bonjour, Kronografx ! J’ai vu le site et je souhaite discuter d’un projet. »). Vous pouvez modifier ou effacer le texte, et rien n’est envoyé sans votre confirmation.</li>
+          <li><b>E-mail</b> (<a href="mailto:contato@kronografx.com">contato@kronografx.com</a>) : ouvre l’application de messagerie de votre propre appareil.</li>
+          <li><b>Instagram</b> (<a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a>) : ouvre notre profil sur la plateforme.</li>
+        </ul>
+        <p>Ces services ont leurs propres conditions d’utilisation et politiques de confidentialité, qui s’appliquent lorsque vous les utilisez, et nous vous recommandons de les lire. Kronografx ne contrôle pas ces services. C’est pourquoi elle n’est responsable ni de leur fonctionnement ni des traitements de données qu’ils effectuent pour leur propre compte. Ce que nous faisons des informations que vous nous envoyez est expliqué dans la <a href="privacidade.html">Politique de confidentialité</a>.</p>
+      </section>
+
+      <section id="fr-disponibilidade">
+        <h2>Disponibilité du site</h2>
+        <p>Nous faisons notre possible pour que le site reste en ligne, à jour et en bon état de fonctionnement. Il peut néanmoins être indisponible ou lent de temps en temps, en raison d’opérations de maintenance, de pannes de l’hébergeur ou d’internet, ou pour des raisons indépendantes de notre volonté. Selon votre connexion, les vidéos peuvent aussi mettre plus de temps à se charger.</p>
+        <p>Nous pouvons mettre à jour, modifier ou retirer des pages, des textes et des projets du portfolio à tout moment, par exemple pour ajouter de nouveaux travaux. Ces modifications n’affectent ni les propositions validées ni les contrats signés avec vous.</p>
+      </section>
+
+      <section id="fr-responsabilidade">
+        <h2>Limites de responsabilité</h2>
+        <p>Rien dans ces Conditions n’exclut ni ne réduit les droits que la loi vous garantit, en particulier ceux prévus par le Código de Defesa do Consumidor (CDC). Kronografx répond des dommages qu’elle cause, dans les conditions prévues par la loi.</p>
+        <p>Sous réserve de cette limite, Kronografx n’est pas responsable :</p>
+        <ul>
+          <li>des services de tiers, comme WhatsApp, Instagram et votre fournisseur de messagerie (voir « Liens et services de tiers ») ;</li>
+          <li>des problèmes causés par votre appareil, votre navigateur, vos logiciels ou votre connexion internet ;</li>
+          <li>des dommages causés par l’utilisation du site ou de son contenu en violation de ces Conditions ou de la loi ;</li>
+          <li>de résultats commerciaux précis d’une vidéo, comme des ventes, des vues ou des abonnés, sauf s’ils sont expressément garantis dans la proposition ou le contrat.</li>
+        </ul>
+        <p>Les responsabilités de chaque partie dans un projet commandé sont définies dans la proposition ou le contrat, toujours dans les limites de ce que la loi permet.</p>
+      </section>
+
+      <section id="fr-privacidade">
+        <h2>Vie privée et données personnelles</h2>
+        <p>Le traitement des données personnelles est conforme à la Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, la LGPD). En résumé :</p>
+        <ul>
+          <li>le site n’a ni formulaires ni inscription, et son code n’utilise ni cookies, ni outils de mesure d’audience, ni pixels publicitaires ;</li>
+          <li>les polices et les vidéos sont hébergées sur le serveur même du site, et les pages ne chargent pas de scripts, de polices, de vidéos ou de contenus provenant d’autres sites ;</li>
+          <li>comme sur n’importe quel site, le serveur d’hébergement peut enregistrer des données techniques de connexion, comme l’adresse IP, la date et l’heure, la page consultée et le type de navigateur ou d’appareil. Si l’hébergeur utilise une ressource technique comme les cookies, cela sera indiqué dans la Politique de confidentialité ;</li>
+          <li>les données que vous nous envoyez lorsque vous nous contactez servent à vous répondre, à préparer des propositions, à réaliser les projets commandés, à émettre la nota fiscal (facture électronique officielle brésilienne), à respecter nos obligations légales et fiscales et à conserver l’historique commercial.</li>
+        </ul>
+        <p>Ce n’est qu’un résumé. Les détails, y compris vos droits en tant que personne concernée et la manière de les exercer, figurent dans la <a href="privacidade.html">Politique de confidentialité</a>. En cas de différence entre ce résumé et la Politique, c’est la Politique qui prévaut. Le site ne s’adresse ni aux enfants ni aux adolescents.</p>
+      </section>
+
+      <section id="fr-alteracoes">
+        <h2>Modifications de ces Conditions</h2>
+        <p>Nous pouvons mettre à jour ces Conditions lorsque le site, nos services ou la législation évoluent. La date de la dernière mise à jour figure toujours en haut de cette page, et les changements importants seront mis en évidence ici, sur le site.</p>
+        <p>C’est la version publiée au moment où vous utilisez le site qui s’applique. Les modifications de ces Conditions ne changent pas les conditions des propositions déjà validées ni des contrats déjà signés.</p>
+      </section>
+
+      <section id="fr-lei-e-foro">
+        <h2>Droit applicable et juridiction compétente</h2>
+        <p>Ces Conditions sont régies par les lois brésiliennes, notamment le Código de Defesa do Consumidor (Lei nº 8.078/1990), le Marco Civil da Internet (Lei nº 12.965/2014, cadre juridique brésilien de l’internet), la LGPD (Lei nº 13.709/2018), la Lei de Direitos Autorais (Lei nº 9.610/1998) et la Lei de Propriedade Industrial (Lei nº 9.279/1996).</p>
+        <p>En cas de problème, adressez-vous d’abord à Kronografx : nous voulons trouver la meilleure solution. Il s’agit d’une invitation, et non d’une obligation : à tout moment, vous pouvez vous adresser aux organismes de protection des consommateurs, comme le Procon (organisme public brésilien de défense des consommateurs), ou à la justice.</p>
+        <p>Si vous êtes consommateur, vous pouvez intenter une éventuelle action devant le tribunal de votre domicile, comme le garantit le CDC. Pour les contrats de projet, la juridiction compétente, le cas échéant, sera celle indiquée par écrit dans la proposition ou le contrat, toujours dans le respect de ce droit.</p>
+        <p>Si une partie de ces Conditions est jugée invalide, les autres continuent de s’appliquer normalement.</p>
+      </section>
+
+      <section id="fr-contato">
+        <h2>Contact</h2>
+        <p>Vous avez des questions, des suggestions ou des demandes concernant ces Conditions ? Contactez Kronografx (CNPJ 69.317.795/0001-62) :</p>
+        <ul>
+          <li>E-mail : <a href="mailto:contato@kronografx.com">contato@kronografx.com</a></li>
+          <li>WhatsApp : <a target="_blank" rel="noopener" href="https://wa.me/5516991220381">+55 16 99122-0381</a></li>
+          <li>Instagram : <a target="_blank" rel="noopener" href="https://instagram.com/kronografx">@kronografx</a></li>
+        </ul>
+        <p>Consultez également notre <a href="privacidade.html">Politique de confidentialité</a>.</p>
       </section>
     </article>
   </div>

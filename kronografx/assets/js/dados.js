@@ -112,11 +112,12 @@ window.KRONO = {
     ["assets/img/frames/itau-5.jpg", "itau-um-unico-app"]
   ],
 
-  /* Traduções (o texto em português fica nos campos acima; aqui só en e es) */
+  /* Traduções (o texto em português fica nos campos acima; aqui en, es e fr) */
   traducoes: {
     whatsappTexto: {
       en: "Hello, Kronografx! I saw the website and I'd like to talk about a project.",
-      es: "¡Hola, Kronografx! Vi el sitio y quiero conversar sobre un proyecto."
+      es: "¡Hola, Kronografx! Vi el sitio y quiero conversar sobre un proyecto.",
+      fr: "Bonjour Kronografx ! J’ai vu le site et j’aimerais discuter d’un projet."
     },
     projetos: {
       "e2-3-sinais": {
@@ -145,6 +146,19 @@ window.KRONO = {
             "En lo visual, la paleta negra y dorada de la marca guía el ritmo hasta el llamado final al Método Viva."
           ],
           nota: ""
+        },
+        fr: {
+          titulo: "3 Signes",
+          subtitulo: "Éducation financière",
+          categoria: "Finances / Contenu pour les réseaux sociaux",
+          formato: "Reels 9:16",
+          specs: ["1080×1920", "SFX", "Audio"],
+          historia: [
+            "E2 Finanças voulait s’adresser à ceux qui ont l’impression que leur argent disparaît chaque mois, sans tomber dans le ton moralisateur.",
+            "Le scénario part d’un déclic : le problème n’est pas l’argent, c’est le système. À partir de là, trois signes que le public reconnaît dans son propre quotidien, chacun avec des cartes d’interface et des graphiques animés.",
+            "Côté visuel, la palette noire et dorée de la marque guide le rythme jusqu’à l’appel à l’action final, qui mène au Método Viva."
+          ],
+          nota: ""
         }
       },
       "itau-um-unico-app": {
@@ -171,6 +185,18 @@ window.KRONO = {
             "La tipografía cinética hace de puente entre las pantallas, y cada transición existe para llevar la mirada hasta la siguiente información, desde la invitación inicial hasta el llamado para descargar la app."
           ],
           nota: "Proyecto conceptual de portafolio, sin vínculo con Itaú Unibanco."
+        },
+        fr: {
+          titulo: "Une seule app",
+          subtitulo: "Concept de motion UI",
+          categoria: "Banque digitale / Présentation d’app",
+          formato: "Film 16:9",
+          specs: ["1920×1080", "UI", "30 fps"],
+          historia: [
+            "Une étude sur la manière de présenter une app bancaire en quelques secondes : un écran qui entre en scène, une interface qui se dévoile et un seul message.",
+            "La typographie cinétique fait le lien entre les écrans, et chaque transition existe pour guider le regard vers l’information suivante, de l’invitation d’ouverture jusqu’à l’appel à télécharger l’app."
+          ],
+          nota: "Projet conceptuel de portfolio, sans lien avec Itaú Unibanco."
         }
       },
       "starbucks-seu-nome": {
@@ -197,6 +223,18 @@ window.KRONO = {
             "Tipografía cinética, tarjetas de interfaz y el verde de la marca llevan el ritmo hasta el llamado final."
           ],
           nota: "Proyecto conceptual de portafolio, sin vínculo con Starbucks."
+        },
+        fr: {
+          titulo: "Un café à votre nom",
+          subtitulo: "Concept de motion pour app",
+          categoria: "Café / Présentation d’app",
+          formato: "Reels 9:16",
+          specs: ["1080×1920", "UI", "Audio"],
+          historia: [
+            "Une étude sur la manière de raconter la personnalisation d’une commande de café en quelques secondes : d’un grand chiffre et d’une question simple jusqu’à l’app qui connaît déjà votre nom.",
+            "Typographie cinétique, cartes d’interface et le vert de la marque donnent le rythme jusqu’à l’appel final."
+          ],
+          nota: "Projet conceptuel de portfolio, sans lien avec Starbucks."
         }
       }
     },
@@ -216,6 +254,14 @@ window.KRONO = {
         ["¿Puedo pedir ajustes?", "Sí. El número de rondas de ajuste queda acordado en la propuesta, etapa por etapa."],
         ["¿Atienden a clientes de otras ciudades?", "Sí. Trabajamos de forma remota: reuniones, aprobaciones y entregas ocurren en línea."],
         ["¿En qué formatos se entrega el video?", "En el formato correcto para donde va a correr: 9:16 para Reels y Stories, 16:9 para YouTube y TV, 1:1 o 4:5 para el feed."]
+      ],
+      fr: [
+        ["Quels types de projets réalisez-vous ?", "Des vidéos en motion design pour des marques et des produits, du contenu pour les réseaux sociaux (Reels, Shorts, TikTok), des génériques et des habillages, des effets visuels et la finition de vidéos déjà tournées."],
+        ["Combien coûte une vidéo ?", "Cela dépend de la durée, du style et du délai. Vous nous présentez votre idée sur WhatsApp et recevez une proposition avec le périmètre, le calendrier et le prix avant que quoi que ce soit ne commence."],
+        ["Combien de temps cela prend-il ?", "Le délai est défini en même temps que la proposition, avec une date pour chaque étape : scénario, design, animation et livraison."],
+        ["Puis-je demander des modifications ?", "Oui. Le nombre de tours de corrections est convenu dans la proposition, étape par étape."],
+        ["Travaillez-vous avec des clients d’autres villes ?", "Oui. Nous travaillons à distance : réunions, validations et livraisons se font en ligne."],
+        ["Dans quels formats la vidéo est-elle livrée ?", "Au bon format selon l’endroit où elle sera diffusée : 9:16 pour les Reels et les Stories, 16:9 pour YouTube et la TV, 1:1 ou 4:5 pour le feed."]
       ]
     }
   },

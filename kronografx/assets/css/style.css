@@ -107,6 +107,7 @@ b { font-weight: 600; color: var(--ink); }
   background: var(--nav-bg); backdrop-filter: blur(18px) saturate(1.6); -webkit-backdrop-filter: blur(18px) saturate(1.6);
   border: 1px solid var(--line); border-radius: 999px; box-shadow: 0 10px 40px -16px rgba(0, 0, 0, .25);
   transition: background .4s, border-color .4s, box-shadow .4s;
+  width: max-content; /* com left: 50%, sem isto o conteúdo (botão do WhatsApp) vaza para fora da pílula */
   max-width: calc(100vw - 24px);
 }
 .pill-nav.on-dark { background: rgba(20, 20, 22, .6); border-color: rgba(255, 255, 255, .12); color: #fff; }
@@ -369,7 +370,7 @@ b { font-weight: 600; color: var(--ink); }
 .ccard h3 { font-family: var(--display); font-weight: 400; font-size: 22px; margin-bottom: 8px; }
 .ccard p { color: var(--ink-2); font-size: 14.5px; margin-bottom: 26px; flex: 1; }
 .ccard__chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.contact2__note { grid-column: 1 / -1; font-size: 13px; color: var(--ink-3); }
+.contact2__note { grid-column: 1 / -1; font-size: 13px; color: var(--ink-2); }
 .contact2__note a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
 .contact2__note a:hover { color: var(--v1); }
 
@@ -413,7 +414,7 @@ b { font-weight: 600; color: var(--ink); }
 :root:not([data-lang]) .legal[data-l="pt"], :root[data-lang="pt"] .legal[data-l="pt"], :root[data-lang="en"] .legal[data-l="en"],
 :root[data-lang="es"] .legal[data-l="es"], :root[data-lang="fr"] .legal[data-l="fr"] { display: grid; }
 .legal__transl { margin-bottom: 22px; padding: 12px 16px; border: 1px dashed var(--line); border-radius: 14px; }
-.legal__transl p { font-size: 13.5px; color: var(--ink-3); }
+.legal__transl p { font-size: 13.5px; color: var(--ink-2); }
 .legal__more-t { display: block; }
 
 /* ---------- responsivo ---------- */
