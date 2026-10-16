@@ -353,3 +353,4 @@ Qualquer mudança nos textos legais vale para os 4 idiomas:**
   Testes salvos em `docs/kronografx/testes/`. Entregue ao Rafael como `site-v6.zip`.
 - **2026-10-16** — Criado `motion-studio/` (vídeos em código) com as regras do estúdio no `motion-studio/CLAUDE.md`.
 - **2026-10-16** — Vídeo de boas-vindas do Hero (30 s, 60 fps, 16:9 e 9:16, som sintetizado; feito em código em `motion-studio/films/kronografx-hero/`). Masters CRF 16 (−14,1 LUFS); no site, versões CRF 23 (~4 MB cada) + posters. Testes do site: tudo ok.
+- **2026-10-16** — Vídeo do Hero, rodada 5 (pedido do Rafael: "muito rápido, sem tempo de leitura"): pausas suaves nos textos (`HOLDS` em `film.js`, +8 batidas) e corte do card de UI + anel 3D (b32–40) para manter 30 s; trilha repete/remove as mesmas batidas (`INSERT` em `music.py`). Poster agora em 24,7 s.
