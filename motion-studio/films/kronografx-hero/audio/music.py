@@ -131,6 +131,28 @@ def mute(a, z, fade=0.005):
 bus *= mute(b(19.75), b(20))
 
 
+# ---------------------------------------------------------------- tempo de leitura (rodada 5): a mesma edição do film.js
+# O filme repete trechos (pausas nos textos) e corta o showreel de b32 a b40. A trilha faz o mesmo em batidas
+# inteiras: repete PARES de batidas (o compasso 2+2 do bumbo/palma não se perde) perto de cada pausa e remove
+# b32–b39. Os pontos fortes (silêncio + virada b20, trava do logo b48, riser do loop) caem no mesmo lugar da imagem.
+INSERT = {7: [6, 7], 17: [16, 17], 22: [21, 22], 55: [54, 55]}   # depois da batida k, repete estas
+order = []
+for i in range(60):
+    if 32 <= i < 40: continue
+    order.append(i); order += INSERT.get(i, [])
+assert len(order) == 60, len(order)
+nb, xf = samples(BEAT), samples(0.004)
+win = np.linspace(0, 1, xf)[:, None]
+out = np.zeros((nb * 60 + (len(bus) - samples(b(60))), 2))
+for j, i in enumerate(order):
+    cut_out = j < 59 and order[j + 1] != i + 1                 # emenda depois desta batida?
+    cut_in = j > 0 and order[j - 1] != i - 1                   # emenda antes?
+    s0 = samples(b(i)); chunk = bus[s0:s0 + nb + (xf if cut_out else 0)].copy()
+    if cut_in: chunk[:xf] *= win                               # cruzamento de 4 ms em cada emenda
+    if cut_out: chunk[nb:] *= win[::-1]
+    d = j * nb; out[d:d + len(chunk)] += chunk
+tail = bus[samples(b(60)):]; out[nb * 60: nb * 60 + len(tail)] += tail[: len(out) - nb * 60]
+bus = out
 
 # loop perfeito: a cauda depois dos 30 s volta para o começo
 n = samples(DUR)

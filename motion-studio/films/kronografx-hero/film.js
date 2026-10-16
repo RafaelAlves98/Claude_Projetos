@@ -1485,14 +1485,60 @@ function paint(c, x) {
   else s12(c, x);
 }
 
+/* ================================================================ tempo de leitura (rodada 5)
+   A animação continua escrita nas batidas originais (x = "batida do roteiro"). O vídeo (y = batida da tela)
+   passa por elas com PAUSAS SUAVES onde um texto já está completo (desacelera até quase parar e retoma, sem
+   congelar) e um CORTE no showreel (card de UI + anel 3D) que devolve o mesmo tempo: o filme segue com 60 batidas.
+   Cada pausa soma batidas inteiras, então tudo depois dela continua no grid. A trilha (audio/music.py) repete
+   e remove as mesmas batidas; os efeitos (CUES) passam por DST(). */
+const HOLDS = [   // [início no roteiro, trecho do roteiro que vira pausa, batidas extras na tela]
+  [6.3, 0.6, 2],      // "Que bom ter você aqui."
+  [16.55, 0.4, 1],    // "Sem ritmo, ninguém fica."
+  [18.05, 0.4, 1],    // "Com ritmo, todo mundo fica."
+  [21.5, 0.4, 1],     // "pensado"
+  [22.5, 0.4, 1],     // "pra [prender]"
+  [53.55, 0.4, 1],    // "Boas-vindas à Kronografx."
+  [57.05, 0.4, 1],    // "Vamos dar movimento à sua ideia."
+];
+const CUT = [32, 40]; // sai da tipografia cinética direto para a timeline
+const HR = 0.2;       // rampas da pausa (fração do trecho)
+function holdIB(u) {  // integral do "platô" com rampas smoothstep
+  const S = (t) => t * t * t - t * t * t * t / 2;
+  if (u < HR) return HR * S(u / HR);
+  if (u <= 1 - HR) return HR / 2 + (u - HR);
+  return 1 - HR - HR * S((1 - u) / HR);
+}
+const EV = [...HOLDS.map((h) => ({ x: h[0], h })), { x: CUT[0], cut: true }].sort((a, b) => a.x - b.x);
+function SRC(y) {     // batida da tela → batida do roteiro
+  if (y < 0 || y >= 60) return y;
+  let ys = 0, xs = 0;
+  for (const e of EV) {
+    const gap = e.x - xs;
+    if (y < ys + gap) return xs + (y - ys);
+    ys += gap;
+    if (e.cut) { xs = CUT[1]; continue; }
+    const [x0, dx, k] = e.h, L = dx + k, u = (y - ys) / L;
+    if (u < 1) { const a = (1 - dx / L) / (1 - HR); return x0 + L * (u - a * holdIB(u)); }
+    ys += L; xs = x0 + dx;
+  }
+  return xs + (y - ys);
+}
+function DST(x) {     // batida do roteiro → batida da tela (null = cortada)
+  if (x < 0 || x >= 60) return x;
+  if (x >= CUT[0] && x < CUT[1]) return null;
+  let a = 0, b = 60;
+  for (let i = 0; i < 50; i++) { const m = (a + b) / 2; if (SRC(m) < x) a = m; else b = m; }
+  return (a + b) / 2;
+}
+
 /* ================================================================ motion blur + API */
 let acc = null, last = null;
 function seek(t) {
-  if (MB === 1) { paint(ctx, X(t)); last = null; return; }
+  if (MB === 1) { paint(ctx, SRC(X(t))); last = null; return; }
   if (!acc) acc = new Uint16Array(W * H * 4);
   acc.fill(0);
   for (let k = 0; k < MB; k++) {
-    paint(sctx, X(t + (k / MB) * SHUT / FPS));
+    paint(sctx, SRC(X(t + (k / MB) * SHUT / FPS)));
     const d = sctx.getImageData(0, 0, W, H).data;
     for (let i = 0; i < d.length; i++) acc[i] += d[i];
   }
@@ -1502,7 +1548,7 @@ function seek(t) {
   last = o;
 }
 window.seek = seek;
-window.FILM = { W, H, FPS, DUR, MB, frames: FPS * DUR, T, X };
+window.FILM = { W, H, FPS, DUR, MB, frames: FPS * DUR, T, X, SRC, DST };
 /* render: pinta o quadro f e envia os pixels RGBA crus ao render.mjs */
 window.grab = async (f, t) => {
   seek(t === undefined ? f / FPS : t);
@@ -1607,7 +1653,7 @@ function buildCues() {
 /* ================================================================ início: espera as fontes */
 Promise.all([document.fonts.load(FD(100)), document.fonts.load(FI(100, 500)), document.fonts.load(FI(100, 600))]).then(() => {
   if (!document.fonts.check(FD(100)) || !document.fonts.check(FI(100, 500))) throw new Error("fontes não carregaram");
-  window.CUES = buildCues();
+  window.CUES = buildCues().map((q) => ({ ...q, x: DST(q.x) })).filter((q) => q.x !== null).map((q) => ({ ...q, x: +q.x.toFixed(4) }));
   seek(0);
   window.__ready = true;
 });
