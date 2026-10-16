@@ -108,14 +108,101 @@ Todos de 2026, disciplina "Motion Design".
 5. Projeto conceitual (marca sem vínculo) → preencher `nota` com o aviso "Projeto conceitual de portfólio, sem vínculo com ...".
 6. Cuidado com vírgulas e aspas no `dados.js` — um erro quebra o site inteiro.
 
-## Observações técnicas (estado em 2026-10-16)
+## Conteúdo dos vídeos (assistidos quadro a quadro em 2026-10-16)
+
+Pranchas com os quadros de cada vídeo: `docs/kronografx/videos/`.
+
+| Arquivo | Resolução | fps | Duração | Áudio | Peso |
+|---|---|---|---|---|---|
+| `e2.mp4` | 720×1280 | 30 | 36,0 s | sim (AAC 48 kHz) | 1,9 MB |
+| `starbucks.mp4` | 720×1280 | 30 | 35,3 s | sim (AAC 44,1 kHz) | 1,3 MB |
+| `itau.mp4` | 1920×1080 | 29,97 | 15,9 s | **não tem faixa de áudio** | 0,76 MB |
+| `reel.mp4` | 1280×720 | 30 | 16,0 s | não | 0,56 MB |
+| `e2-loop.mp4` | 540×960 | 30 | 9,0 s | não | 0,17 MB |
+| `starbucks-loop.mp4` | 540×960 | 30 | 9,0 s | não | 0,08 MB |
+| `itau-loop.mp4` | 960×540 | 29,97 | 6,6 s | não | 0,18 MB |
+
+- **E2 "3 Sinais"**: fundo preto com moedas douradas. Roteiro: "Você não tem um problema de ~~DINHEIRO~~"
+  → fundo dourado "Você tem um problema de **SISTEMA.** E isso aparece em 3 sinais" →
+  **01** "Você não sabe pra onde seu dinheiro vai" (card de extrato, saldo cai de R$ 5.000 para R$ 12,40, selo "PRA ONDE FOI?") →
+  **02** "Toda emergência vira um problema" (reserva de emergência R$ 3.200 → R$ 0,00, "Imprevisto: conserto do carro") →
+  **03** "Trabalha mais. Ganha mais. Nunca sobra mais." (gráfico de 12 meses: renda +100%, sobra = R$ 0) →
+  logo E2 em fundo verde-escuro: "Isso tem nome. E tem saída: **MÉTODO VIVA** tira você do piloto automático" →
+  CTA "Comenta **DIAGNÓSTICO**" com simulação de comentário sendo digitado e respondido pela E2.
+  Tipografia: sans pesada + serifada itálica; paleta preto/dourado.
+- **Starbucks "Seu nome no café"**: fundo creme/verde Starbucks. "Pedir um café" (cursores com nomes "Rafa", "Josi") →
+  "+170 mil jeitos de pedir a mesma bebida" (contador animado, bolhas Gelado/Venti/Descaf/Tall/Duplo/Aveia) →
+  mancha verde transiciona para "Mas…" → "E se o seu café já soubesse o seu nome?" → copo com "Você" escrito →
+  "feito pra você" → "Aqui… Também…" → pílulas Leite/Tamanho/Cobertura/Temperatura → celular "Pra iOS e Android",
+  "Pedido pronto!" → "Tá esperando o quê?" → final "Seu nome já está no copo. @starbucksbrasil".
+- **Itaú "Um único app"**: "Inicie uma nova jornada com o [itaú]" + botão "Conheça o App" com cursor →
+  tela do app (Meu Itaú, Pix, Pagar, Crédito, Cartão virtual) sobre fundo laranja, em perspectiva 3D →
+  fundo azul-marinho "Todas as suas finanças" → "Em um único app." → cartela final com logo Itaú, QR code,
+  Google Play e App Store. **A cartela final fica parada de ~9 s até o fim (≈7 s estáticos).**
+- **reel.mp4** (usado só no Arsenal "Todas as telas"): montagem 16:9 — app Itaú → "Sistema" da E2 (vertical
+  com laterais desfocadas) → "Todas as suas finanças / Em um único app" → sinais 01 e 03 da E2 → logo E2 →
+  termina no **logo K da Kronografx**.
+- **Loops**: `e2-loop` = abertura até o Sinal 01; `starbucks-loop` = "E se o seu café…" até "feito pra você";
+  `itau-loop` = tela do app → "Todas as suas finanças" → "Em um único app.".
+
+## Imagens (vistas uma a uma em 2026-10-16)
+
+Pranchas: `docs/kronografx/imagens/`.
+
+- **Marca** (`mark.png` 512², `mark-lg.png` 1024², `apple-touch-icon.png` 180², `favicon-32.png`): PNG transparente,
+  letra **K** prateada com haste em gradiente roxo, dentro de um arco de cronômetro (anel com "pino" no topo),
+  arco em roxo/branco. No site aparece sobre círculo `#141414`.
+- **og-image.jpg** (1200×630): fundo branco, logo + "Kronografx", "Cada frame pensado **pra prender o olhar.**" (gradiente azul→roxo).
+- **reel-capa.jpg** (1280×720): quadro do app Itaú sobre laranja.
+- **Capas** (poster do player): `e2-capa.jpg` 900×1600 ("SISTEMA." dourado), `itau-capa.jpg` 1600×900 (app sobre laranja),
+  `starbucks-capa.jpg` 720×1280 (**quase vazia: fundo verde com um traço branco**).
+- **Stills** (página do projeto): e2 e itaú 720×1280 / 1280×720, bem escolhidos (um por cena-chave).
+  Os 6 `starbucks-still-*` são **cópias idênticas** de `frames/starbucks-2,4,5,7,8,3`; vários são quadros de
+  transição (`still-2` verde quase vazio, `still-4` "Também" no meio da transição, `still-6` mancha verde cobrindo o "+170 mil").
+- **Carrossel** (`frames/`, 9:16): e2 e itaú em 420×746, starbucks em 720×1280. Os de itaú são recortes verticais do vídeo 16:9.
+  Fracos visualmente: `frames/e2-7.jpg` (**bege totalmente vazio, e está no carrossel**), `frames/starbucks-4.jpg`
+  (verde com um traço), `frames/starbucks-6.jpg` ("Aqui" quase vazio), `frames/starbucks-1.jpg` (desbotado, transição),
+  `frames/itau-4/5.jpg` (azul liso com uma frase pequena).
+- `fundo` do Starbucks (`frames/starbucks-3.jpg`) é a mancha verde de transição — no card aparece como um borrão.
+
+## Como o site aparece no navegador (testado em 2026-10-16)
+
+Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844, celular deitado 844×390).
+
+- **Sem erros de JavaScript**, sem links quebrados, **sem rolagem horizontal** em nenhuma largura testada.
+- Títulos das abas corretos em todas as rotas (ex.: "3 Sinais · E2 Finanças · Kronografx").
+- Menu hambúrguer no celular abre/fecha bem; nav fica escura sobre as seções escuras.
+- Arsenal: as 3 telas trocam certinho com a rolagem (computador e celular); no celular deitado viram blocos normais.
+- Obs.: o navegador de teste não toca H.264, então nas capturas os vídeos aparecem só com o poster
+  (o timecode do "After Effects" fica em 0:00:00:00). Em navegadores reais eles tocam.
+
+## Pontos de atenção encontrados (ainda NÃO corrigidos — perguntar ao Rafael antes)
+
+1. **Itaú sem áudio**: `itau.mp4` não tem faixa de som, mas a página diz "🎧 Assista com som" e o botão é "Assistir com som".
+2. **Specs erradas**: E2 e Starbucks mostram "1080×1920", mas os arquivos são 720×1280.
+3. **Poster do Starbucks fraco**: `starbucks-capa.jpg` é um quadro verde quase vazio — primeira impressão ruim no player.
+4. **Frames vazios no carrossel da home**: `frames/e2-7.jpg` (bege vazio), `frames/starbucks-4.jpg`, `frames/starbucks-6.jpg`.
+5. **Stills do Starbucks**: vários são quadros de transição; seria melhor escolher quadros com o texto completo.
+6. **Destaques da home**: 3 projetos numa grade de 2 colunas → o 3º card fica sozinho com um buraco ao lado.
+7. **Cards de projeto sem margem interna**: o título/subtítulo encostam nas bordas; em ~1000px o subtítulo do Starbucks
+   quebra em 2 linhas. Texto branco no lado creme do card/hero/CTA do Starbucks tem pouco contraste.
+8. **Vídeo do Itaú**: ~7 s finais parados na cartela (de 16 s).
+9. **Celular**: anúncio "NOVO" do hero é cortado com "…" em 390px; em "Próximo projeto" a seta quebra para outra linha.
+10. **Arquivos sem uso** (podem ser apagados ou aproveitados): `img/itau-loop.jpg`, `img/starbucks-loop.jpg`,
+    `img/frames/e2-5.jpg`, `img/frames/starbucks-7.jpg`, `img/frames/starbucks-8.jpg`, e na prática também
+    `video/itau-loop.mp4` e `video/starbucks-loop.mp4` (só citados no campo `loop`, que o `app.js` não usa).
+11. **SEO**: as rotas são por `#`, então os projetos não viram páginas indexáveis separadas e todos compartilham
+    o mesmo título/og-image ao compartilhar link. Não há `robots.txt`, `sitemap.xml`, canonical nem dados estruturados.
+12. Projetos conceituais usam marcas reais (logo Itaú, QR code, "@starbucksbrasil" no fim do vídeo) — o aviso
+    "sem vínculo" está no site, mas vale ter em mente.
+
+## Outras observações técnicas
 
 - O campo `loop` dos projetos existe em `dados.js` mas **não é usado** pelo `app.js` hoje.
-- Arquivos presentes mas não referenciados: `img/itau-loop.jpg`, `img/starbucks-loop.jpg`,
-  `img/frames/e2-5.jpg`, `img/frames/starbucks-7.jpg`, `img/frames/starbucks-8.jpg`.
-- Os `starbucks-still-*.jpg` são cópias de frames de `frames/starbucks-*` (mesmos tamanhos).
-- O vídeo `reel.mp4` (e `reel-capa.jpg`) é usado só na tela "Todas as telas" do Arsenal.
+- Vídeos com `data-loop` na home: só `e2-loop.mp4` (janela do After Effects e 9:16) e `reel.mp4` (16:9 e 1:1).
 - `og-image.jpg` usa URL absoluta `https://kronografx.com/assets/img/og-image.jpg`.
+- `html { scroll-behavior: smooth }` — ao automatizar capturas, desligar isso (senão o print sai no meio da rolagem).
+- Alturas das páginas (computador): home ≈ 8.500 px, projeto ≈ 2.400–2.700 px.
 - Tamanho total ≈ 6,5 MB (maior arquivo: `e2.mp4`, ~1,9 MB).
 
 ## Histórico
@@ -123,3 +210,6 @@ Todos de 2026, disciplina "Motion Design".
 - **2026-10-16** — Site (versão "v5") enviado pelo Rafael como `Site_Oficial.rar` e salvo neste repositório
   em `kronografx/`, junto com este arquivo de memória. O Rafael mantém o site atualizado constantemente;
   quando ele mandar uma versão nova, substituir `kronografx/` e atualizar este arquivo.
+- **2026-10-16** — Análise completa: todos os vídeos assistidos (pranchas de quadros), todas as imagens vistas,
+  site aberto no navegador em computador/celular/celular deitado. Referências salvas em `docs/kronografx/`
+  (fora da pasta do site, não precisa subir para a hospedagem). Lista de pontos de atenção acima.
