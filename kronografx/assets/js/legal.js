@@ -37,7 +37,13 @@
     closeLang();
     links.classList.toggle("is-open", open); burger.setAttribute("aria-expanded", String(open)); burger.setAttribute("aria-label", open ? t("nav.menuClose") : t("nav.menuOpen"));
   });
-  addEventListener("keydown", function (e) { if (e.key === "Escape") { closeMenu(); closeLang(); } });
+  addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    // devolve o foco ao botão que abriu o menu (senão ele cai no <body>)
+    var inMenu = links.contains(document.activeElement), inLang = langMenu.contains(document.activeElement);
+    closeMenu(); closeLang();
+    if (inMenu) burger.focus(); else if (inLang) langBtn.focus();
+  });
 
   /* ---------- seletor de idioma ---------- */
   var langBtn = $("#langBtn"), langMenu = $("#langMenu");
@@ -53,6 +59,7 @@
     setLang(b.dataset.lang); closeLang(); langBtn.focus();
   });
   document.addEventListener("click", function (e) { if (!e.target.closest("#lang")) closeLang(); });
+  $("#lang").addEventListener("focusout", function (e) { if (e.relatedTarget && !$("#lang").contains(e.relatedTarget)) closeLang(); });
 
   function setLang(l, silent) {
     if (LANGS.indexOf(l) < 0) l = "pt";
@@ -106,7 +113,9 @@
 
   /* ---------- link direto para uma seção (#cookies etc.) no idioma escolhido ---------- */
   function goToHash() {
-    var id = decodeURIComponent(location.hash.slice(1)).replace(/^(en|es|fr)-/, "");
+    var id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; } // hash malformado
+    id = id.replace(/^(en|es|fr)-/, "");
     if (!id) return;
     var el = document.getElementById(lang === "pt" ? id : lang + "-" + id);
     if (el && el.offsetParent !== null) el.scrollIntoView();

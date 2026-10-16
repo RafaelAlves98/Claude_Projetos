@@ -105,7 +105,15 @@ das revisões) e `ferramentas/gerar_legal.py`.
 5. **Arsenal** — seção *sticky* de 330vh com 3 telas que trocam conforme o scroll:
    01 After Effects (janela fake de AE com timecode e agulha sincronizados ao `e2-loop.mp4`),
    02 Máquina dedicada (ficha + barra de render animada),
-   03 Todas as telas (16:9 e 1:1 com `reel.mp4`, 9:16 com `e2-loop.mp4`). Em celular deitado vira lista normal.
+   03 Todas as telas (16:9 e 1:1 com `reel.mp4`, 9:16 com `e2-loop.mp4`).
+   **Layout (corrigido em 2026-10-16 — antes o texto ficava por baixo do quadro):**
+   - Computador (>960px): texto à esquerda (`--ars-l`, largura `--ars-w = min(460px, 40vw)`) e o quadro começa
+     **sempre 40px depois do fim do texto** (`left: calc(var(--ars-l) + var(--ars-w) + 40px)`).
+   - ≤960px em pé: texto em cima e quadro embaixo, em fluxo (`flex-direction: column`; o texto tem `order: -1`
+     porque no HTML o quadro vem antes); o quadro ocupa o espaço que sobra.
+   - Telas baixas (≤960px de largura **e** ≤760px de altura, ex. iPhone SE, 360×640/740) e celular deitado: as 3 telas
+     viram **lista** rolável. O `app.js` usa a mesma condição (`var landscape = matchMedia(...)`) para parar de trocar telas.
+   - Até 900px de altura (≤960px de largura) a ficha da máquina fica compacta.
 6. **Processo** — 4 cards: Roteiro, Direção de arte, Animação e VFX, Finalização.
 7. **Confiança** (fundo escuro) — Proposta por escrito, Estação dedicada, Fala direto com quem faz, Formato certo.
 8. **Showcase** — até 4 primeiros projetos (`P.slice(0, 4)`) em grade de 2 colunas.
@@ -143,7 +151,18 @@ das revisões) e `ferramentas/gerar_legal.py`.
 - Os Termos listam os projetos conceituais pelo nome (seção `marcas-de-terceiros`) — atualizar nos 4 idiomas quando o portfólio mudar.
 
 ### Comportamentos
-- Elementos `.rv` aparecem com fade ao entrar na tela (IntersectionObserver).
+- **Script do `<head>`** (igual nas 3 páginas; o gerador das páginas legais copia do index): lê `kg-theme`/`kg-lang`
+  dentro de um `try` isolado — se o navegador bloquear o armazenamento, ainda usa o tema do sistema e o idioma do
+  navegador — e põe a classe `js` no `<html>`.
+- Elementos `.rv` aparecem com fade ao entrar na tela (IntersectionObserver). **Só ficam invisíveis com JavaScript**
+  (`:where(.js) .rv` — o `:where` não aumenta a especificidade, para os efeitos de hover dos cards continuarem valendo).
+  Sem JS, a home aparece inteira e os links do WhatsApp já têm o `href` real (mensagem em pt) no HTML.
+- **Nav em pílula**: `width: max-content` (com `left: 50%` sem isso o botão do WhatsApp vazava da pílula);
+  botões com `flex: none`; ≤380px espaçamentos menores e sem a setinha do idioma; ≤330px só o logo (sem o nome).
+- **Acessibilidade**: "Pular para o conteúdo" foca o `<main>` sem trocar de rota; Esc fecha menu/idioma e devolve o
+  foco ao botão; o seletor de idioma fecha quando o Tab sai dele; o link da página atual tem `aria-current="page"`;
+  o play do projeto leva o foco ao `<video>`; rota de projeto inexistente usa `location.replace` (não prende o Voltar);
+  tocar no link da página atual fecha o menu do celular.
 - `video[data-loop]` só carregam/tocam quando visíveis.
 - Respeita `prefers-reduced-motion`.
 - Breakpoints: 960px, 860px, 600px e celular deitado (`landscape` + `max-height: 520px`).
@@ -258,6 +277,12 @@ Capturas em `docs/kronografx/capturas/` (computador 1440×900, celular 390×844,
 - Para testar: servir a pasta (`python3 -m http.server --directory kronografx`) e usar Playwright
   (`/opt/node-tools/node_modules/playwright`). O Chromium de teste **não toca H.264** → vídeos aparecem só com o poster.
   Desligar `scroll-behavior: smooth` antes de capturar, senão o print sai no meio da rolagem.
+- **Testes de regressão salvos**: `sh docs/kronografx/testes/rodar.sh` (sobe o site na porta 8765 e roda tudo):
+  `bugs-fixed.js` (reproduz os 24 bugs corrigidos), `i18n-test.js` (4 idiomas × 2 temas × 5 tamanhos × 5 páginas:
+  erros, textos sem tradução, menu, rolagem lateral), `navsweep.js` (menu de 861 a 1460px nos 4 idiomas),
+  `burger.js` (botão do menu em 280–860px), `arsenal.js`/`arsmob.js` (sobreposição no Arsenal, computador e 10 celulares),
+  `nostorage.js` (armazenamento bloqueado), `persist.js` (preferências entre páginas), `hover-nojs.js`.
+  **Rodar depois de qualquer mudança de layout ou de texto.** Último resultado (2026-10-16): tudo ok.
 
 ## Pendências / decisões em aberto
 
@@ -279,6 +304,11 @@ Qualquer mudança nos textos legais vale para os 4 idiomas:**
   (mesmo título/og-image para todo link). Resolver exigiria gerar um HTML por projeto (ex.: `projeto/e2-3-sinais/index.html`)
   — mudança maior, não feita.
 - `.pcard__bg video` no CSS sobrou de uma versão antiga (cards com vídeo); hoje os cards usam só imagem.
+- **Contraste do cinza terciário (`--ink-3`)**: rótulos pequenos (`.label`, "Atendimento 100% online…", rodapé de
+  colunas) ficam abaixo do mínimo WCAG (2,6:1 no claro, 4,2:1 no escuro). É escolha de estilo do site; só o aviso
+  "sem vínculo" (`.pnote`), a linha do CNPJ (`.footer__bar`) e os avisos legais passaram para `--ink-2`. Se o Rafael
+  quiser tudo acessível: `--ink-3: #737378` (claro) e `#8a8a92` (escuro) — mas a hierarquia de cinzas fica menor.
+- **O site publicado (kronografx.com) ainda é o `site-v5.zip`** até o Rafael subir a versão nova (`site-v6.zip`).
 
 ## Histórico
 
@@ -307,3 +337,18 @@ Qualquer mudança nos textos legais vale para os 4 idiomas:**
   `privacidade.html`, `assets/js/legal.js`, coluna LEGAL no rodapé (grade de 5 colunas; 4 em ≤960px com a marca em cima;
   2 em ≤600px), aviso de privacidade na página Contato, chip "MARCA" nos projetos conceituais (`conceitual: true`),
   sitemap com as 2 páginas. Testado em 1440/900/390/320 px: 167 links ok, sem erros, sem rolagem lateral.
+- **2026-10-16** — Rafael enviou `site-v5.zip` (a versão no ar, com idiomas pt/en/es e tema claro/escuro).
+  Mescla de três vias (base: o .rar original) com tudo deste repositório; conflitos resolvidos à mão.
+  Pedido: idiomas + modo noturno/claro + **francês**. Feito:
+  - `fr` em todo o site (147 chaves no `i18n.js`, projetos, FAQ, WhatsApp) e Termos/Privacidade em en/es/fr
+    (8 agentes: tradução + revisão nativa/jurídica independente; números, artigos, links e listas conferidos por código).
+  - Páginas legais com seletor de idioma e tema, geradas por `docs/kronografx/ferramentas/gerar_legal.py`.
+  - Arsenal: quadro nunca mais por baixo do texto (pedido do Rafael com print) — computador, celular e telas baixas.
+- **2026-10-16** — Caça a bugs (4 especialistas + 4 verificadores que reproduziram cada achado no navegador):
+  24 bugs confirmados e corrigidos, além de 2 achados por conta própria. Principais: hambúrguer sumia em celulares de
+  320–350px; Arsenal cortado/sobreposto em celulares baixos; botão do WhatsApp vazando da pílula; tema escuro e idioma
+  ignorados com armazenamento bloqueado; "Pular para o conteúdo" levava à home; Voltar preso em projeto inexistente;
+  textos legais traduzidos citando a mensagem do WhatsApp em português; tipografia francesa; contraste (título da
+  janela do AE, links legais no escuro, seletor de idioma, menu ativo); foco do teclado; home em branco sem JS.
+  Testes salvos em `docs/kronografx/testes/`. Entregue ao Rafael como `site-v6.zip`.
+- **2026-10-16** — Criado `motion-studio/` (vídeos em código) com as regras do estúdio no `motion-studio/CLAUDE.md`.

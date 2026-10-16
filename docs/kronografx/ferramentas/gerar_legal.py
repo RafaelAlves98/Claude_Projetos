@@ -133,7 +133,7 @@ def pagina(chave):
     <div class="legal__more">
       <p><span class="legal__more-t" data-i18n="legal.more">Ficou alguma dúvida?</span><span><span data-i18n="legal.see">Veja também:</span> <a href="{c["outro"][0]}" data-i18n="{c["outro"][1]}">{c["outro"][2]}</a></span></p>
       <div>
-        <a class="btn btn--dark" data-wa href="#" target="_blank" rel="noopener" data-i18n="legal.wa">Chamar no WhatsApp</a>
+        <a class="btn btn--dark" data-wa href="https://wa.me/5516991220381?text=Ol%C3%A1%2C%20Kronografx%21%20Vi%20o%20site%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" data-i18n="legal.wa">Chamar no WhatsApp</a>
         <a class="btn btn--light" href="mailto:contato@kronografx.com" data-i18n="legal.mail">Enviar e-mail</a>
       </div>
     </div>

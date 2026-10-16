@@ -508,8 +508,8 @@ window.KRONO_I18N = {
     "legal.label": "INFORMATIONS LÉGALES", "legal.updated": "Dernière mise à jour : 16 octobre 2026",
     "legal.toc": "SUR CETTE PAGE", "legal.more": "Encore une question ?", "legal.see": "Voir aussi :",
     "legal.wa": "Écrire sur WhatsApp", "legal.mail": "Envoyer un e-mail",
-    "legal.terms": "Conditions générales d’utilisation", "legal.privacy": "Politique de confidentialité",
-    "title.terms": "Conditions générales d’utilisation · Kronografx", "title.privacy": "Politique de confidentialité · Kronografx",
+    "legal.terms": "Conditions d’utilisation", "legal.privacy": "Politique de confidentialité",
+    "title.terms": "Conditions d’utilisation · Kronografx", "title.privacy": "Politique de confidentialité · Kronografx",
     "meta.terms": "Règles d’utilisation du site de Kronografx, studio de motion design, VFX et post-production.",
     "meta.privacy": "Comment Kronografx traite les données personnelles, conformément à la LGPD, la loi brésilienne sur la protection des données."
   }

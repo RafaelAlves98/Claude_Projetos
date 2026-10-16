@@ -98,10 +98,10 @@
   /* ---------- página de projeto ---------- */
   var pv = $("#pVideo"), pbox = $("#pPlayer"), curProject = null;
   $("#pPlay").addEventListener("click", function () {
-    pbox.classList.add("is-playing"); pv.controls = true; pv.play().catch(function () {});
+    pbox.classList.add("is-playing"); pv.controls = true; pv.focus(); pv.play().catch(function () {});
   });
   function renderProjeto(id, textOnly) {
-    var i = byId(id); if (i < 0) { location.hash = "#/projetos"; return; }
+    var i = byId(id); if (i < 0) { location.replace("#/projetos"); return; }
     var p = P[i], page = $("#page-projeto");
     curProject = id;
     page.style.setProperty("--c1", p.cor); page.style.setProperty("--c2", p.cor2);
@@ -153,23 +153,35 @@
     }
     routeName = name;
     $$(".page").forEach(function (pg) { pg.hidden = pg.dataset.page !== name; });
-    $$("[data-nav]").forEach(function (a) { a.classList.toggle("is-on", a.dataset.nav === (name === "projeto" ? "projetos" : name)); });
+    $$("[data-nav]").forEach(function (a) {
+      var on = a.dataset.nav === (name === "projeto" ? "projetos" : name);
+      a.classList.toggle("is-on", on);
+      if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
     if (name === "projeto") renderProjeto(parts[1]); else { pv.pause(); document.title = t(TITLE_KEY[name]); }
     closeMenu(); closeLang();
     window.scrollTo(0, 0);
     requestAnimationFrame(function () { observeReveal(); onScroll(); playVisible(); });
   }
   addEventListener("hashchange", route);
+  $(".skip").addEventListener("click", function (e) { e.preventDefault(); $("#app").focus(); });
 
   /* ---------- menu (celular) ---------- */
   var burger = $("#burger"), links = $("#navLinks");
+  links.addEventListener("click", function (e) { if (e.target.closest("a")) closeMenu(); });
   function closeMenu() { links.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); burger.setAttribute("aria-label", t("nav.menuOpen")); }
   burger.addEventListener("click", function () {
     var open = !links.classList.contains("is-open");
     closeLang();
     links.classList.toggle("is-open", open); burger.setAttribute("aria-expanded", String(open)); burger.setAttribute("aria-label", open ? t("nav.menuClose") : t("nav.menuOpen"));
   });
-  addEventListener("keydown", function (e) { if (e.key === "Escape") { closeMenu(); closeLang(); } });
+  addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    // devolve o foco ao botão que abriu o menu (senão ele cai no <body>)
+    var inMenu = links.contains(document.activeElement), inLang = langMenu.contains(document.activeElement);
+    closeMenu(); closeLang();
+    if (inMenu) burger.focus(); else if (inLang) langBtn.focus();
+  });
 
   /* ---------- seletor de idioma ---------- */
   var langBtn = $("#langBtn"), langMenu = $("#langMenu");
@@ -185,6 +197,7 @@
     setLang(b.dataset.lang); closeLang(); langBtn.focus();
   });
   document.addEventListener("click", function (e) { if (!e.target.closest("#lang")) closeLang(); });
+  $("#lang").addEventListener("focusout", function (e) { if (e.relatedTarget && !$("#lang").contains(e.relatedTarget)) closeLang(); });
 
   function setLang(l, silent) {
     if (LANGS.indexOf(l) < 0) l = "pt";
@@ -263,7 +276,8 @@
   /* ---------- arsenal fixo com 3 telas ---------- */
   var ars = $("#arsenal"), slides = $$(".arsenal__slide"), dots = $$(".arsenal__dots i"), cur = -1;
   var nav = $("#pillNav"), darks = [$("#arsenal"), $("#confianca")];
-  var landscape = matchMedia("(orientation: landscape) and (max-height: 520px)");
+  // celular deitado e telas baixas: o Arsenal vira lista (mesmas condições do style.css)
+  var landscape = matchMedia("(orientation: landscape) and (max-height: 520px), (max-width: 960px) and (max-height: 760px)");
   function onScroll() {
     if (ars && !$("#page-home").hidden && !landscape.matches) {
       var r = ars.getBoundingClientRect(), total = r.height - innerHeight;
