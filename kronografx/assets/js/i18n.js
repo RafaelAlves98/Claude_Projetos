@@ -18,7 +18,8 @@ window.KRONO_I18N = {
     "nav.main": "Principal",
 
     "hero.new": "NOVO",
-    "hero.announce": "3 Sinais, para a E2 Finanças, já está no ar",
+    "hero.announce": "{t} · {c}: veja o projeto",
+    "hero.proj": "PROJETO",
     "hero.status": "Agenda aberta para novos projetos",
     "hero.title": 'Cada frame pensado pra <span class="grad">prender o olhar.</span>',
     "hero.sub": "Estúdio de <b>motion design</b>, <b>VFX</b> e <b>pós-produção</b>. Roteiro, animação e finalização com acabamento de cinema, tudo em um só lugar.",
@@ -148,7 +149,8 @@ window.KRONO_I18N = {
     "nav.main": "Main",
 
     "hero.new": "NEW",
-    "hero.announce": "3 Signs, for E2 Finanças, is now live",
+    "hero.announce": "{t} · {c}: see the project",
+    "hero.proj": "PROJECT",
     "hero.status": "Booking open for new projects",
     "hero.title": 'Every frame made to <span class="grad">hold your gaze.</span>',
     "hero.sub": "A <b>motion design</b>, <b>VFX</b> and <b>post-production</b> studio. Script, animation and finishing with a cinematic polish, all in one place.",
@@ -278,7 +280,8 @@ window.KRONO_I18N = {
     "nav.main": "Principal",
 
     "hero.new": "NUEVO",
-    "hero.announce": "3 Señales, para E2 Finanças, ya está en el aire",
+    "hero.announce": "{t} · {c}: mira el proyecto",
+    "hero.proj": "PROYECTO",
     "hero.status": "Agenda abierta para nuevos proyectos",
     "hero.title": 'Cada fotograma pensado para <span class="grad">atrapar la mirada.</span>',
     "hero.sub": "Estudio de <b>motion design</b>, <b>VFX</b> y <b>posproducción</b>. Guion, animación y finalización con acabado de cine, todo en un solo lugar.",
@@ -407,7 +410,8 @@ window.KRONO_I18N = {
     "nav.main": "Principale",
 
     "hero.new": "NOUVEAU",
-    "hero.announce": "3 Signes, pour E2 Finanças, est en ligne",
+    "hero.announce": "{t} · {c} : voir le projet",
+    "hero.proj": "PROJET",
     "hero.status": "Nous acceptons de nouveaux projets",
     "hero.title": "Chaque image pensée pour <span class=\"grad\">retenir le regard.</span>",
     "hero.sub": "Studio de <b>motion design</b>, <b>VFX</b> et <b>post-production</b>. Scénario, animation et finition avec un rendu digne du cinéma, le tout sous un même toit.",

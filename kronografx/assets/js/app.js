@@ -223,6 +223,7 @@
     renderGrids(!silent);  // na troca de idioma os cards já aparecem; na carga inicial usam a revelação normal
     renderFaq();
     labelCarousel();
+    renderAnnounce();
     updateWa();
     updateThemeLabel();
     burger.setAttribute("aria-label", t(links.classList.contains("is-open") ? "nav.menuClose" : "nav.menuOpen"));
@@ -297,6 +298,24 @@
       if (!es[0].isIntersecting) heroVids.forEach(function (v) { v.pause(); });
     }).observe(heroFilm);
   }
+
+  /* ---------- anúncio do hero: passa por todos os projetos (o 1º do dados.js é o NOVO) ---------- */
+  function renderAnnounce() {
+    var a = $("#announce"); if (!a || !P.length) return;
+    var i = +(a.getAttribute("data-i") || 0) % P.length, p = P[i];
+    a.setAttribute("href", "#/projeto/" + p.id);
+    $("#annTag").textContent = t(i ? "hero.proj" : "hero.new");
+    $("#annText").textContent = t("hero.announce").replace("{t}", tp(p, "titulo")).replace("{c}", p.cliente);
+  }
+  var annEl = $("#announce");
+  if (annEl && P.length > 1 && !reduce) setInterval(function () {
+    if (document.hidden || annEl.matches(":hover, :focus-within")) return;
+    annEl.classList.add("is-swap");
+    setTimeout(function () {
+      annEl.setAttribute("data-i", (+(annEl.getAttribute("data-i") || 0) + 1) % P.length);
+      renderAnnounce(); annEl.classList.remove("is-swap");
+    }, 300);
+  }, 4500);
 
   /* ---------- arsenal fixo com 3 telas ---------- */
   var ars = $("#arsenal"), slides = $$(".arsenal__slide"), dots = $$(".arsenal__dots i"), cur = -1;
