@@ -7,15 +7,15 @@ Nenhum template, nenhuma skill, nenhum sample: cada quadro é uma função pura 
 
 | batidas | tempo | cena |
 |---|---|---|
-| 0–4 | 0–2 s | **"Olá."**: o ponto violeta estoura, corre e revela as letras (o fio condutor do filme) |
-| 4–8 | 2–4 s | **"Que bom ter você aqui."**: boas-vindas; traço violeta em "você" |
-| 8–16 | 4–8 s | **A dor:** "Seu público te dá 3,0 segundos", com contagem real de 3 s, o feed passando, "Rolou. Passou. Esqueceu.", glitch e queda |
-| 16–20 | 8–10 s | "Sem ritmo, ninguém fica." A curva linear ganha alças de Bézier: "Com ritmo, todo mundo fica." Silêncio de 1/4 de batida |
+| 0–4 | 0–2 s | **"Olá."**: o quadro 0 é a tela violeta, que se recolhe no ponto; o ponto corre e revela "Olá." e pousa no bumbo |
+| 4–8 | 2–4 s | **"Que bom ter você aqui."**: boas-vindas; o papel encolhe até virar um post do feed |
+| 8–16 | 4–8 s | **A dor:** "Seu público dá a você 3,0 segundos", com contagem real de 3 s; o feed rola, "Rolou. Passou. Esqueceu.", glitch e queda em cascata |
+| 16–20 | 8–10 s | "Sem ritmo, ninguém fica." O post robótico ganha easing (curva de Bézier): "Com ritmo, todo mundo fica." |
 | 20–24 | 10–12 s | **A solução:** "Cada frame / pensado / pra prender / o olhar.", um corte por batida |
-| 24–40 | 12–20 s | Showreel: morph, tipografia cinética, UI animada, anel 3D de frames |
-| 40–44 | 20–22 s | Timeline de edição; o playhead vira o cronômetro |
+| 24–40 | 12–20 s | Showreel: morph, tipografia cinética, UI animada, anel 3D com quadros do próprio filme (plate → comp) |
+| 40–44 | 20–22 s | Timeline de edição com os mesmos quadros; o playhead vira o cronômetro |
 | 44–52 | 22–26 s | Espelho da dor: "Cada segundo conta.", "Parou. Olhou. Ficou."; o anel trava no **logo** |
-| 52–60 | 26–30 s | "Boas-vindas à Kronografx. Vamos dar movimento à sua ideia."; tudo volta ao ponto (**loop perfeito**) |
+| 52–60 | 26–30 s | "Boas-vindas à Kronografx." (o wordmark vira o texto); "Vamos dar movimento à sua ideia." no papel; o ponto engole tudo e inunda a tela de violeta (**loop perfeito**) |
 
 ## Como gerar
 
@@ -27,6 +27,7 @@ node render.mjs --cues                     # eventos sonoros que o film.js calcu
 node render.mjs --sheet                    # prancha: 1 quadro por batida (revisão)
 node render.mjs                            # render final: out/kronografx-hero-16x9.mp4 e -9x16.mp4
 ../../.venv/bin/python tools/sync_check.py out/preview-16x9.mp4   # sincronia som × imagem (gerar antes com --scale 0.25 --mb 1)
+sh tools/web.sh                            # versões leves para o site (CRF 23) + posters
 ```
 
 Outros modos do `render.mjs`: `--stills 2.5,20.4` (quadros soltos), `--strip 19.5:20.5:0.1` (tira de movimento),
